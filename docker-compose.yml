@@ -35,6 +35,8 @@ services:
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
       WORDPRESS_TABLE_PREFIX: ${WP_TABLE_PREFIX:-wp_}
       WORDPRESS_DEBUG: ${WP_DEBUG:-1}
+      # Marks this as a local development site (plugins and WordPress behave accordingly).
+      WORDPRESS_CONFIG_EXTRA: "define( 'WP_ENVIRONMENT_TYPE', 'local' );"
     volumes:
       - wp_core:/var/www/html
       # Only OUR code is mounted from the repo. WordPress core, parent theme
@@ -61,6 +63,7 @@ services:
       WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
       WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
       WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
+      WORDPRESS_CONFIG_EXTRA: "define( 'WP_ENVIRONMENT_TYPE', 'local' );"
     volumes:
       - wp_core:/var/www/html
       - ./wp-content/themes/portal-child:/var/www/html/wp-content/themes/portal-child
