@@ -13,8 +13,8 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 - [x] **6. Custom fields.** Register the `portal_*` post meta with REST support and add an editor sidebar panel for Verified, FIR number, police station, Sensitive and Premium. *Done:* the fields save and appear in `/wp-json/wp/v2/posts`.
 
 ## Phase 3: Look and feel
-- [ ] **7. News home page.** Top story, breaking strip, section blocks, latest, trending, Community Blogs block. Mobile first. *Done:* looks like a news site on phone and desktop.
-- [ ] **8. Article page.** Headline, Verified badge (FIR and police station), author card, read time, share buttons, related posts, Report button. *Done:* the badge shows only when verified.
+- [x] **7. News home page.** Top story, breaking strip, section blocks, latest, trending, Community Blogs block. Mobile first. *Done:* looks like a news site on phone and desktop.
+- [x] **8. Article page.** Headline, Verified badge (FIR and police station), author card, read time, share buttons, related posts, Report button. *Done:* the badge shows only when verified.
 - [ ] **9. Author profile pages.** Photo, bio, posts, follower count. *Done:* public profile URL works.
 
 ## Phase 4: Community

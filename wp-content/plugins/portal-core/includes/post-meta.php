@@ -58,6 +58,12 @@ function portal_post_meta_fields() {
 			'default'     => false,
 			'public'      => true,
 		),
+		'portal_breaking'        => array(
+			'type'        => 'boolean',
+			'description' => __( 'Breaking news: shown in the red Breaking strip for 24 hours after publishing.', 'portal' ),
+			'default'     => false,
+			'public'      => true,
+		),
 	);
 }
 

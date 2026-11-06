@@ -12,6 +12,7 @@ Test: `powershell -ExecutionPolicy Bypass -File tests\test-custom-fields.ps1` (1
 | `portal_fir_number` | string | "" | yes | FIR number shown with the badge |
 | `portal_police_station` | string | "" | yes | Police station shown with the badge |
 | `portal_is_premium` | boolean | false | yes | Premium post (preview + subscribe box for non-members) |
+| `portal_breaking` | boolean | false | yes | In the red Breaking strip for 24 hours after publishing (see `home-page.md`) |
 | `portal_sensitive` | boolean | false | **no** | Crime/minors/sexual offence → needs second approval (Task 14) |
 | `portal_second_approver` | integer | 0 | **no** | User ID of the second Editor/Admin (Task 14) |
 
@@ -20,6 +21,9 @@ Test: `powershell -ExecutionPolicy Bypass -File tests\test-custom-fields.ps1` (1
 - **"Public API: no"** means the field is left out of normal responses and only appears with
   `?context=edit` for users allowed to edit the post.
 - Text fields are cleaned on save (HTML and scripts removed).
+- **`portal_read_minutes`** (read time) is also on every post in the API, read-only (see `article-page.md`).
+- **`portal_views`** (number of reads) is also on every post in the API, but it is read-only:
+  it is stored as protected meta `_portal_views` and only real reads change it.
 
 ## Using them from the app / API
 
@@ -41,6 +45,6 @@ POST /wp-json/wp/v2/posts/123
 ## Editor panel
 
 In the block editor, Editors and Admins see an **Editorial** panel in the Post sidebar:
-Verified (FIR number + police station appear when it is on), Sensitive (with a reminder
+Breaking news, Verified (FIR number + police station appear when it is on), Sensitive (with a reminder
 not to identify victims or minors), Premium. Writers do not see the panel.
 The second approver is not in the panel; Task 14 adds the approval step.

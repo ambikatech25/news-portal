@@ -35,6 +35,13 @@
 				className: 'portal-editorial-panel',
 			},
 			el( ToggleControl, {
+				label: __( 'Breaking news', 'portal' ),
+				help: __( 'Shows in the red Breaking strip at the top of every page for 24 hours after publishing.', 'portal' ),
+				checked: !! meta.portal_breaking,
+				onChange: set( 'portal_breaking' ),
+				__nextHasNoMarginBottom: true,
+			} ),
+			el( ToggleControl, {
 				label: __( 'Verified', 'portal' ),
 				help: __( 'Shows the Verified badge on the article and in story cards.', 'portal' ),
 				checked: !! meta.portal_verified,

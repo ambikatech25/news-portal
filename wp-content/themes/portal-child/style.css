@@ -2,9 +2,768 @@
 Theme Name:   Portal Child
 Description:  Child theme for the news portal. All design changes go here, never in the parent theme.
 Template:     kadence
-Version:      0.1.0
+Version:      0.3.0
 Requires PHP: 8.2
 Text Domain:  portal
 */
 
-/* Our custom styles start below. The parent theme (Kadence) loads its own CSS. */
+/*
+ * Mobile first: the rules without a media query are for phones. Wider screens add
+ * columns in the @media (min-width: ...) blocks at the end.
+ *
+ * Colours come from Kadence's palette (Appearance > Customize > Colors), so changing
+ * a colour there also changes it here. Brand values are set by scripts/setup-design.php.
+ */
+
+:root {
+	--portal-serif: Georgia, "Noto Serif", "Noto Serif Devanagari", "Times New Roman", serif;
+	--portal-accent: var(--global-palette1, #c8102e);
+	--portal-text: var(--global-palette3, #111827);
+	--portal-body: var(--global-palette4, #1f2937);
+	--portal-muted: var(--global-palette5, #4b5563);
+	--portal-border: var(--global-palette7, #e5e7eb);
+}
+
+/* ---------------------------------------------------------------- Breaking strip */
+
+.portal-breaking {
+	background: var(--portal-accent);
+	color: #fff;
+	font-size: 0.9375rem;
+}
+
+.portal-breaking__inner {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+.portal-breaking__label {
+	flex: none;
+	padding: 0.15rem 0.5rem;
+	border-radius: 2px;
+	background: #fff;
+	color: var(--portal-accent);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+/* Several headlines: swipe sideways on phones instead of a moving ticker (easier to read). */
+.portal-breaking__list {
+	display: flex;
+	gap: 1.75rem;
+	margin: 0;
+	padding: 0;
+	overflow-x: auto;
+	list-style: none;
+	white-space: nowrap;
+	scrollbar-width: none;
+}
+
+.portal-breaking__list a {
+	color: #fff;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.portal-breaking__list a:hover,
+.portal-breaking__list a:focus {
+	text-decoration: underline;
+}
+
+.portal-breaking__list time {
+	margin-left: 0.4rem;
+	font-size: 0.8125rem;
+	opacity: 0.85;
+}
+
+/* ---------------------------------------------------------------- Home layout */
+
+/* Kadence adds a large top margin to content areas; the home page sets its own spacing. */
+.portal-home-area {
+	margin-top: 0;
+}
+
+.portal-home {
+	display: grid;
+	gap: 2.25rem;
+	padding-top: 1.5rem;
+	padding-bottom: 3rem;
+}
+
+.portal-home > * {
+	min-width: 0; /* lets long headlines wrap inside grid cells */
+}
+
+.portal-home__empty {
+	padding: 3rem 0;
+	color: var(--portal-muted);
+	text-align: center;
+}
+
+.portal-plain-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Section heading: red rule on top, name on the left, "More →" on the right. */
+.portal-section-title {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+	margin: 0 0 0.75rem;
+	padding-top: 0.5rem;
+	border-top: 3px solid var(--portal-accent);
+	color: var(--portal-text);
+	font-family: var(--portal-serif);
+	font-size: 1.25rem;
+	line-height: 1.3;
+}
+
+.portal-section-title h2 {
+	margin: 0;
+	font-size: inherit;
+}
+
+.portal-section-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.portal-section-title__more {
+	flex: none;
+	font-family: inherit;
+	font-size: 0.8125rem;
+	font-weight: 600;
+}
+
+.portal-section-title a:hover,
+.portal-section-title a:focus {
+	color: var(--portal-accent);
+}
+
+/* Phones: 5 Latest headlines so Trending is not pushed far down. Desktop shows all 8. */
+.portal-latest li:nth-child(n+6) {
+	display: none;
+}
+
+.portal-home__sections {
+	display: grid;
+	gap: 2.25rem;
+}
+
+.portal-section {
+	display: grid;
+	gap: 0.85rem;
+	align-content: start;
+}
+
+.portal-blogs__grid {
+	display: grid;
+	gap: 1.5rem;
+}
+
+/* ---------------------------------------------------------------- Story cards */
+
+.portal-card {
+	display: grid;
+	gap: 0.5rem;
+	align-content: start;
+}
+
+.portal-card a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.portal-card__media img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border-radius: 4px;
+	background: var(--portal-border);
+}
+
+.portal-card__body {
+	display: grid;
+	gap: 0.4rem;
+	align-content: start;
+}
+
+.portal-card__kicker {
+	color: var(--portal-accent) !important;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+.portal-card__title {
+	margin: 0;
+	color: var(--portal-text);
+	font-family: var(--portal-serif);
+	font-size: 1.0625rem;
+	font-weight: 700;
+	line-height: 1.3;
+}
+
+.portal-card__title a:hover,
+.portal-card__title a:focus {
+	color: var(--portal-accent);
+}
+
+.portal-card__excerpt {
+	margin: 0;
+	color: var(--portal-muted);
+	font-size: 0.975rem;
+	line-height: 1.55;
+}
+
+.portal-card__meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem;
+	margin: 0;
+	color: var(--portal-muted);
+	font-size: 0.8125rem;
+}
+
+/* Lead: big image, big headline, short summary. */
+.portal-card--lead {
+	gap: 0.75rem;
+}
+
+.portal-top-story .portal-card__title {
+	font-size: clamp(1.5rem, 5vw, 2.25rem);
+	line-height: 1.15;
+}
+
+.portal-section .portal-card--lead .portal-card__title {
+	font-size: 1.25rem;
+}
+
+/* Compact: headline left, small square picture right. */
+.portal-card--compact {
+	padding-top: 0.85rem;
+	border-top: 1px solid var(--portal-border);
+}
+
+.portal-card--compact.has-media {
+	grid-template-columns: minmax(0, 1fr) 96px;
+	gap: 0.85rem;
+}
+
+.portal-card--compact .portal-card__media {
+	order: 2;
+}
+
+.portal-card--compact .portal-card__media img {
+	aspect-ratio: 1 / 1;
+}
+
+.portal-card--compact .portal-card__title {
+	font-size: 1rem;
+}
+
+/* Headline: text only, for the Latest list. */
+.portal-card--headline {
+	padding: 0.7rem 0;
+	border-bottom: 1px solid var(--portal-border);
+}
+
+.portal-card--headline .portal-card__body {
+	gap: 0.25rem;
+}
+
+.portal-card--headline .portal-card__title {
+	font-size: 1rem;
+}
+
+/* Community blog: picture, title, writer's photo and name. */
+.portal-card--blog .portal-card__meta img {
+	border-radius: 50%;
+}
+
+.portal-card__author {
+	color: var(--portal-body);
+	font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- Badges */
+
+.portal-badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+
+.portal-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.1rem 0.5rem;
+	border-radius: 999px;
+	font-size: 0.6875rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	line-height: 1.5;
+	text-transform: uppercase;
+}
+
+.portal-badge--verified {
+	background: #e3f4e8;
+	color: #0f5a2a;
+}
+
+.portal-badge--premium {
+	background: #fff1cc;
+	color: #6b4100;
+}
+
+/* ---------------------------------------------------------------- Trending */
+
+.portal-trending__list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: portal-trend;
+}
+
+.portal-trending__item {
+	display: grid;
+	grid-template-columns: 2.25rem minmax(0, 1fr);
+	align-items: start;
+	padding: 0.75rem 0;
+	border-bottom: 1px solid var(--portal-border);
+	counter-increment: portal-trend;
+}
+
+.portal-trending__item::before {
+	content: counter(portal-trend);
+	color: var(--portal-accent);
+	font-family: var(--portal-serif);
+	font-size: 1.75rem;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.portal-trending__item a {
+	color: var(--portal-text);
+	font-family: var(--portal-serif);
+	font-weight: 700;
+	line-height: 1.3;
+	text-decoration: none;
+}
+
+.portal-trending__item a:hover,
+.portal-trending__item a:focus {
+	color: var(--portal-accent);
+}
+
+/* ---------------------------------------------------------------- Tablet (768px+) */
+
+@media (min-width: 768px) {
+	.portal-home__sections {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 2.5rem 2rem;
+	}
+
+	.portal-blogs__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+/* ---------------------------------------------------------------- Desktop (1024px+) */
+
+@media (min-width: 1024px) {
+	.portal-home {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+		grid-template-areas:
+			"top      latest"
+			"sections trending"
+			"blogs    blogs";
+		gap: 2.5rem;
+		padding-top: 2rem;
+	}
+
+	.portal-latest li:nth-child(n+6) {
+		display: list-item;
+	}
+
+	.portal-home__top { grid-area: top; }
+	.portal-home__latest { grid-area: latest; }
+	.portal-home__sections { grid-area: sections; }
+	.portal-home__blogs { grid-area: blogs; }
+
+	.portal-home__trending { grid-area: trending; }
+
+	/*
+	 * Trending stays in view while the reader scrolls past the sections. A sticky box
+	 * can only travel inside its parent, and the parent (.portal-home__trending) ends
+	 * where the sections end - so it never slides over Community Blogs.
+	 */
+	.portal-trending {
+		position: sticky;
+		top: 1.5rem;
+	}
+
+	.admin-bar .portal-trending {
+		top: calc(32px + 1.5rem);
+	}
+
+	.portal-blogs__grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+/* ================================================================ Article page (Task 8) */
+
+/* Read time + Premium label, and the Verified box, right under the headline. */
+.portal-article-flags {
+	display: grid;
+	gap: 0.75rem;
+	margin-top: 0.75rem;
+	text-align: left;
+}
+
+.portal-article-flags__line {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+	color: var(--portal-muted);
+	font-size: 0.875rem;
+}
+
+.portal-verified {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+	padding: 0.75rem 1rem;
+	border: 1px solid #b7e1c3;
+	border-left: 4px solid #1a7f3c;
+	border-radius: 4px;
+	background: #f1faf3;
+	color: #0f3d20;
+}
+
+.portal-verified__icon {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: 50%;
+	background: #1a7f3c;
+	color: #fff;
+	font-weight: 700;
+}
+
+.portal-verified__title {
+	display: block;
+	font-size: 0.9375rem;
+}
+
+.portal-verified__facts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.15rem 1.25rem;
+	margin: 0.25rem 0 0;
+	font-size: 0.875rem;
+}
+
+.portal-verified__facts div {
+	display: flex;
+	gap: 0.35rem;
+}
+
+.portal-verified__facts dt {
+	font-weight: 600;
+}
+
+.portal-verified__facts dd {
+	margin: 0;
+}
+
+/* Share buttons + Report, after the article text. */
+.portal-article-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-top: 2rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--portal-border);
+}
+
+.portal-share {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.portal-share__label {
+	margin-right: 0.25rem;
+	color: var(--portal-text);
+	font-size: 0.875rem;
+	font-weight: 700;
+}
+
+.portal-share__btn,
+.portal-report-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+	min-width: 2.5rem; /* big enough to tap on a phone */
+	height: 2.5rem;
+	padding: 0 0.7rem;
+	border: 1px solid var(--portal-border);
+	border-radius: 999px;
+	background: #fff;
+	color: var(--portal-text);
+	font: inherit;
+	font-size: 0.875rem;
+	line-height: 1;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* "display: inline-flex" above would otherwise beat the hidden attribute. */
+.portal-share__btn[hidden],
+.portal-report-btn[hidden] {
+	display: none;
+}
+
+.portal-share__btn:hover,
+.portal-share__btn:focus-visible,
+.portal-report-btn:hover,
+.portal-report-btn:focus-visible {
+	border-color: var(--portal-accent);
+	background: #fff;
+	color: var(--portal-accent);
+}
+
+.portal-share__btn svg {
+	width: 1.125rem;
+	height: 1.125rem;
+}
+
+.portal-share__status {
+	color: #0f5a2a;
+	font-size: 0.8125rem;
+}
+
+.portal-report-btn {
+	color: var(--portal-muted);
+	font-size: 0.8125rem;
+}
+
+.portal-report-btn:disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+
+/* Author card. */
+.portal-author-card {
+	display: flex;
+	align-items: flex-start;
+	gap: 1rem;
+	margin: 2rem 0;
+	padding: 1.25rem;
+	border: 1px solid var(--portal-border);
+	border-radius: 6px;
+	background: #fff;
+}
+
+.portal-author-card__photo {
+	flex: none;
+}
+
+.portal-author-card__photo img {
+	display: block;
+	border-radius: 50%;
+}
+
+.portal-author-card__body {
+	display: grid;
+	gap: 0.3rem;
+	min-width: 0;
+}
+
+.portal-author-card__role {
+	margin: 0;
+	color: var(--portal-accent);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+.portal-author-card__name {
+	margin: 0;
+	font-family: var(--portal-serif);
+	font-size: 1.125rem;
+	line-height: 1.3;
+}
+
+.portal-author-card__name a {
+	color: var(--portal-text);
+	text-decoration: none;
+}
+
+.portal-author-card__bio {
+	margin: 0;
+	color: var(--portal-muted);
+	font-size: 0.9375rem;
+	line-height: 1.5;
+}
+
+.portal-author-card__more {
+	color: var(--portal-accent);
+	font-size: 0.875rem;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+/* Related stories: 2 across on phones, 4 on tablets and up. */
+.portal-related {
+	margin: 2rem 0;
+}
+
+.portal-related__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.25rem 1rem;
+}
+
+.portal-card--tile .portal-card__title {
+	font-size: 0.9375rem;
+}
+
+/* Report pop-up. */
+.portal-report {
+	width: min(32rem, calc(100% - 2rem));
+	max-height: calc(100% - 2rem);
+	padding: 0;
+	border: 0;
+	border-radius: 8px;
+	box-shadow: 0 20px 50px rgba(17, 24, 39, 0.3);
+	color: var(--portal-body);
+}
+
+.portal-report::backdrop {
+	background: rgba(17, 24, 39, 0.55);
+}
+
+.portal-report__form {
+	display: grid;
+	gap: 1rem;
+	padding: 1.25rem;
+}
+
+.portal-report__title {
+	margin: 0;
+	color: var(--portal-text);
+	font-family: var(--portal-serif);
+	font-size: 1.25rem;
+}
+
+.portal-report__intro {
+	margin: 0;
+	color: var(--portal-muted);
+	font-size: 0.875rem;
+}
+
+.portal-report__reasons {
+	display: grid;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.portal-report__reasons legend {
+	margin-bottom: 0.5rem;
+	padding: 0;
+	font-weight: 700;
+}
+
+.portal-report__reasons label {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	font-size: 0.9375rem;
+	line-height: 1.4;
+}
+
+.portal-report__reasons input {
+	margin-top: 0.2rem;
+}
+
+.portal-report__details {
+	display: grid;
+	gap: 0.35rem;
+	font-size: 0.9375rem;
+	font-weight: 600;
+}
+
+.portal-report__details textarea {
+	width: 100%;
+	font-weight: 400;
+}
+
+.portal-report__status {
+	min-height: 1.25em;
+	margin: 0;
+	font-size: 0.875rem;
+}
+
+.portal-report__buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.5rem;
+}
+
+.portal-report__cancel {
+	border: 1px solid var(--portal-border);
+	background: #fff;
+	color: var(--portal-text);
+}
+
+/*
+ * Phones: keep the share row on one line. With the phone's own share sheet available,
+ * show WhatsApp + Share + Copy link (the sheet lists Facebook, X and the rest). Without
+ * it, drop the "Share" word so all six icons fit.
+ */
+@media (max-width: 767px) {
+	.portal-share__label,
+	.portal-share--native .portal-share__btn--facebook,
+	.portal-share--native .portal-share__btn--x,
+	.portal-share--native .portal-share__btn--telegram,
+	.portal-share--native .portal-share__btn--linkedin {
+		display: none;
+	}
+
+	.portal-share {
+		gap: 0.4rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.portal-related__grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}

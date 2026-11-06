@@ -48,7 +48,7 @@ function portal_setup_roles() {
 }
 
 /**
- * Re-apply role setup when the plugin's DB version changes.
+ * Re-apply role setup and create/update our tables when the plugin's DB version changes.
  */
 function portal_maybe_upgrade() {
 	if ( get_option( 'portal_core_db_version' ) === PORTAL_CORE_DB_VERSION ) {
@@ -56,6 +56,7 @@ function portal_maybe_upgrade() {
 	}
 
 	portal_setup_roles();
+	portal_install_reports_table();
 	update_option( 'portal_core_db_version', PORTAL_CORE_DB_VERSION );
 }
 add_action( 'init', 'portal_maybe_upgrade', 5 );
