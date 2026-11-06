@@ -5,7 +5,7 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 ## Phase 1: Local setup
 - [x] **1. Project skeleton.** Git repo, `.gitignore`, `.env.example`, `docker-compose.yml` (WordPress, MariaDB, WP-CLI, phpMyAdmin). *Done:* site opens at http://localhost:8080, and WP-CLI works.
 - [x] **2. Base install.** Site title, timezone Asia/Kolkata, permalinks `/%category%/%postname%/`, delete sample content, install the parent theme and create `portal-child`. *Done:* the child theme is active.
-- [ ] **3. Free plugins.** Install and activate the approved free plugins (see CLAUDE.md) with WP-CLI; write a short note on each plugin's settings in `docs/plugins.md`. *Done:* all active, no errors.
+- [x] **3. Free plugins.** Install and activate the approved free plugins (see CLAUDE.md) with WP-CLI; write a short note on each plugin's settings in `docs/plugins.md`. *Done:* all active, no errors.
 
 ## Phase 2: Structure
 - [ ] **4. Categories and menus.** Create the categories, main menu, footer menu and legal pages (placeholder text). *Done:* menus visible.
