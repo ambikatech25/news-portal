@@ -41,6 +41,7 @@ echo "== 4. Remove sample content (only right after a fresh install)"
 if [ "$FRESH_INSTALL" = "1" ]; then
   wp comment delete 1 --force # comment first: deleting the post also deletes its comments
   wp post delete 1 --force #deletes a post or page by ID; --force skips the trash
+  wp post delete 2 --force # "Sample Page"
   wp plugin delete akismet hello
   wp theme delete twentytwentythree
   wp theme list

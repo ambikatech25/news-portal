@@ -8,7 +8,7 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 - [x] **3. Free plugins.** Install and activate the approved free plugins (see CLAUDE.md) with WP-CLI; write a short note on each plugin's settings in `docs/plugins.md`. *Done:* all active, no errors.
 
 ## Phase 2: Structure
-- [ ] **4. Categories and menus.** Create the categories, main menu, footer menu and legal pages (placeholder text). *Done:* menus visible.
+- [x] **4. Categories and menus.** Create the categories, main menu, footer menu and legal pages (placeholder text). *Done:* menus visible.
 - [ ] **5. Roles.** Confirm the role mapping, allow Contributors to upload images, and block Editor-only categories for Contributors and Authors in `portal-core`. *Done:* a test Contributor cannot pick News, Crime or Case Files, even through the REST API.
 - [ ] **6. Custom fields.** Register the `portal_*` post meta with REST support and add an editor sidebar panel for Verified, FIR number, police station, Sensitive and Premium. *Done:* the fields save and appear in `/wp-json/wp/v2/posts`.
 
