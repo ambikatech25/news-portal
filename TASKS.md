@@ -10,7 +10,7 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 ## Phase 2: Structure
 - [x] **4. Categories and menus.** Create the categories, main menu, footer menu and legal pages (placeholder text). *Done:* menus visible.
 - [x] **5. Roles.** Confirm the role mapping, allow Contributors to upload images, and block Editor-only categories for Contributors and Authors in `portal-core`. *Done:* a test Contributor cannot pick News, Crime or Case Files, even through the REST API.
-- [ ] **6. Custom fields.** Register the `portal_*` post meta with REST support and add an editor sidebar panel for Verified, FIR number, police station, Sensitive and Premium. *Done:* the fields save and appear in `/wp-json/wp/v2/posts`.
+- [x] **6. Custom fields.** Register the `portal_*` post meta with REST support and add an editor sidebar panel for Verified, FIR number, police station, Sensitive and Premium. *Done:* the fields save and appear in `/wp-json/wp/v2/posts`.
 
 ## Phase 3: Look and feel
 - [ ] **7. News home page.** Top story, breaking strip, section blocks, latest, trending, Community Blogs block. Mobile first. *Done:* looks like a news site on phone and desktop.

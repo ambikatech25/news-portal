@@ -6,8 +6,8 @@
  * Member           subscriber     read, comment, like, follow, bookmark, report
  * Writer           contributor    + upload_files (added here); posts always go to review
  * Trusted writer   author         publishes own posts directly
- * Editor           editor         + portal_use_restricted_categories (added here)
- * Admin            administrator  + portal_use_restricted_categories (added here)
+ * Editor           editor         + portal_use_restricted_categories, portal_manage_editorial_fields
+ * Admin            administrator  + portal_use_restricted_categories, portal_manage_editorial_fields
  *
  * Role capabilities are stored in the database, so they are applied once
  * (on activation or when PORTAL_CORE_DB_VERSION changes), not on every page load.
@@ -23,6 +23,12 @@ defined( 'ABSPATH' ) || exit;
 const PORTAL_CAP_RESTRICTED_CATEGORIES = 'portal_use_restricted_categories';
 
 /**
+ * Capability that allows setting Verified, FIR number, police station, Sensitive,
+ * second approver and Premium on posts.
+ */
+const PORTAL_CAP_EDITORIAL_FIELDS = 'portal_manage_editorial_fields';
+
+/**
  * Add our capabilities to the built-in roles.
  */
 function portal_setup_roles() {
@@ -36,6 +42,7 @@ function portal_setup_roles() {
 		$role = get_role( $role_name );
 		if ( $role ) {
 			$role->add_cap( PORTAL_CAP_RESTRICTED_CATEGORIES );
+			$role->add_cap( PORTAL_CAP_EDITORIAL_FIELDS );
 		}
 	}
 }
