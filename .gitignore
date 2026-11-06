@@ -1,0 +1,23 @@
+# Secrets
+.env
+
+# Everything in wp-content except our own theme and plugin
+/wp-content/*
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/portal-child/
+!/wp-content/plugins/
+/wp-content/plugins/*
+!/wp-content/plugins/portal-core/
+
+# Database dumps and backups
+*.sql
+*.sql.gz
+backups/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/
