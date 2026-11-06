@@ -1,0 +1,10 @@
+/*
+Theme Name:   Portal Child
+Description:  Child theme for the news portal. All design changes go here, never in the parent theme.
+Template:     kadence
+Version:      0.1.0
+Requires PHP: 8.2
+Text Domain:  portal
+*/
+
+/* Our custom styles start below. The parent theme (Kadence) loads its own CSS. */
