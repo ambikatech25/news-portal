@@ -36,3 +36,26 @@ function portal_fix_wpuf_preview_cap( $allcaps, $caps, $args, $user ) {
 	return $allcaps;
 }
 add_filter( 'user_has_cap', 'portal_fix_wpuf_preview_cap', 11, 4 );
+
+/**
+ * WP User Frontend prints small inline scripts inside its forms that call jQuery right
+ * away. It only asks for jQuery while drawing the form, which is too late for the page
+ * header, so jQuery arrives at the end of the page and those scripts fail ("jQuery is
+ * not defined"), which can break the picture upload buttons.
+ *
+ * Fix: on pages that contain its forms, ask for jQuery early (it then loads in the
+ * header). Other pages stay jQuery-free, which keeps the news pages fast.
+ */
+function portal_fix_wpuf_jquery() {
+	$post = get_queried_object();
+	if ( ! $post instanceof WP_Post || ! is_singular() ) {
+		return;
+	}
+	foreach ( array( 'portal_write', 'wpuf_form', 'wpuf_edit', 'wpuf_account', 'wpuf_dashboard' ) as $shortcode ) {
+		if ( has_shortcode( $post->post_content, $shortcode ) ) {
+			wp_enqueue_script( 'jquery' );
+			return;
+		}
+	}
+}
+add_action( 'wp_enqueue_scripts', 'portal_fix_wpuf_jquery', 1 );

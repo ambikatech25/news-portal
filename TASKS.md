@@ -19,7 +19,7 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 
 ## Phase 4: Community
 - [x] **10. Sign-up and login.** Email plus Google sign-in, profile editing, consent checkbox for Terms and Privacy. *Done:* a new user can register, and the default role is Subscriber. _Google sign-in verified locally on 2026-11-07 (Member role, consent recorded). Before launch: add the live domain and publish the Google app (`docs/accounts.md`, step E)._
-- [ ] **11. Write a post.** Front-end submission page (title, body, images, category limited to allowed ones, tags) → Pending review. "Become a writer" request moves Subscriber to Contributor after admin approval. *Done:* a Contributor's submission lands in Pending.
+- [x] **11. Write a post.** Front-end submission page (title, body, images, category limited to allowed ones, tags) → Pending review. "Become a writer" request moves Subscriber to Contributor after admin approval. *Done:* a Contributor's submission lands in Pending.
 - [ ] **12. Engagement.** Comments with spam filter, likes, follow author or tag, bookmarks. *Done:* all work for logged-in users.
 
 ## Phase 5: Editorial control

@@ -71,6 +71,16 @@ member suddenly "had" a public profile). `includes/compat.php` undoes it for log
 loads only. Remove that fix if a future version of the plugin repairs it; the test
 `3. A plain member has no public profile` will show whether it is still needed.
 
+## Rank Math and profile URLs
+
+Rank Math has its own **Author Base** setting (Rank Math → Titles & Meta → Authors). Once its
+settings were saved it switched profile URLs back to `/author/` (found in Task 11). portal-core now
+answers Rank Math's `rank_math/author_base` filter with `writer`, and `setup-design.php` sets the
+Rank Math field to `writer` too. Do not change it there: links people shared would break.
+
+Rank Math also marks author pages **noindex** by default (not shown in Google). Whether writer
+profiles should appear in Google is decided in Task 17 (SEO).
+
 ## Known limits
 
 - The local Docker server only accepts uploads up to 2 MB in total (PHP's default), which

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Portal Core
  * Description: Custom rules for the portal (roles, custom fields, publishing rules, REST API).
- * Version:     0.7.0
+ * Version:     0.8.0
  * Requires PHP: 8.2
  * Text Domain: portal
  * Domain Path: /languages
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'PORTAL_CORE_VERSION', '0.7.0' );
+define( 'PORTAL_CORE_VERSION', '0.8.0' );
 define( 'PORTAL_CORE_URL', plugin_dir_url( __FILE__ ) );
 define( 'PORTAL_CORE_DIR', plugin_dir_path( __FILE__ ) );
 
@@ -31,6 +31,7 @@ require_once PORTAL_CORE_DIR . 'includes/reports.php';
 require_once PORTAL_CORE_DIR . 'includes/profiles.php';
 require_once PORTAL_CORE_DIR . 'includes/compat.php';
 require_once PORTAL_CORE_DIR . 'includes/accounts.php';
+require_once PORTAL_CORE_DIR . 'includes/writing.php';
 require_once PORTAL_CORE_DIR . 'includes/local-mail.php';
 
 register_activation_hook( __FILE__, 'portal_setup_roles' );

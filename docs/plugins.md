@@ -35,7 +35,7 @@ Legend: **Task** = the TASKS.md task where the plugin gets fully set up. **Owner
 
 ### WP User Frontend
 - Task 10: provides the **My Account** page (`/account/`): Edit Profile, Change Password. Members cannot open wp-admin and see no admin bar (`admin_access` = edit_posts). Its own login/sign-up forms are NOT used (WordPress pages verify e-mail).
-- Task 11: create a "Write a post" form; post status **Pending**; category list limited to non-editor categories.
+- Task 11: "Write a story" form (built by `scripts/setup-writing.php`), pages `/write/` and `/edit-story/`. Contributors end in Pending via portal-core, not the form setting (see `writing.md`).
 - `portal-core` still enforces the category rule on the server side — the form alone is not trusted.
 
 ### Rank Math SEO

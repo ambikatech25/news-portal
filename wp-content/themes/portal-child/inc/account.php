@@ -60,6 +60,11 @@ function portal_child_account_menu_item( $items, $args ) {
 		$url   = wp_login_url( is_singular() ? get_permalink() : home_url( '/' ) );
 		$label = __( 'Sign in', 'portal' );
 	}
+	// "Write" for everyone: visitors are invited to sign up, members to apply, writers get the form.
+	$write = get_page_by_path( 'write' );
+	if ( $write ) {
+		$items .= '<li class="menu-item portal-write-link"><a href="' . esc_url( get_permalink( $write ) ) . '">' . esc_html__( 'Write', 'portal' ) . '</a></li>';
+	}
 	return $items . '<li class="menu-item portal-account-link"><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a></li>';
 }
 add_filter( 'wp_nav_menu_items', 'portal_child_account_menu_item', 10, 2 );

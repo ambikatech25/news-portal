@@ -41,6 +41,18 @@ function portal_set_author_base() {
 add_action( 'init', 'portal_set_author_base', 0 );
 
 /**
+ * Rank Math has its own "Author Base" setting and applies it later in 'init' (priority 4),
+ * which silently switched profile URLs back to /author/ once its settings were saved.
+ * Answer its filter with our base, so profile links can never change by accident.
+ *
+ * @return string
+ */
+function portal_rank_math_author_base() {
+	return sanitize_title( (string) apply_filters( 'portal_author_base', 'writer' ) );
+}
+add_filter( 'rank_math/author_base', 'portal_rank_math_author_base' );
+
+/**
  * Rebuild WordPress's address rules after an upgrade. Done on wp_loaded (not init) so the
  * rules of every plugin are registered first, otherwise their pages would break.
  */

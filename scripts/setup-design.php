@@ -89,4 +89,14 @@ set_theme_mod(
 	)
 );
 
+// Task 9: profile URLs are /writer/<name>/. Rank Math has its own "Author Base" setting
+// (Rank Math → Titles & Meta → Authors); keep it in step so its screen shows the truth.
+// portal-core also enforces 'writer' through Rank Math's filter.
+$portal_rm = get_option( 'rank-math-options-titles' );
+if ( is_array( $portal_rm ) ) {
+	$portal_rm['url_author_base'] = 'writer';
+	update_option( 'rank-math-options-titles', $portal_rm );
+}
+update_option( 'portal_flush_rewrites', 1 ); // rebuild URL rules on the next page load
+
 WP_CLI::success( 'Brand colours, background, header title, footer line and article page settings saved.' );

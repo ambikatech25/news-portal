@@ -2,7 +2,7 @@
 Theme Name:   Portal Child
 Description:  Child theme for the news portal. All design changes go here, never in the parent theme.
 Template:     kadence
-Version:      0.5.0
+Version:      0.6.0
 Requires PHP: 8.2
 Text Domain:  portal
 */
@@ -996,4 +996,116 @@ Text Domain:  portal
 	.wpuf-edit-profile-form [class*="submit"] {
 		flex-wrap: wrap;
 	}
+}
+
+/* ================================================================ Write a story (Task 11) */
+
+.portal-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.75rem;
+	padding: 0 1.25rem;
+	border: 1px solid var(--portal-accent);
+	border-radius: 4px;
+	background: var(--portal-accent);
+	color: #fff;
+	font: inherit;
+	font-weight: 600;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.portal-button:hover,
+.portal-button:focus-visible {
+	filter: brightness(0.92);
+	color: #fff;
+}
+
+.portal-button--ghost {
+	background: #fff;
+	color: var(--portal-accent);
+}
+
+.portal-button--ghost:hover,
+.portal-button--ghost:focus-visible {
+	color: var(--portal-accent);
+}
+
+.portal-write-box {
+	display: grid;
+	gap: 0.85rem;
+	max-width: 40rem;
+	padding: 1.5rem;
+	border: 1px solid var(--portal-border);
+	border-top: 4px solid var(--portal-accent);
+	border-radius: 6px;
+}
+
+.portal-write-box h2 {
+	margin: 0;
+	font-family: var(--portal-serif);
+	font-size: 1.5rem;
+}
+
+.portal-write-box p {
+	margin: 0;
+}
+
+.portal-write-box__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}
+
+.portal-write-box__status {
+	padding: 0.75rem 1rem;
+	border-radius: 4px;
+	background: #f1faf3;
+	color: #0f3d20;
+	font-weight: 600;
+}
+
+.portal-write-box__error {
+	color: var(--portal-accent);
+	font-weight: 600;
+}
+
+.portal-writer-form {
+	display: grid;
+	gap: 1rem;
+}
+
+.portal-writer-form label {
+	display: grid;
+	gap: 0.35rem;
+	font-weight: 600;
+}
+
+.portal-writer-form textarea,
+.portal-writer-form input[type="url"] {
+	width: 100%;
+	font-weight: 400;
+}
+
+.portal-writer-form .portal-writer-form__agree {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	font-weight: 400;
+}
+
+.portal-writer-form__agree input {
+	flex: none;
+	margin-top: 0.2rem;
+}
+
+.portal-writer-form .portal-button {
+	justify-self: start;
+}
+
+.portal-write-intro {
+	padding: 0.75rem 1rem;
+	border-left: 4px solid var(--portal-accent);
+	background: var(--global-palette8, #f3f4f6);
 }
