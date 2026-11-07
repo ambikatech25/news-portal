@@ -57,6 +57,8 @@ function portal_maybe_upgrade() {
 
 	portal_setup_roles();
 	portal_install_reports_table();
+	portal_install_follows_table();
+	portal_upgrade_profiles();
 	update_option( 'portal_core_db_version', PORTAL_CORE_DB_VERSION );
 }
 add_action( 'init', 'portal_maybe_upgrade', 5 );

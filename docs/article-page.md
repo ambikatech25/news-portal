@@ -57,7 +57,7 @@ add no tracking and no page weight.
 
 - The writer's display name comes from their profile. The admin account currently shows
   as "portaladmin": set a public name in **Users → Profile → Display name publicly as**.
-- Writer photos come from Gravatar until profile photos are added (Task 9).
-- Follow button and follower count on the author card come with Tasks 9 and 12.
+- Writer photos: uploaded in Users → Profile → Profile photo (see `author-profiles.md`); otherwise Gravatar.
+- The author card shows the follower count (Task 9); the Follow button comes in Task 12.
 - On the live site behind Cloudflare (Task 17), the report limit must read the visitor's
   real address from Cloudflare's header; this is noted in `reports.php`.

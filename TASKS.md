@@ -15,7 +15,7 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 ## Phase 3: Look and feel
 - [x] **7. News home page.** Top story, breaking strip, section blocks, latest, trending, Community Blogs block. Mobile first. *Done:* looks like a news site on phone and desktop.
 - [x] **8. Article page.** Headline, Verified badge (FIR and police station), author card, read time, share buttons, related posts, Report button. *Done:* the badge shows only when verified.
-- [ ] **9. Author profile pages.** Photo, bio, posts, follower count. *Done:* public profile URL works.
+- [x] **9. Author profile pages.** Photo, bio, posts, follower count. *Done:* public profile URL works.
 
 ## Phase 4: Community
 - [ ] **10. Sign-up and login.** Email plus Google sign-in, profile editing, consent checkbox for Terms and Privacy. *Done:* a new user can register, and the default role is Subscriber.

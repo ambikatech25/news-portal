@@ -38,7 +38,7 @@ docker compose run --rm -T wpcli eval-file /scripts/setup-design.php
 ```
 
 Optional sample stories for design work (local only): see `docs/home-page.md`.
-What each part of the home page and article page shows, and how editors control it: `docs/home-page.md`, `docs/article-page.md`.
+What each part of the home page and article page shows, and how editors control it: `docs/home-page.md`, `docs/article-page.md`, `docs/author-profiles.md`.
 
 ## Tests
 
@@ -47,4 +47,5 @@ powershell -ExecutionPolicy Bypass -File tests\test-restricted-categories.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-custom-fields.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-home-page.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-article-page.ps1
+powershell -ExecutionPolicy Bypass -File tests\test-author-profile.ps1
 ```

@@ -68,4 +68,4 @@ development site, so it cannot touch the live site.
 
 - With page caching on the live site (Task 17), a Breaking post can stay in the strip a
   little after 24 hours, until the cache refreshes. Publishing any post refreshes it.
-- Writer photos come from Gravatar until profile photos are added (Task 9).
+- Writer photos: uploaded in Users → Profile → Profile photo (see `author-profiles.md`); otherwise Gravatar.

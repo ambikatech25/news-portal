@@ -1,7 +1,7 @@
 <?php
 /**
  * Author card under the article: photo, name, role, short bio, link to their posts.
- * (Follow button and follower count are added with author profiles, Tasks 9 and 12.)
+ * Shows the follower count; the Follow button comes in Task 12.
  *
  * Arguments: post (WP_Post).
  *
@@ -22,7 +22,9 @@ $portal_url    = get_author_posts_url( $portal_author );
 $portal_count  = (int) count_user_posts( $portal_author, 'post', true );
 
 // Readers should be able to tell newsroom reporting from community writing at a glance.
-$portal_desk = defined( 'PORTAL_CAP_EDITORIAL_FIELDS' ) && user_can( $portal_author, PORTAL_CAP_EDITORIAL_FIELDS );
+// The rule lives in portal-core so the app labels writers the same way.
+$portal_desk      = function_exists( 'portal_is_news_desk' ) && portal_is_news_desk( $portal_author );
+$portal_followers = function_exists( 'portal_get_follower_count' ) ? portal_get_follower_count( $portal_author ) : 0;
 ?>
 <section class="portal-author-card" aria-label="<?php esc_attr_e( 'About the author', 'portal' ); ?>">
 	<a class="portal-author-card__photo" href="<?php echo esc_url( $portal_url ); ?>" tabindex="-1" aria-hidden="true">
@@ -38,11 +40,21 @@ $portal_desk = defined( 'PORTAL_CAP_EDITORIAL_FIELDS' ) && user_can( $portal_aut
 		<?php if ( $portal_bio ) : ?>
 			<p class="portal-author-card__bio"><?php echo esc_html( wp_trim_words( $portal_bio, 40 ) ); ?></p>
 		<?php endif; ?>
-		<a class="portal-author-card__more" href="<?php echo esc_url( $portal_url ); ?>">
+		<p class="portal-author-card__stats">
 			<?php
 			/* translators: %s: number of stories. */
-			echo esc_html( sprintf( _n( '%s story', 'All %s stories', $portal_count, 'portal' ), number_format_i18n( $portal_count ) ) );
+			echo esc_html( sprintf( _n( '%s story', '%s stories', $portal_count, 'portal' ), number_format_i18n( $portal_count ) ) );
 			?>
+			<span aria-hidden="true">&middot;</span>
+			<span class="portal-author-card__followers">
+				<?php
+				/* translators: %s: number of followers. */
+				echo esc_html( sprintf( _n( '%s follower', '%s followers', $portal_followers, 'portal' ), number_format_i18n( $portal_followers ) ) );
+				?>
+			</span>
+		</p>
+		<a class="portal-author-card__more" href="<?php echo esc_url( $portal_url ); ?>">
+			<?php esc_html_e( 'View profile', 'portal' ); ?>
 			<span aria-hidden="true">&rarr;</span>
 		</a>
 	</div>
