@@ -25,9 +25,11 @@ Legend: **Task** = the TASKS.md task where the plugin gets fully set up. **Owner
 ## Notes per plugin
 
 ### PublishPress Planner
-- Adds custom statuses (e.g. "Needs changes") and a content calendar.
+- Used for the **Content Board**, **Calendar** and **Editorial Comments**.
 - After first activation it redirects admins to its calendar once — normal.
-- Task 13: set statuses and email notifications for Editors.
+- Task 13 findings: this version (Planner 4.x) no longer includes custom statuses ("Changes
+  requested" / "Rejected" are registered in portal-core), and its notification rules were switched
+  off (they skipped e-mails as "duplicates"). Review e-mails come from portal-core. See `review.md`.
 
 ### Nextend Social Login
 - Task 10: **Owner** creates the Google Cloud OAuth client and pastes Client ID/Secret into Settings → Nextend Social Login → Google (steps in `accounts.md`). Terms checkbox at Google sign-up is switched on by `scripts/setup-accounts.php`.

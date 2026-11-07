@@ -168,7 +168,9 @@ update_post_meta(
 		'subscription'     => '- Select -',
 		'form_template'    => '',
 		'notification'     => array(
-			'new'          => 'on',
+			// Off since Task 13: PublishPress e-mails editors when any story moves to review
+			// (from this form or the block editor), so this would be a duplicate.
+			'new'          => 'off',
 			'new_to'       => get_option( 'admin_email' ),
 			'new_subject'  => 'New story from {author}: {post_title}',
 			'new_body'     => "A writer submitted a story.\r\n\r\nTitle: {post_title}\r\nWriter: {author}\r\nReview it here: {editlink}",
