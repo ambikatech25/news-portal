@@ -95,6 +95,12 @@ function Send-Image($session) {
     return [int]($raw.Substring($raw.LastIndexOf("`n") + 1))
 }
 
+function Reset-ReportLimit {
+    # Visitors may send 10 reports an hour (portal-core). All test runs share one IP, so reset
+    # that counter before a test sends reports, or repeated runs within an hour fail with 429.
+    Wp db query "DELETE FROM wp_options WHERE option_name LIKE '\_transient%portal\_report\_rate\_%'" | Out-Null
+}
+
 function Complete-Test {
     # Always call from a finally block: removes test users (and their posts/images) and temp files.
     Write-Host '== Cleanup'

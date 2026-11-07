@@ -66,7 +66,9 @@ Legend: **Task** = the TASKS.md task where the plugin gets fully set up. **Owner
 - Shows a welcome wizard in admin on first visit. Sending real email needs a sending service (MailPoet's free plan up to 1,000 subscribers, or Hostinger SMTP) — **Owner**, Task 18/21.
 
 ### Fluent Forms
-- Task 16: Grievance Officer form (name, email, URL of content, complaint, consent) and a news tip form.
+- Task 16: **Grievance** form on the Grievance Officer page (built by `scripts/setup-moderation.php`;
+  reference numbers, acknowledgement and audit log come from portal-core, see `moderation.md`).
+- Not built yet: a **news tip** form (CLAUDE.md mentions it; no task in TASKS.md covers it).
 
 ### Site Kit by Google
 - Task 17–19: **Owner** signs in with the company Google account; connect Analytics, Search Console, and later AdSense.

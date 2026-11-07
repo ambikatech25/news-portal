@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Portal Core
  * Description: Custom rules for the portal (roles, custom fields, publishing rules, REST API).
- * Version:     0.12.0
+ * Version:     0.13.0
  * Requires PHP: 8.2
  * Text Domain: portal
  * Domain Path: /languages
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'PORTAL_CORE_VERSION', '0.12.0' );
+define( 'PORTAL_CORE_VERSION', '0.13.0' );
 define( 'PORTAL_CORE_URL', plugin_dir_url( __FILE__ ) );
 define( 'PORTAL_CORE_DIR', plugin_dir_path( __FILE__ ) );
 
@@ -20,7 +20,7 @@ define( 'PORTAL_CORE_DIR', plugin_dir_path( __FILE__ ) );
  * Bump this when roles/capabilities or our database tables change, so portal_maybe_upgrade()
  * re-applies them on sites where the plugin is already active (activation hooks only run once).
  */
-define( 'PORTAL_CORE_DB_VERSION', '5' );
+define( 'PORTAL_CORE_DB_VERSION', '6' );
 
 require_once PORTAL_CORE_DIR . 'includes/roles.php';
 require_once PORTAL_CORE_DIR . 'includes/restricted-categories.php';
@@ -37,6 +37,9 @@ require_once PORTAL_CORE_DIR . 'includes/engagement.php';
 require_once PORTAL_CORE_DIR . 'includes/review.php';
 require_once PORTAL_CORE_DIR . 'includes/sensitive.php';
 require_once PORTAL_CORE_DIR . 'includes/image-safety.php';
+require_once PORTAL_CORE_DIR . 'includes/audit-log.php';
+require_once PORTAL_CORE_DIR . 'includes/moderation.php';
+require_once PORTAL_CORE_DIR . 'includes/grievance.php';
 require_once PORTAL_CORE_DIR . 'includes/local-mail.php';
 
 register_activation_hook( __FILE__, 'portal_setup_roles' );
@@ -44,6 +47,7 @@ register_activation_hook( __FILE__, 'portal_install_reports_table' );
 register_activation_hook( __FILE__, 'portal_install_follows_table' );
 register_activation_hook( __FILE__, 'portal_upgrade_profiles' );
 register_activation_hook( __FILE__, 'portal_install_marks_table' );
+register_activation_hook( __FILE__, 'portal_install_audit_table' );
 
 /**
  * Load translations (Hindi-ready).

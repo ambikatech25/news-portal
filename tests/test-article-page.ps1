@@ -27,6 +27,7 @@ try {
     Write-Host '== Setup: category IDs, temporary users, test posts'
     $cat = Get-CategoryIds
     $users = New-TestUsers @('editor', 'author', 'subscriber')
+    Reset-ReportLimit   # visitors may send 10 reports an hour; all test runs share one IP
     $e = $users['editor'].Session
     $a = $users['author'].Session
     $s = $users['subscriber'].Session

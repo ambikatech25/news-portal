@@ -45,6 +45,7 @@ try {
     Write-Host '== Setup'
     $cat = Get-CategoryIds
     $users = New-TestUsers @('subscriber', 'author', 'editor')
+    Reset-ReportLimit   # visitors may send 10 reports an hour; all test runs share one IP
     $m1 = $users['subscriber'].Session; $m1Id = $users['subscriber'].Id
     $authorId = $users['author'].Id
     $e = $users['editor'].Session

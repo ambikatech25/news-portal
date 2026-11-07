@@ -53,6 +53,9 @@ function portal_install_reports_table() {
 		reporter_hash char(64) NOT NULL,
 		status varchar(20) NOT NULL DEFAULT 'open',
 		created_at datetime NOT NULL,
+		resolved_by bigint(20) unsigned NOT NULL DEFAULT 0,
+		resolved_at datetime DEFAULT NULL,
+		resolution_note text,
 		PRIMARY KEY  (id),
 		KEY object (object_type,object_id),
 		KEY status (status)

@@ -26,7 +26,7 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 - [x] **13. Review workflow.** PublishPress statuses and notifications; reject with a reason emailed to the writer. *Done:* an editor can approve, request changes or reject.
 - [x] **14. Sensitive two-step approval.** Block publishing when `portal_sensitive` is set and there is no different second approver. *Done:* publishing is blocked with a clear message.
 - [x] **15. Image safety.** EXIF/GPS stripping on upload, plus a short guide in `docs/blurring.md` on how editors blur faces and number plates. *Done:* an uploaded test photo has no GPS data.
-- [ ] **16. Reports, grievances and audit log.** Report button stores reports; admin screen lists them; grievance form; log of admin actions. *Done:* a report and a takedown both appear in the log.
+- [x] **16. Reports, grievances and audit log.** Report button stores reports; admin screen lists them; grievance form; log of admin actions. *Done:* a report and a takedown both appear in the log.
 
 ## Phase 6: Go live
 - [ ] **17. SEO, speed, security.** Rank Math sitemaps, LiteSpeed Cache, Cloudflare guide, Wordfence, UpdraftPlus backups to Google Drive. *Done:* PageSpeed mobile score ≥ 80 on the home page.
