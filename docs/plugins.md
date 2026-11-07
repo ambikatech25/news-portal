@@ -54,7 +54,8 @@ Legend: **Task** = the TASKS.md task where the plugin gets fully set up. **Owner
 - Task 17: **Owner** connects Google Drive. Schedule: files weekly, database daily, keep 14 copies.
 
 ### Antispam Bee
-- No account needed. Recommended: "Trust approved commenters", "Delete spam after 7 days", "Block comments from countries" off.
+- No account needed. Task 12 (`scripts/setup-engagement.php`): trust approved commenters, keep spam 30 days
+  (time to rescue mistakes) then delete, Gravatar and country checks off (no data to outside services). See `engagement.md`.
 
 ### Polylang
 - Add languages English (default) + हिन्दी. Translating content is an editorial decision — set up when the owner wants Hindi pages.

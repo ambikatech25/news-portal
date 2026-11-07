@@ -16,6 +16,14 @@ if ( ! $portal_post instanceof WP_Post ) {
 $portal_title = html_entity_decode( get_the_title( $portal_post ), ENT_QUOTES, 'UTF-8' );
 ?>
 <div class="portal-article-actions">
+	<?php if ( function_exists( 'portal_child_toggle' ) ) : ?>
+		<div class="portal-engage" role="group" aria-label="<?php esc_attr_e( 'Like or save this story', 'portal' ); ?>">
+			<?php
+			echo portal_child_toggle( 'like', $portal_post->ID, function_exists( 'portal_get_likes' ) ? portal_get_likes( $portal_post->ID ) : 0 ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside.
+			echo portal_child_toggle( 'bookmark', $portal_post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside.
+			?>
+		</div>
+	<?php endif; ?>
 	<div class="portal-share" role="group" aria-label="<?php esc_attr_e( 'Share this story', 'portal' ); ?>">
 		<span class="portal-share__label"><?php esc_html_e( 'Share', 'portal' ); ?></span>
 

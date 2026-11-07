@@ -46,7 +46,7 @@ get_header();
 							<?php echo esc_html( _n( 'story', 'stories', $portal_profile['posts'], 'portal' ) ); ?>
 						</li>
 						<li class="portal-profile__followers">
-							<strong><?php echo esc_html( number_format_i18n( $portal_profile['followers'] ) ); ?></strong>
+							<strong data-portal-count="follow-author-<?php echo esc_attr( (string) $portal_author->ID ); ?>"><?php echo esc_html( number_format_i18n( $portal_profile['followers'] ) ); ?></strong>
 							<?php echo esc_html( _n( 'follower', 'followers', $portal_profile['followers'], 'portal' ) ); ?>
 						</li>
 						<li>
@@ -56,6 +56,13 @@ get_header();
 							?>
 						</li>
 					</ul>
+
+					<?php
+					if ( function_exists( 'portal_child_toggle' ) ) {
+						// No count on the button: the stats line above shows it (and engage.js updates it).
+						echo portal_child_toggle( 'follow-author', $portal_author->ID ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside.
+					}
+					?>
 
 					<?php if ( $portal_profile['website'] ) : ?>
 						<?php // ugc + nofollow: writers' own links get no search-ranking boost from our site. ?>

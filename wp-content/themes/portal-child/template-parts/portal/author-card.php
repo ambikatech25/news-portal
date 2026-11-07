@@ -48,14 +48,26 @@ $portal_followers = function_exists( 'portal_get_follower_count' ) ? portal_get_
 			<span aria-hidden="true">&middot;</span>
 			<span class="portal-author-card__followers">
 				<?php
-				/* translators: %s: number of followers. */
-				echo esc_html( sprintf( _n( '%s follower', '%s followers', $portal_followers, 'portal' ), number_format_i18n( $portal_followers ) ) );
+				// The number is in its own span so the Follow button (engage.js) can update it;
+				// "Followers: N" reads right for any number, also after it changes live.
+				printf(
+					/* translators: %s: number of followers. */
+					esc_html__( 'Followers: %s', 'portal' ),
+					'<span data-portal-count="follow-author-' . esc_attr( (string) $portal_author ) . '">' . esc_html( number_format_i18n( $portal_followers ) ) . '</span>'
+				);
 				?>
 			</span>
 		</p>
-		<a class="portal-author-card__more" href="<?php echo esc_url( $portal_url ); ?>">
-			<?php esc_html_e( 'View profile', 'portal' ); ?>
-			<span aria-hidden="true">&rarr;</span>
-		</a>
+		<p class="portal-author-card__actions">
+			<?php
+			if ( function_exists( 'portal_child_toggle' ) ) {
+				echo portal_child_toggle( 'follow-author', $portal_author ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside.
+			}
+			?>
+			<a class="portal-author-card__more" href="<?php echo esc_url( $portal_url ); ?>">
+				<?php esc_html_e( 'View profile', 'portal' ); ?>
+				<span aria-hidden="true">&rarr;</span>
+			</a>
+		</p>
 	</div>
 </section>

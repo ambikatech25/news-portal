@@ -75,7 +75,7 @@ try {
     $member = Get-Last (Wp eval "echo (int) portal_follow_author($authorId, $subId);")
     $api = Invoke-Rest $null GET "/portal/v1/authors/$authorId"
     $profileHtml = (Get-Page "$Base/writer/$slug/").Html
-    Check '5. Followers counted once each; following yourself or a member is refused; count on page and API' ($f1 -eq '1' -and $f2 -eq '1' -and $f3 -eq '1' -and $self -eq '0' -and $member -eq '0' -and $api.Data.followers -eq 2 -and $profileHtml -match '<strong>2</strong>\s*followers') "self=$self member=$member api=$($api.Data.followers)"
+    Check '5. Followers counted once each; following yourself or a member is refused; count on page and API' ($f1 -eq '1' -and $f2 -eq '1' -and $f3 -eq '1' -and $self -eq '0' -and $member -eq '0' -and $api.Data.followers -eq 2 -and $profileHtml -match '<strong[^>]*>2</strong>\s*followers') "self=$self member=$member api=$($api.Data.followers)"
 
     $fan = Get-Last (Wp user create "portal_test_t9fan" "t9fan@portal.test" --role=subscriber --porcelain)
     Wp eval "portal_follow_author($fan, $authorId);" | Out-Null
