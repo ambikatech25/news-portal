@@ -30,10 +30,11 @@ Legend: **Task** = the TASKS.md task where the plugin gets fully set up. **Owner
 - Task 13: set statuses and email notifications for Editors.
 
 ### Nextend Social Login
-- Task 10: **Owner** creates a Google Cloud OAuth client (we'll give click-by-click steps) and pastes the Client ID/Secret into Settings → Nextend Social Login → Google.
+- Task 10: **Owner** creates the Google Cloud OAuth client and pastes Client ID/Secret into Settings → Nextend Social Login → Google (steps in `accounts.md`). Terms checkbox at Google sign-up is switched on by `scripts/setup-accounts.php`.
 - New users must get the **Subscriber** role (WordPress default role is already Subscriber).
 
 ### WP User Frontend
+- Task 10: provides the **My Account** page (`/account/`): Edit Profile, Change Password. Members cannot open wp-admin and see no admin bar (`admin_access` = edit_posts). Its own login/sign-up forms are NOT used (WordPress pages verify e-mail).
 - Task 11: create a "Write a post" form; post status **Pending**; category list limited to non-editor categories.
 - `portal-core` still enforces the category rule on the server side — the form alone is not trusted.
 

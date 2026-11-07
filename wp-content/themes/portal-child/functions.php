@@ -13,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 require_once get_stylesheet_directory() . '/inc/template-tags.php';
 require_once get_stylesheet_directory() . '/inc/article.php';
+require_once get_stylesheet_directory() . '/inc/account.php';
 
 /**
  * Load the child theme's stylesheet after Kadence's main stylesheet.

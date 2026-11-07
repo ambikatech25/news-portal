@@ -2,7 +2,7 @@
 Theme Name:   Portal Child
 Description:  Child theme for the news portal. All design changes go here, never in the parent theme.
 Template:     kadence
-Version:      0.4.0
+Version:      0.5.0
 Requires PHP: 8.2
 Text Domain:  portal
 */
@@ -890,5 +890,110 @@ Text Domain:  portal
 @media (min-width: 1024px) {
 	.portal-profile__grid {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+/* ================================================================ My Account (Task 10) */
+
+.portal-photo-box {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 1rem 1.25rem;
+	margin-bottom: 2rem;
+	padding: 1.25rem;
+	border: 1px solid var(--portal-border);
+	border-radius: 6px;
+}
+
+.portal-photo-box > img {
+	flex: none;
+	width: 96px;
+	height: 96px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.portal-photo-box__body {
+	display: grid;
+	flex: 1 1 14rem;
+	gap: 0.5rem;
+	min-width: 0;
+}
+
+.portal-photo-box h2 {
+	margin: 0;
+	font-family: var(--portal-serif);
+	font-size: 1.125rem;
+}
+
+.portal-photo-box form {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+}
+
+.portal-photo-box input[type="file"] {
+	max-width: 100%;
+	font-size: 0.875rem;
+}
+
+.portal-photo-box__help {
+	margin: 0;
+	color: var(--portal-muted);
+	font-size: 0.8125rem;
+}
+
+.portal-photo-box__remove {
+	border: 1px solid var(--portal-border);
+	background: #fff;
+	color: var(--portal-muted);
+	font-size: 0.8125rem;
+}
+
+.portal-photo-box__msg {
+	margin: 0;
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+.portal-photo-box__msg.is-ok {
+	color: #0f5a2a;
+}
+
+.portal-photo-box__msg.is-error {
+	color: var(--portal-accent);
+}
+
+/* "Sign in" / "My account" in the header menu stands out a little. */
+.portal-account-link > a {
+	font-weight: 700;
+}
+
+/*
+ * WP User Frontend's account page nests four boxes, each with its own side padding,
+ * which left the Edit Profile form about 150px wide on a phone. Trim it on small screens.
+ */
+@media (max-width: 767px) {
+	.wpuf-account-container,
+	.wpuf-account-content {
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+	}
+
+	.wpuf-edit-profile-container > div {
+		padding-right: 1rem !important;
+		padding-left: 1rem !important;
+	}
+
+	.wpuf-edit-profile-form .wpuf-form-input {
+		width: 100%;
+	}
+
+	.wpuf-edit-profile-form .wpuf-form-group:last-child,
+	.wpuf-edit-profile-form [class*="submit"] {
+		flex-wrap: wrap;
 	}
 }

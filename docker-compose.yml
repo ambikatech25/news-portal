@@ -82,6 +82,15 @@ services:
       PMA_HOST: db
       UPLOAD_LIMIT: 128M
 
+  # Catches every e-mail the local site sends (sign-up links, password resets) so nothing
+  # reaches a real inbox. Read them at http://localhost:8025. portal-core sends mail here
+  # only when the site is marked 'local' (includes/local-mail.php).
+  mailpit:
+    image: axllent/mailpit:v1.21
+    restart: unless-stopped
+    ports:
+      - "${MAILPIT_PORT:-8025}:8025"
+
 volumes:
   db_data:
   wp_core:

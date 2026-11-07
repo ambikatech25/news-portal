@@ -22,7 +22,7 @@ news-portal/
 1. Install **Docker Desktop** and start it.
 2. In this folder: copy `.env.example` to `.env` and change the passwords.
 3. `docker compose up -d`
-4. Open http://localhost:8080 (WordPress) and http://localhost:8081 (phpMyAdmin).
+4. Open http://localhost:8080 (WordPress), http://localhost:8081 (phpMyAdmin) and http://localhost:8025 (Mailpit: every e-mail the local site sends).
 
 WP-CLI: `docker compose run --rm wpcli <command>`, e.g. `docker compose run --rm wpcli core version`.
 
@@ -35,10 +35,11 @@ docker compose run --rm --entrypoint sh wpcli /scripts/setup-base.sh
 docker compose run --rm --entrypoint sh wpcli /scripts/setup-plugins.sh
 docker compose run --rm --entrypoint sh wpcli /scripts/setup-structure.sh
 docker compose run --rm -T wpcli eval-file /scripts/setup-design.php
+docker compose run --rm -T wpcli eval-file /scripts/setup-accounts.php
 ```
 
 Optional sample stories for design work (local only): see `docs/home-page.md`.
-What each part of the home page and article page shows, and how editors control it: `docs/home-page.md`, `docs/article-page.md`, `docs/author-profiles.md`.
+What each part of the home page and article page shows, and how editors control it: `docs/home-page.md`, `docs/article-page.md`, `docs/author-profiles.md`. Sign-up, Google sign-in setup and My Account: `docs/accounts.md`.
 
 ## Tests
 
@@ -48,4 +49,5 @@ powershell -ExecutionPolicy Bypass -File tests\test-custom-fields.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-home-page.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-article-page.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-author-profile.ps1
+powershell -ExecutionPolicy Bypass -File tests\test-accounts.ps1
 ```
