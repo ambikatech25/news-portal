@@ -73,7 +73,10 @@ Legend: **Task** = the TASKS.md task where the plugin gets fully set up. **Owner
 
 ### EWWW Image Optimizer
 - Free, no account, compresses on upload.
-- Setting to check in Task 15: **Remove Metadata** must be ON (strips EXIF, including GPS location).
+- **Remove Metadata** is ON (checked in Task 15: it strips GPS/camera data and turns phone photos upright).
+  It trims up to 15 px off one edge when it turns a photo (it works in 16-px blocks); invisible on real photos.
+- portal-core (`includes/image-safety.php`) is the safety net after it: if EWWW is off, busy or
+  cannot run its tools on the live server, photos are still cleaned (or refused). See `blurring.md`.
 - Do **not** enable its paid "Easy IO"/CDN options.
 
 ### OneSignal (installed, switched off)

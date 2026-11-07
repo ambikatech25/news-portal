@@ -35,7 +35,7 @@ lost if one person leaves.
 
 1. Open **https://console.cloud.google.com** and sign in with the Ambika account.
 2. At the top, click the **project picker** (next to "Google Cloud") → **New project**.
-3. Project name: `News Portal` → **Create**. When it is ready, make sure it is selected in the project picker.
+3. Project name: `CityCharcha` → **Create**. When it is ready, make sure it is selected in the project picker.
 
 ### B. Consent screen (what readers see when they choose Google)
 
@@ -55,7 +55,7 @@ lost if one person leaves.
 ### C. Create the keys
 
 11. Left menu → **Clients** → **Create client**.
-12. Application type: **Web application**. Name: `News Portal website`.
+12. Application type: **Web application**. Name: `CityCharcha website`.
 13. **Authorized JavaScript origins** → **Add URI** → `http://localhost:8080`
 14. **Authorized redirect URIs** → **Add URI** → `http://localhost:8080/wp-login.php?loginSocial=google`
     (the exact address is also shown in WordPress under Settings → Nextend Social Login → Google → *Getting Started*; they must match exactly).
@@ -75,9 +75,9 @@ and the password manager.
 
 ### E. Before launch (Task 18)
 
-- In the same Google client, add the live addresses: origin `https://<domain>` and redirect
-  `https://<domain>/wp-login.php?loginSocial=google`.
-- Fill in Branding with the live home page, Privacy Policy and Terms links, add `<domain>` under
+- In the same Google client, add the live addresses: origin `https://citycharcha.com` and redirect
+  `https://citycharcha.com/wp-login.php?loginSocial=google`.
+- Fill in Branding with the live home page, Privacy Policy and Terms links, add `citycharcha.com` under
   *Authorized domains*.
 - **Audience → Publish app** (moves from *Testing* to *In production*) so everyone can sign in.
 

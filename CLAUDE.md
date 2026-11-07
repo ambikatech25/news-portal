@@ -1,6 +1,6 @@
-# Project: [PORTAL_NAME] – Blog & News Portal
+# Project: CityCharcha – Blog & News Portal (citycharcha.com)
 
-> Replace `[PORTAL_NAME]` with the final name once the trademark search is done.
+> Name: **CityCharcha**. Domain: **citycharcha.com** (bought; goes live in Task 18).
 
 ## What we are building
 A **news-style website with community blogs**, built on **WordPress** within a small budget (₹50k–1 lakh total).
