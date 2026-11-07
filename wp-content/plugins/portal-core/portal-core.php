@@ -32,6 +32,7 @@ require_once PORTAL_CORE_DIR . 'includes/profiles.php';
 require_once PORTAL_CORE_DIR . 'includes/compat.php';
 require_once PORTAL_CORE_DIR . 'includes/accounts.php';
 require_once PORTAL_CORE_DIR . 'includes/writing.php';
+require_once PORTAL_CORE_DIR . 'includes/story-import.php';
 require_once PORTAL_CORE_DIR . 'includes/local-mail.php';
 
 register_activation_hook( __FILE__, 'portal_setup_roles' );

@@ -1109,3 +1109,97 @@ Text Domain:  portal
 	border-left: 4px solid var(--portal-accent);
 	background: var(--global-palette8, #f3f4f6);
 }
+
+/* "Fill the form from a document" box above the story form. */
+.portal-import {
+	margin: 1.5rem 0;
+	border: 1px dashed var(--portal-accent);
+	border-radius: 6px;
+	background: #fffafa;
+}
+
+.portal-import summary {
+	padding: 0.85rem 1rem;
+	color: var(--portal-text);
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.portal-import__body {
+	display: grid;
+	/* minmax(0, 1fr): without it the column grows to the textarea's width and spills off phones. */
+	grid-template-columns: minmax(0, 1fr);
+	gap: 0.75rem;
+	padding: 0 1rem 1rem;
+}
+
+.portal-import__steps {
+	margin: 0;
+	padding-left: 1.25rem;
+}
+
+.portal-import__steps li + li {
+	margin-top: 0.6rem;
+}
+
+.portal-import__file input {
+	width: 100%;
+}
+
+.portal-import__steps a {
+	color: var(--portal-accent);
+	font-weight: 700;
+}
+
+.portal-import__file {
+	display: grid;
+	gap: 0.35rem;
+}
+
+.portal-import__file input {
+	max-width: 100%;
+}
+
+.portal-import__or,
+.portal-import__actions {
+	margin: 0;
+}
+
+.portal-import textarea {
+	box-sizing: border-box;
+	width: 100%;
+	font-family: ui-monospace, Consolas, monospace;
+	font-size: 0.875rem;
+}
+
+.portal-import__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.portal-import__status p {
+	margin: 0;
+	font-weight: 600;
+}
+
+.portal-import__status .is-ok {
+	color: #0f5a2a;
+}
+
+.portal-import__status .is-error {
+	color: var(--portal-accent);
+}
+
+.portal-import__status ul {
+	margin: 0.35rem 0 0;
+	padding-left: 1.25rem;
+	color: #6b4100;
+	font-size: 0.875rem;
+}
+
+.portal-import__note {
+	margin: 0;
+	color: var(--portal-muted);
+	font-size: 0.8125rem;
+}

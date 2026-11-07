@@ -118,6 +118,21 @@ $portal_fields = array(
 		'help'        => 'Separate tags with commas.',
 		'size'        => '40',
 	),
+	// Honest disclosure for editors (stored as post meta portal_ai_assisted = "yes").
+	array(
+		'input_type'       => 'checkbox',
+		'template'         => 'checkbox_field',
+		'name'             => 'portal_ai_assisted',
+		'label'            => 'AI tools',
+		'required'         => 'no',
+		'is_meta'          => 'yes',
+		'help'             => 'Tick this if ChatGPT or another AI tool helped write the story. It is only shown to editors. You are still responsible for every fact.',
+		'options'          => array( 'yes' => 'AI tools helped write this story' ),
+		'selected'         => array(),
+		'inline'           => 'no',
+		'show_in_post'     => 'no',
+		'hide_field_label' => 'no',
+	),
 );
 
 foreach ( $portal_fields as $portal_order => $portal_field ) {

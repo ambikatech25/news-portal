@@ -34,6 +34,12 @@
 				title: __( 'Editorial', 'portal' ),
 				className: 'portal-editorial-panel',
 			},
+			// The writer ticked "AI tools helped write this story" on the Write page.
+			'yes' === meta.portal_ai_assisted && el(
+				Notice,
+				{ status: 'warning', isDismissible: false },
+				__( 'The writer says AI tools (like ChatGPT) helped write this story. Check facts, names, numbers and sources carefully.', 'portal' )
+			),
 			el( ToggleControl, {
 				label: __( 'Breaking news', 'portal' ),
 				help: __( 'Shows in the red Breaking strip at the top of every page for 24 hours after publishing.', 'portal' ),

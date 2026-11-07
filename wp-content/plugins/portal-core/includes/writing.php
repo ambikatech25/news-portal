@@ -362,6 +362,7 @@ function portal_write_shortcode() {
 			? __( 'Your story is published when you submit it.', 'portal' )
 			: __( 'Our editors read every story before it is published. You will find it under My Account → Posts.', 'portal' );
 		return '<p class="portal-write-intro">' . esc_html( $intro ) . '</p>'
+			. ( function_exists( 'portal_import_box' ) ? portal_import_box() : '' )
 			. ( $form_id ? do_shortcode( '[wpuf_form id="' . $form_id . '"]' ) : '' );
 	}
 

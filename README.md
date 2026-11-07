@@ -52,4 +52,5 @@ powershell -ExecutionPolicy Bypass -File tests\test-article-page.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-author-profile.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-accounts.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-write-post.ps1
+powershell -ExecutionPolicy Bypass -File tests\test-story-import.ps1
 ```

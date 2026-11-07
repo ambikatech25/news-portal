@@ -13,6 +13,7 @@ Test: `powershell -ExecutionPolicy Bypass -File tests\test-custom-fields.ps1` (1
 | `portal_police_station` | string | "" | yes | Police station shown with the badge |
 | `portal_is_premium` | boolean | false | yes | Premium post (preview + subscribe box for non-members) |
 | `portal_breaking` | boolean | false | yes | In the red Breaking strip for 24 hours after publishing (see `home-page.md`) |
+| `portal_ai_assisted` | string | "" | yes | "yes" when the writer ticked *AI tools helped write this story* (set by the writer, see `writing.md`) |
 | `portal_sensitive` | boolean | false | **no** | Crime/minors/sexual offence → needs second approval (Task 14) |
 | `portal_second_approver` | integer | 0 | **no** | User ID of the second Editor/Admin (Task 14) |
 
