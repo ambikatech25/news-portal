@@ -75,7 +75,7 @@
 				),
 			el( ToggleControl, {
 				label: __( 'Sensitive', 'portal' ),
-				help: __( 'Crime involving minors or a sexual offence. Needs a second editor to approve before publishing.', 'portal' ),
+				help: __( 'Crime involving minors or a sexual offence. A second, different editor must approve it in the Review panel before it can be published.', 'portal' ),
 				checked: !! meta.portal_sensitive,
 				onChange: set( 'portal_sensitive' ),
 				__nextHasNoMarginBottom: true,

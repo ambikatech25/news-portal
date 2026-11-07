@@ -15,7 +15,7 @@ Test: `powershell -ExecutionPolicy Bypass -File tests\test-custom-fields.ps1` (1
 | `portal_breaking` | boolean | false | yes | In the red Breaking strip for 24 hours after publishing (see `home-page.md`) |
 | `portal_ai_assisted` | string | "" | yes | "yes" when the writer ticked *AI tools helped write this story* (set by the writer, see `writing.md`) |
 | `portal_sensitive` | boolean | false | **no** | Crime/minors/sexual offence → needs second approval (Task 14) |
-| `portal_second_approver` | integer | 0 | **no** | User ID of the second Editor/Admin (Task 14) |
+| `portal_second_approver` | integer | 0 | **no** | User ID of the second Editor/Admin. **Read-only**: set only by their own "Give second approval" (see `sensitive.md`) |
 
 - **Who can change them:** only users with `portal_manage_editorial_fields` (Editors, Admins)
   who can also edit that post. Anyone else gets HTTP 403 when they try.
@@ -48,4 +48,4 @@ POST /wp-json/wp/v2/posts/123
 In the block editor, Editors and Admins see an **Editorial** panel in the Post sidebar:
 Breaking news, Verified (FIR number + police station appear when it is on), Sensitive (with a reminder
 not to identify victims or minors), Premium. Writers do not see the panel.
-The second approver is not in the panel; Task 14 adds the approval step.
+The second approval is given in the **Review** panel (Task 14, see `sensitive.md`).

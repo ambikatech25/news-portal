@@ -77,6 +77,11 @@ function portal_post_meta_fields() {
  * @return bool
  */
 function portal_can_edit_editorial_meta( $allowed, $meta_key, $post_id, $user_id ) {
+	// Nobody types in a second approver: it is only set by the second editor's own
+	// "Give second approval" action (includes/sensitive.php), so one editor cannot name a colleague.
+	if ( 'portal_second_approver' === $meta_key ) {
+		return false;
+	}
 	return user_can( $user_id, 'edit_post', $post_id ) && user_can( $user_id, PORTAL_CAP_EDITORIAL_FIELDS );
 }
 

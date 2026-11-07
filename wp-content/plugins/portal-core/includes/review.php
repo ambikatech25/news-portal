@@ -95,6 +95,14 @@ function portal_review_decide( $post_id, $decision, $note, $by ) {
 		return new WP_Error( 'portal_review_note', __( 'Please tell the writer why (at least 10 characters).', 'portal' ), array( 'status' => 400 ) );
 	}
 
+	// Sensitive stories need a second editor (Task 14): say exactly why, before trying.
+	if ( 'approve' === $decision && function_exists( 'portal_is_sensitive' ) && portal_is_sensitive( $post->ID ) ) {
+		$check = portal_second_approval_check( $post->ID, (int) $by );
+		if ( ! $check['ok'] ) {
+			return new WP_Error( 'portal_sensitive_blocked', $check['message'], array( 'status' => 409 ) );
+		}
+	}
+
 	$status = array(
 		'approve' => 'publish',
 		'changes' => 'portal_changes',
@@ -335,7 +343,14 @@ function portal_review_editor_assets() {
 	}
 	$path = 'assets/js/review-panel.js';
 	wp_enqueue_script( 'portal-review-panel', PORTAL_CORE_URL . $path, array( 'wp-plugins', 'wp-editor', 'wp-element', 'wp-components', 'wp-data', 'wp-api-fetch', 'wp-i18n' ), (string) filemtime( PORTAL_CORE_DIR . $path ), true );
-	wp_localize_script( 'portal-review-panel', 'portalReview', array( 'canReview' => current_user_can( 'edit_others_posts' ) ) );
+	wp_localize_script(
+		'portal-review-panel',
+		'portalReview',
+		array(
+			'canReview' => current_user_can( 'edit_others_posts' ),
+			'userId'    => get_current_user_id(),
+		)
+	);
 	wp_set_script_translations( 'portal-review-panel', 'portal' );
 }
 add_action( 'enqueue_block_editor_assets', 'portal_review_editor_assets' );
@@ -406,7 +421,8 @@ function portal_review_response( $post_id ) {
 		);
 	}
 	return array(
-		'status'  => get_post_status( $post_id ),
-		'history' => $history,
+		'status'    => get_post_status( $post_id ),
+		'history'   => $history,
+		'sensitive' => function_exists( 'portal_sensitive_state' ) ? portal_sensitive_state( $post_id ) : null,
 	);
 }

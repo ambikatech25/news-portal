@@ -78,6 +78,6 @@ for the audit log in Task 16.
 
 ## Notes for later
 
-- **Task 14** adds the second approval for sensitive stories: *Approve & publish* will then refuse
-  until a second editor has approved, with a clear message.
+- **Task 14 (done)**: second approval for sensitive stories (see `sensitive.md`); *Approve & publish* refuses
+  until a second, different editor has approved, with a clear message.
 - **Live site (Task 18):** e-mails need real sending (SMTP) and a server cron job.

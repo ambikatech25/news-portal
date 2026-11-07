@@ -14,18 +14,24 @@ try {
     $e = $users['editor'].Session
 
     Write-Host '== Editor sets every field'
+    # The second approver is not in this list: since Task 14 it is set only by the second
+    # editor's own "Give second approval" action, never typed in (see check 6).
     $meta = @{
         portal_verified        = $true
         portal_fir_number      = '123/2026'
         portal_police_station  = 'Civil Lines, Raipur'
         portal_sensitive       = $true
-        portal_second_approver = 1
         portal_is_premium      = $true
     }
-    $r = Invoke-Rest $e POST '/wp/v2/posts' @{ title = 'Verified crime story'; status = 'publish'; categories = @($cat['crime']); meta = $meta }
+    # Saved as a draft: a sensitive story cannot be published by one editor alone (Task 14).
+    $r = Invoke-Rest $e POST '/wp/v2/posts' @{ title = 'Verified crime story'; status = 'draft'; categories = @($cat['crime']); meta = $meta }
     $post = $r.Data.id
     $m = $r.Data.meta
-    Check '1. Editor saves all six fields' ($r.Code -eq 201 -and $m.portal_verified -eq $true -and $m.portal_fir_number -eq '123/2026' -and $m.portal_police_station -eq 'Civil Lines, Raipur' -and $m.portal_sensitive -eq $true -and $m.portal_second_approver -eq 1 -and $m.portal_is_premium -eq $true) "HTTP $($r.Code) meta=$($m | ConvertTo-Json -Compress)"
+    Check '1. Editor saves the editorial fields' ($r.Code -eq 201 -and $m.portal_verified -eq $true -and $m.portal_fir_number -eq '123/2026' -and $m.portal_police_station -eq 'Civil Lines, Raipur' -and $m.portal_sensitive -eq $true -and $m.portal_is_premium -eq $true) "HTTP $($r.Code) meta=$($m | ConvertTo-Json -Compress)"
+    # The public checks below need a published post: publish the same fields without Sensitive.
+    Wp post meta update $post portal_sensitive '' | Out-Null
+    Wp post update $post --post_status=publish | Out-Null
+    Wp post meta update $post portal_sensitive 1 | Out-Null
 
     $stored = (Wp post meta get $post portal_fir_number) -join ''
     Check '2. Values are really stored in the database' ($stored -eq '123/2026') "stored=$stored"
@@ -41,7 +47,8 @@ try {
     Check '5. Fields appear in the post list /wp-json/wp/v2/posts' ($r.Code -eq 200 -and $r.Data[0].meta.portal_verified -eq $true) "HTTP $($r.Code)"
 
     $r = Invoke-Rest $e GET "/wp/v2/posts/$post`?context=edit"
-    Check '6. Editor (context=edit) sees the internal fields' ($r.Code -eq 200 -and $r.Data.meta.portal_sensitive -eq $true -and $r.Data.meta.portal_second_approver -eq 1) "HTTP $($r.Code)"
+    $typed = Invoke-Rest $e POST "/wp/v2/posts/$post" @{ meta = @{ portal_second_approver = 1 } }
+    Check '6. Editor (context=edit) sees the internal fields; nobody can type in a second approver' ($r.Code -eq 200 -and $r.Data.meta.portal_sensitive -eq $true -and $r.Data.meta.portal_second_approver -eq 0 -and $typed.Code -eq 403) "HTTP $($r.Code) typed approver=$($typed.Code)"
 
     Write-Host '== Writers cannot set editorial fields'
     $r = Invoke-Rest $a POST '/wp/v2/posts' @{ title = 'Author self-verifies'; status = 'publish'; categories = @($cat['industry']); meta = @{ portal_verified = $true } }
