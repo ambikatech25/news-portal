@@ -336,6 +336,29 @@ function portal_avatar_data( $args, $id_or_email ) {
 add_filter( 'pre_get_avatar_data', 'portal_avatar_data', 10, 2 );
 
 /**
+ * No Gravatar (Task 17): people without an uploaded photo get a built-in silhouette instead.
+ * Gravatar would add a request to an outside server for every face on a page (slower) and send
+ * a code made from each person's e-mail address to that company (a privacy leak under the
+ * DPDP Act). Runs late, so uploaded photos (and Google photos stored by Nextend) still win.
+ *
+ * @param array $args Avatar data.
+ * @return array
+ */
+function portal_no_gravatar( $args ) {
+	if ( empty( $args['url'] ) || false !== strpos( (string) $args['url'], 'gravatar.com' ) ) {
+		$args['url']          = PORTAL_CORE_URL . 'assets/img/avatar.svg';
+		$args['found_avatar'] = true;
+	}
+	return $args;
+}
+add_filter( 'pre_get_avatar_data', 'portal_no_gravatar', 99 );
+add_filter(
+	'get_avatar_data',
+	static fn( $args ) => portal_no_gravatar( $args ),
+	99
+);
+
+/**
  * Save an uploaded file as a user's profile photo, replacing the old one.
  *
  * @param int   $user_id User ID.

@@ -122,7 +122,8 @@ try {
     $del = (curl.exe -s -o NUL -w '%{http_code}' -X DELETE -b $a.Jar -H "X-WP-Nonce: $($a.Nonce)" "$Base/wp-json/portal/v1/me/avatar")
     $gone = Get-Last (Wp post list --post_type=attachment "--post__in=$photoId" --format=count)
     $after = (Invoke-Rest $null GET "/portal/v1/authors/$authorId").Data.avatar
-    Check '11. Removing the photo deletes the file and goes back to Gravatar' ($del -eq '200' -and $gone -eq '0' -and $after -like '*gravatar.com*') "HTTP $del attachments left=$gone avatar=$after"
+    # Since Task 17 there is no Gravatar: the built-in silhouette is used instead.
+    Check '11. Removing the photo deletes the file and goes back to the built-in silhouette' ($del -eq '200' -and $gone -eq '0' -and $after -like '*portal-core/assets/img/avatar.svg' -and $after -notlike '*gravatar*') "HTTP $del attachments left=$gone avatar=$after"
 }
 finally {
     Complete-Test

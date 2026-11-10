@@ -41,19 +41,22 @@ Legend: **Task** = the TASKS.md task where the plugin gets fully set up. **Owner
 - `portal-core` still enforces the category rule on the server side — the form alone is not trusted.
 
 ### Rank Math SEO
-- Until its setup wizard runs, its only page is "Registration" (connect a free Rank Math account). **Owner** decides in Task 17.
-- Choose: Website type **News Portal**, enable sitemaps, News sitemap.
+- Task 17: configured by `scripts/setup-seo.php` (no Rank Math account needed). See `seo.md`.
+- News sitemap is a paid (Pro) feature: not used; ask before buying.
 
 ### LiteSpeed Cache
-- Only caches on LiteSpeed web servers (Hostinger). Locally it is harmless.
-- Must **not** cache pages for logged-in users or Premium content (set up in Task 17/21).
+- Task 17: configured by `scripts/setup-speed.php`; only caches on LiteSpeed servers (Hostinger). See `speed.md`.
+- **Task 21 must make sure Premium stories are never served from a visitor's cached copy** (cache must
+  vary by membership, or Premium story pages are excluded).
 
 ### Wordfence
-- Task 17: enable firewall ("Learning mode" for a week, then "Enabled"), 2FA for Editors/Admins, login attempt limits.
+- Task 17: login limits, alerts and scans set by `scripts/setup-security.php`; "hide usernames" off.
+- **Owner**: 2FA for Admins/Editors and the firewall "Optimize" step on the live site (see `security.md`).
 - Free version is enough. Do not paste a licence key unless the owner buys Premium.
 
 ### UpdraftPlus
-- Task 17: **Owner** connects Google Drive. Schedule: files weekly, database daily, keep 14 copies.
+- Task 17: schedule set (database daily, keep 14; files weekly, keep 4; Google Drive).
+- **Owner** connects Google Drive on the live site (see `security.md`).
 
 ### Antispam Bee
 - No account needed. Task 12 (`scripts/setup-engagement.php`): trust approved commenters, keep spam 30 days

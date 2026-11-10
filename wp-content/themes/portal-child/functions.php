@@ -51,3 +51,19 @@ function portal_child_breaking_strip() {
 	}
 }
 add_action( 'kadence_after_header', 'portal_child_breaking_strip' );
+
+/**
+ * Speed (Task 17): no emoji script and styles. WordPress loads them on every page so very old
+ * browsers can show emoji pictures; every phone and browser today shows emoji by itself.
+ */
+function portal_child_remove_emoji() {
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+	add_filter( 'emoji_svg_url', '__return_false' );
+}
+add_action( 'init', 'portal_child_remove_emoji' );

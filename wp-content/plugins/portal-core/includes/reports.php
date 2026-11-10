@@ -111,9 +111,8 @@ function portal_reporter_hash() {
 	if ( $user_id ) {
 		$who = 'user:' . $user_id;
 	} else {
-		// TODO(Task 17): behind Cloudflare, read the visitor IP from CF-Connecting-IP.
-		$ip  = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-		$who = 'ip:' . $ip;
+		// Real visitor address, also behind Cloudflare (includes/security.php).
+		$who = 'ip:' . ( function_exists( 'portal_client_ip' ) ? portal_client_ip() : '' );
 	}
 	return hash_hmac( 'sha256', $who, wp_salt( 'auth' ) );
 }

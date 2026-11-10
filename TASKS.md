@@ -29,7 +29,7 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 - [x] **16. Reports, grievances and audit log.** Report button stores reports; admin screen lists them; grievance form; log of admin actions. *Done:* a report and a takedown both appear in the log.
 
 ## Phase 6: Go live
-- [ ] **17. SEO, speed, security.** Rank Math sitemaps, LiteSpeed Cache, Cloudflare guide, Wordfence, UpdraftPlus backups to Google Drive. *Done:* PageSpeed mobile score ≥ 80 on the home page.
+- [x] **17. SEO, speed, security.** Rank Math sitemaps, LiteSpeed Cache, Cloudflare guide, Wordfence, UpdraftPlus backups to Google Drive. *Done:* PageSpeed mobile score ≥ 80 on the home page. _Lighthouse mobile (local): 100. Confirm with PageSpeed on the live site in Task 18 (`docs/speed.md`)._
 - [ ] **18. Deploy to Hostinger.** Step-by-step migration (owner buys hosting and domain first), SSL, email, cron. *Done:* the live site works over https.
 - [ ] **19. Launch checklist.** Test every role, legal pages filled in, Grievance Officer named, AdSense applied for, Ministry of I&B details reminder. *Done:* checklist signed off by the owner.
 

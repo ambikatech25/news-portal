@@ -40,10 +40,13 @@ docker compose run --rm -T wpcli eval-file /scripts/setup-writing.php
 docker compose run --rm -T wpcli eval-file /scripts/setup-engagement.php
 docker compose run --rm -T wpcli eval-file /scripts/setup-review.php
 docker compose run --rm -T wpcli eval-file /scripts/setup-moderation.php
+docker compose run --rm -T wpcli eval-file /scripts/setup-seo.php
+docker compose run --rm -T wpcli eval-file /scripts/setup-speed.php
+docker compose run --rm -T wpcli eval-file /scripts/setup-security.php
 ```
 
 Optional sample stories for design work (local only): see `docs/home-page.md`.
-What each part of the home page and article page shows, and how editors control it: `docs/home-page.md`, `docs/article-page.md`, `docs/author-profiles.md`. Sign-up, Google sign-in setup and My Account: `docs/accounts.md`. Write a story and Become a writer: `docs/writing.md`. Comments, likes, saves and follows: `docs/engagement.md`. Review workflow: `docs/review.md`. Sensitive stories (two editors): `docs/sensitive.md`. Photo safety (hidden data, blurring guide): `docs/blurring.md`. Reports, takedowns, suspensions, grievances, audit log: `docs/moderation.md`.
+What each part of the home page and article page shows, and how editors control it: `docs/home-page.md`, `docs/article-page.md`, `docs/author-profiles.md`. Sign-up, Google sign-in setup and My Account: `docs/accounts.md`. Write a story and Become a writer: `docs/writing.md`. Comments, likes, saves and follows: `docs/engagement.md`. Review workflow: `docs/review.md`. Sensitive stories (two editors): `docs/sensitive.md`. Photo safety (hidden data, blurring guide): `docs/blurring.md`. Reports, takedowns, suspensions, grievances, audit log: `docs/moderation.md`. SEO, speed, security, backups, Cloudflare: `docs/seo.md`, `docs/speed.md`, `docs/security.md`, `docs/cloudflare.md`.
 
 ## Tests
 
@@ -61,4 +64,5 @@ powershell -ExecutionPolicy Bypass -File tests\test-review.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-sensitive.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-image-safety.ps1
 powershell -ExecutionPolicy Bypass -File tests\test-moderation.ps1
+powershell -ExecutionPolicy Bypass -File tests\test-seo-security.ps1
 ```
