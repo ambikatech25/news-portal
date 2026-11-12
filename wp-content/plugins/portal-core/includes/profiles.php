@@ -359,22 +359,23 @@ add_filter(
 );
 
 /**
- * Save an uploaded file as a user's profile photo, replacing the old one.
+ * Check an uploaded photo (profile photo, series cover): it arrived, is at most 2 MB and is
+ * really a JPG, PNG or WebP image. Returns the file (with a corrected name if needed).
  *
- * @param int   $user_id User ID.
- * @param array $file    One entry of $_FILES: name, type, tmp_name, error, size.
- * @return int|WP_Error Attachment ID.
+ * @param array  $file   One entry of $_FILES: name, type, tmp_name, error, size.
+ * @param string $prefix Start of the error codes, e.g. "portal_avatar" -> "portal_avatar_size".
+ * @return array|WP_Error
  */
-function portal_set_avatar( $user_id, array $file ) {
+function portal_check_photo_upload( array $file, $prefix = 'portal_avatar' ) {
 	// The server itself (PHP's upload limit) can turn a big file away before we see it.
 	if ( in_array( (int) ( $file['error'] ?? 0 ), array( UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE ), true ) ) {
-		return new WP_Error( 'portal_avatar_size', __( 'The photo is too large. The limit is 2 MB.', 'portal' ), array( 'status' => 400 ) );
+		return new WP_Error( $prefix . '_size', __( 'The photo is too large. The limit is 2 MB.', 'portal' ), array( 'status' => 400 ) );
 	}
 	if ( ! empty( $file['error'] ) || empty( $file['tmp_name'] ) ) {
-		return new WP_Error( 'portal_avatar_upload', __( 'The photo did not upload. Please try again.', 'portal' ), array( 'status' => 400 ) );
+		return new WP_Error( $prefix . '_upload', __( 'The photo did not upload. Please try again.', 'portal' ), array( 'status' => 400 ) );
 	}
 	if ( (int) $file['size'] > PORTAL_AVATAR_MAX_BYTES ) {
-		return new WP_Error( 'portal_avatar_size', __( 'The photo is too large. The limit is 2 MB.', 'portal' ), array( 'status' => 400 ) );
+		return new WP_Error( $prefix . '_size', __( 'The photo is too large. The limit is 2 MB.', 'portal' ), array( 'status' => 400 ) );
 	}
 	// Check the real file content, not just the name: a renamed script must not get through.
 	$mimes = array(
@@ -384,10 +385,25 @@ function portal_set_avatar( $user_id, array $file ) {
 	);
 	$check = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'], $mimes );
 	if ( empty( $check['type'] ) || ! @getimagesize( $file['tmp_name'] ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors -- invalid files are expected here.
-		return new WP_Error( 'portal_avatar_type', __( 'Please choose a JPG, PNG or WebP photo.', 'portal' ), array( 'status' => 400 ) );
+		return new WP_Error( $prefix . '_type', __( 'Please choose a JPG, PNG or WebP photo.', 'portal' ), array( 'status' => 400 ) );
 	}
 	if ( ! empty( $check['proper_filename'] ) ) {
 		$file['name'] = $check['proper_filename'];
+	}
+	return $file;
+}
+
+/**
+ * Save an uploaded file as a user's profile photo, replacing the old one.
+ *
+ * @param int   $user_id User ID.
+ * @param array $file    One entry of $_FILES: name, type, tmp_name, error, size.
+ * @return int|WP_Error Attachment ID.
+ */
+function portal_set_avatar( $user_id, array $file ) {
+	$file = portal_check_photo_upload( $file );
+	if ( is_wp_error( $file ) ) {
+		return $file;
 	}
 
 	require_once ABSPATH . 'wp-admin/includes/file.php';

@@ -56,6 +56,20 @@ function portal_demo_remove() {
 	foreach ( $users as $user_id ) {
 		wp_delete_user( (int) $user_id );
 	}
+	if ( taxonomy_exists( 'portal_series' ) ) {
+		$series = get_terms(
+			array(
+				'taxonomy'   => 'portal_series',
+				'hide_empty' => false,
+				'fields'     => 'ids',
+				'meta_key'   => '_portal_demo',
+				'meta_value' => '1',
+			)
+		);
+		foreach ( is_wp_error( $series ) ? array() : $series as $term_id ) {
+			wp_delete_term( (int) $term_id, 'portal_series' );
+		}
+	}
 	WP_CLI::log( sprintf( 'Removed %d demo posts/pictures and %d demo writers.', count( $ids ), count( $users ) ) );
 }
 
@@ -161,7 +175,12 @@ function portal_demo_add() {
 		array( 'Five things I learned running a small fabrication shop', 'community-blogs', 27, array( 'writer' => 1 ) ),
 		array( 'Why Raipur needs more cycle lanes', 'community-blogs', 48, array( 'writer' => 2 ) ),
 		array( 'A weekend at Chitrakote falls', 'community-blogs', 80, array( 'writer' => 0 ) ),
+		// Task 17A: a 3-part series (oldest first = Part 1).
+		array( 'Truck diaries: leaving Raipur before dawn', 'community-blogs', 100, array( 'writer' => 0, 'series' => 'Truck diaries' ) ),
+		array( 'Truck diaries: a night at a dhaba near Sambalpur', 'community-blogs', 60, array( 'writer' => 0, 'series' => 'Truck diaries' ) ),
+		array( 'Truck diaries: unloading at Paradip port', 'community-blogs', 12, array( 'writer' => 0, 'series' => 'Truck diaries' ) ),
 	);
+	$series_parts = array();
 
 	mt_srand( 7 ); // Same "random" view counts every run.
 	foreach ( $stories as $n => list( $title, $slug, $hours, $flags ) ) {
@@ -192,6 +211,9 @@ function portal_demo_add() {
 		if ( ! empty( $flags['sticky'] ) ) {
 			stick_post( $post_id );
 		}
+		if ( ! empty( $flags['series'] ) ) {
+			$series_parts[ $flags['series'] ][] = array( $post_id, $writers[ $flags['writer'] ] );
+		}
 
 		// Picture.
 		$tmp = portal_demo_picture( $colours[ $slug ], $n + 1 );
@@ -210,6 +232,23 @@ function portal_demo_add() {
 		update_post_meta( $att, '_portal_demo', '1' );
 		set_post_thumbnail( $post_id, $att );
 		WP_CLI::log( 'Added: ' . $title );
+	}
+
+	// Series (Task 17A): created as the writer would, parts added in order.
+	foreach ( $series_parts as $name => $parts ) {
+		if ( ! function_exists( 'portal_create_series' ) ) {
+			break;
+		}
+		$term_id = portal_create_series( $parts[0][1], $name, 'Demo series: a driver\'s notes from the road, told in parts.' );
+		if ( is_wp_error( $term_id ) ) {
+			WP_CLI::warning( 'Series failed: ' . $term_id->get_error_message() );
+			continue;
+		}
+		update_term_meta( $term_id, '_portal_demo', '1' );
+		foreach ( $parts as list( $post_id ) ) {
+			wp_set_object_terms( $post_id, array( $term_id ), 'portal_series' );
+		}
+		WP_CLI::log( 'Added series: ' . $name );
 	}
 }
 

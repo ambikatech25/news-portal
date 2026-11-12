@@ -55,6 +55,7 @@ $portal_sitemap = array_merge(
 		'pt_page_sitemap'      => 'on',
 		'tax_category_sitemap' => 'on',
 		'tax_post_tag_sitemap' => 'off',
+		'tax_portal_series_sitemap' => 'on', // Task 17A: series pages (only those with published parts)
 		'authors_sitemap'      => 'on',
 		// No "exclude_roles": with one role in it, Rank Math builds a broken database query and
 		// silently drops the whole writer sitemap (found in Task 17). Not needed anyway: the writer

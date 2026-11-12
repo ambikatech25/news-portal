@@ -7,9 +7,12 @@
  *   header (Kadence: category, headline, author, date)
  *   -> Verified box, Premium label, read time       kadence_single_after_entry_header
  *   -> article text and tags (Kadence)
- *   -> share buttons + Report                       kadence_single_after_inner_content
- *   -> author card, related posts                   kadence_single_after_content
- *   -> comments (Kadence)
+ *   -> series box, Like / Save / Comments, share, Report  kadence_single_after_inner_content
+ *   -> author card, comments, related posts         kadence_single_after_content
+ *
+ * Comments come before related stories (readers missed them at the very bottom). Kadence prints
+ * comments last and has no hook after them, so we print them ourselves and hand Kadence's own
+ * later call an empty template (portal_child_comments_once).
  *
  * @package Portal
  */
@@ -46,7 +49,7 @@ function portal_child_article_actions() {
 add_action( 'kadence_single_after_inner_content', 'portal_child_article_actions' );
 
 /**
- * Author card and related posts, after the article box.
+ * Author card, comments and related posts, after the article box.
  */
 function portal_child_article_after() {
 	if ( ! portal_child_is_article() ) {
@@ -54,11 +57,38 @@ function portal_child_article_after() {
 	}
 	$post = get_post();
 	get_template_part( 'template-parts/portal/author-card', null, array( 'post' => $post ) );
+
+	// Same condition Kadence uses (comments allowed on this post, open or already there).
+	$show = function_exists( '\Kadence\kadence' ) ? \Kadence\kadence()->show_comments() : ( comments_open() || get_comments_number() );
+	if ( $show ) {
+		comments_template();
+	}
+
 	if ( function_exists( 'portal_get_related_posts' ) ) {
 		get_template_part( 'template-parts/portal/related', null, array( 'posts' => portal_get_related_posts( $post, 4 ) ) );
 	}
 }
 add_action( 'kadence_single_after_content', 'portal_child_article_after' );
+
+/**
+ * Print the comments only once per page: the second call (Kadence's own, at the bottom)
+ * gets an empty template.
+ *
+ * @param string $template Comments template path.
+ * @return string
+ */
+function portal_child_comments_once( $template ) {
+	static $shown = false;
+	if ( ! portal_child_is_article() ) {
+		return $template;
+	}
+	if ( $shown ) {
+		return get_stylesheet_directory() . '/template-parts/portal/comments-shown.php';
+	}
+	$shown = true;
+	return $template;
+}
+add_filter( 'comments_template', 'portal_child_comments_once' );
 
 /**
  * Share targets for a post: key => [label, url]. Plain links, no third-party scripts,

@@ -61,6 +61,7 @@ function portal_maybe_upgrade() {
 	portal_install_marks_table();
 	portal_install_audit_table();
 	portal_upgrade_profiles();
+	update_option( 'portal_flush_rewrites', 1 ); // new addresses, e.g. /series/<name>/ (Task 17A).
 	update_option( 'portal_core_db_version', PORTAL_CORE_DB_VERSION );
 }
 add_action( 'init', 'portal_maybe_upgrade', 5 );

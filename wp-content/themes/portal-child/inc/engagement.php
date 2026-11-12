@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Small inline icons.
  *
- * @param string $name heart | bookmark | follow.
+ * @param string $name heart | bookmark | follow | comment.
  * @return string SVG (trusted).
  */
 function portal_child_engage_icon( $name ) {
@@ -20,6 +20,7 @@ function portal_child_engage_icon( $name ) {
 		'heart'    => '<path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.2 4c2 0 3.4 1.1 4.8 2.8C13.4 5.1 14.8 4 16.8 4c3.6 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4Z"/>',
 		'bookmark' => '<path d="M6 3.5h12a.5.5 0 0 1 .5.5v16.6l-6.5-4.4-6.5 4.4V4a.5.5 0 0 1 .5-.5Z"/>',
 		'follow'   => '<path d="M12 5v14M5 12h14"/>',
+		'comment'  => '<path d="M4 5.5h16a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H9l-4.5 3.5V16.5H4a.5.5 0 0 1-.5-.5V6a.5.5 0 0 1 .5-.5Z"/>',
 	);
 	return '<svg class="portal-toggle__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' . ( $paths[ $name ] ?? '' ) . '</svg>';
 }

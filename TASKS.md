@@ -32,7 +32,7 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 - [x] **17. SEO, speed, security.** Rank Math sitemaps, LiteSpeed Cache, Cloudflare guide, Wordfence, UpdraftPlus backups to Google Drive. *Done:* PageSpeed mobile score ≥ 80 on the home page. _Lighthouse mobile (local): 100. Confirm with PageSpeed on the live site in Task 18 (`docs/speed.md`)._
 
 ### Community reading experience (before launch, agreed 2026-11-12)
-- [ ] **17A. Series.** Writers group posts into a series (Part 1, 2, 3…) with a cover and description; series page with contents list; "Part X of Y" and "Next part →" on each post; series in the API. *Done:* a writer creates a 3-part series and a reader can move through it in order.
+- [x] **17A. Series.** Writers group posts into a series (Part 1, 2, 3…) with a cover and description; series page with contents list; "Part X of Y" and "Next part →" on each post; series in the API. *Done:* a writer creates a 3-part series and a reader can move through it in order. _`tests/test-series.ps1` 12/12; guide `docs/series.md`._
 - [ ] **17B. Reading comfort.** Larger, comfortable text with a Hindi-friendly font, reading progress bar, estimated time, clean reading mode (hide distractions), for every story. *Done:* reading mode works on phone and desktop and PageSpeed mobile stays ≥ 80.
 - [ ] **17C. Community home.** A Community page: trending writers, new series, editors' picks, newest community posts. *Done:* the page fills itself from published content and editors can pick stories.
 

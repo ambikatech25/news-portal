@@ -17,10 +17,19 @@ $portal_title = html_entity_decode( get_the_title( $portal_post ), ENT_QUOTES, '
 ?>
 <div class="portal-article-actions">
 	<?php if ( function_exists( 'portal_child_toggle' ) ) : ?>
-		<div class="portal-engage" role="group" aria-label="<?php esc_attr_e( 'Like or save this story', 'portal' ); ?>">
+		<div class="portal-engage" role="group" aria-label="<?php esc_attr_e( 'Like, save or comment on this story', 'portal' ); ?>">
 			<?php
 			echo portal_child_toggle( 'like', $portal_post->ID, function_exists( 'portal_get_likes' ) ? portal_get_likes( $portal_post->ID ) : 0 ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside.
 			echo portal_child_toggle( 'bookmark', $portal_post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside.
+			// Jump to the comments (they come right after the writer's card).
+			if ( comments_open( $portal_post ) || get_comments_number( $portal_post ) ) {
+				printf(
+					'<a class="portal-toggle portal-toggle--comments" href="#comments">%1$s<span class="portal-toggle__label">%2$s</span><span class="portal-toggle__count">%3$s</span></a>',
+					portal_child_engage_icon( 'comment' ), // phpcs:ignore WordPress.Security.EscapeOutput -- trusted SVG.
+					esc_html__( 'Comments', 'portal' ),
+					esc_html( number_format_i18n( (int) get_comments_number( $portal_post ) ) )
+				);
+			}
 			?>
 		</div>
 	<?php endif; ?>
