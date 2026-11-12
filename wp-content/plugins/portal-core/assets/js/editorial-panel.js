@@ -92,6 +92,13 @@
 				checked: !! meta.portal_is_premium,
 				onChange: set( 'portal_is_premium' ),
 				__nextHasNoMarginBottom: true,
+			} ),
+			el( ToggleControl, {
+				label: __( "Editor's pick", 'portal' ),
+				help: __( 'Shown under "Editors\' picks" on the Community page (community stories only; the newest 4 picks).', 'portal' ),
+				checked: !! meta.portal_editors_pick,
+				onChange: set( 'portal_editors_pick' ),
+				__nextHasNoMarginBottom: true,
 			} )
 		);
 	}

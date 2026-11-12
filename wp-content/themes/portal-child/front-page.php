@@ -139,9 +139,9 @@ get_header();
 				<section class="portal-home__blogs portal-blogs" aria-labelledby="portal-blogs-title">
 					<div class="portal-section-title">
 						<h2 id="portal-blogs-title">
-							<a href="<?php echo esc_url( get_category_link( $portal_blog_id ) ); ?>"><?php esc_html_e( 'Community Blogs', 'portal' ); ?></a>
+							<a href="<?php echo esc_url( function_exists( 'portal_community_page_url' ) ? portal_community_page_url() : get_category_link( $portal_blog_id ) ); ?>"><?php esc_html_e( 'Community Blogs', 'portal' ); ?></a>
 						</h2>
-						<a class="portal-section-title__more" href="<?php echo esc_url( get_category_link( $portal_blog_id ) ); ?>">
+						<a class="portal-section-title__more" href="<?php echo esc_url( function_exists( 'portal_community_page_url' ) ? portal_community_page_url() : get_category_link( $portal_blog_id ) ); ?>">
 							<?php esc_html_e( 'More', 'portal' ); ?><span class="screen-reader-text"> <?php esc_html_e( 'Community Blogs', 'portal' ); ?></span> &rarr;
 						</a>
 					</div>

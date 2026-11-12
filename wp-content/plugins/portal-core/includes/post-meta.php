@@ -64,6 +64,12 @@ function portal_post_meta_fields() {
 			'default'     => false,
 			'public'      => true,
 		),
+		'portal_editors_pick'    => array(
+			'type'        => 'boolean',
+			'description' => __( 'Editor\'s pick: shown under "Editors\' picks" on the Community page (Task 17C).', 'portal' ),
+			'default'     => false,
+			'public'      => true,
+		),
 	);
 }
 

@@ -172,7 +172,7 @@ function portal_demo_add() {
 		array( 'Police step up night patrols in city markets', 'crime', 36, array() ),
 		array( 'Helpline launched for online fraud victims', 'crime', 60, array() ),
 		array( 'My first week driving a truck on NH-130', 'community-blogs', 8, array( 'writer' => 0 ) ),
-		array( 'Five things I learned running a small fabrication shop', 'community-blogs', 27, array( 'writer' => 1 ) ),
+		array( 'Five things I learned running a small fabrication shop', 'community-blogs', 27, array( 'writer' => 1, 'pick' => true ) ),
 		array( 'Why Raipur needs more cycle lanes', 'community-blogs', 48, array( 'writer' => 2 ) ),
 		array( 'A weekend at Chitrakote falls', 'community-blogs', 80, array( 'writer' => 0 ) ),
 		// Task 17A: a 3-part series (oldest first = Part 1).
@@ -180,7 +180,7 @@ function portal_demo_add() {
 		array( 'Truck diaries: a night at a dhaba near Sambalpur', 'community-blogs', 60, array( 'writer' => 0, 'series' => 'Truck diaries' ) ),
 		array( 'Truck diaries: unloading at Paradip port', 'community-blogs', 12, array( 'writer' => 0, 'series' => 'Truck diaries' ) ),
 		// Task 17B: a long Hindi story, to check Hindi text, reading mode and the progress bar.
-		array( 'रायपुर के पुराने बाज़ार: एक सुबह की सैर', 'community-blogs', 30, array( 'writer' => 2, 'hindi' => true ) ),
+		array( 'रायपुर के पुराने बाज़ार: एक सुबह की सैर', 'community-blogs', 30, array( 'writer' => 2, 'hindi' => true, 'pick' => true ) ),
 	);
 	$hindi_paragraphs = array(
 		'यह स्थानीय जाँच के लिए डेमो लेख है। यह असली ख़बर नहीं है और वेबसाइट शुरू होने से पहले हटा दिया जाएगा। इसका काम सिर्फ़ यह देखना है कि लंबा हिंदी लेख फ़ोन और कंप्यूटर पर आराम से पढ़ा जा सकता है या नहीं।',
@@ -229,6 +229,9 @@ function portal_demo_add() {
 		}
 		if ( ! empty( $flags['sticky'] ) ) {
 			stick_post( $post_id );
+		}
+		if ( ! empty( $flags['pick'] ) ) {
+			update_post_meta( $post_id, 'portal_editors_pick', true ); // Task 17C: Editors' picks.
 		}
 		if ( ! empty( $flags['series'] ) ) {
 			$series_parts[ $flags['series'] ][] = array( $post_id, $writers[ $flags['writer'] ] );
