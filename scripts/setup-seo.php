@@ -10,6 +10,12 @@
  * @package Portal
  */
 
+// Same as clicking "Skip" on Rank Math's registration screen and finishing its setup wizard
+// (this script does the wizard's work). Found in the Task 18 rehearsal: on a fresh site Rank Math
+// stays switched off for visitors (no titles, no structured data, no sitemap) until these are set.
+update_option( 'rank_math_registration_skip', 1 );
+update_option( 'rank_math_wizard_completed', 1 );
+
 // Modules: only what a news site needs. Off: shop/forum integrations we do not use, and the
 // AI and "instant indexing" modules that send content to outside services or need accounts.
 update_option( 'rank_math_modules', array( 'sitemap', 'rich-snippet', 'link-counter', 'seo-analysis' ) );

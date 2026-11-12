@@ -42,6 +42,7 @@ Legend: **Task** = the TASKS.md task where the plugin gets fully set up. **Owner
 
 ### Rank Math SEO
 - Task 17: configured by `scripts/setup-seo.php` (no Rank Math account needed). See `seo.md`.
+- On a fresh site Rank Math stays off for visitors until "Skip registration" / "wizard completed" are set; `setup-seo.php` sets them (found in the Task 18 rehearsal).
 - News sitemap is a paid (Pro) feature: not used; ask before buying.
 
 ### LiteSpeed Cache

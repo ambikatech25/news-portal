@@ -7,13 +7,15 @@ A **news-style website with community blogs**, built on **WordPress** within a s
 - An editor-run **news desk**: logistics, industry, coal and steel, crime, and regional news for Chhattisgarh and central India.
 - **Community blogs**: anyone can sign up, write and submit posts, and read others' posts.
 - **Admins** control users, content, reviews and takedowns.
-- One paid plan, **Premium at ₹99/month** (Razorpay on the web; in-app purchase in the future mobile app).
+- One paid plan, **CityCharcha Premium at ₹99/month or ₹999/year** with a 7-day free trial (Razorpay on the web; in-app purchase in the future mobile app). See "Premium and ads" below.
 - The look is a **news site first** (headlines, sections, breaking strip, trending), with a lighter blog feel (author profiles, follows, comments).
+- A **community reading experience** inspired by reading apps (ideas only, never another brand's look or name): series of posts, comfortable reading mode, a Community home with trending writers and editors' picks, reading lists.
+- Income: **ads for free readers** (Google AdSense and direct local sponsors), sponsored posts, and Premium.
 - **Website only for now.** A mobile app (Flutter or React Native) comes later and will use the WordPress REST API, so everything must be API-ready.
 
 ## Tech stack (do not change without asking)
 - WordPress (latest), PHP 8.2+, MySQL/MariaDB
-- Local development: Docker (`docker compose`) with WP-CLI. Production: Hostinger (shared/cloud, LiteSpeed, SSH).
+- Local development: Docker (`docker compose`) with WP-CLI. Production: **MilesWeb Premium WordPress hosting** (LiteSpeed, mPanel, SSH, WP-CLI). The domain citycharcha.com stays registered at Hostinger and points to MilesWeb.
 - Parent theme: Kadence or Blocksy (free). All customisation lives in our **child theme** `portal-child`.
 - Our custom code lives in **one plugin**, `portal-core`.
 - Approved free plugins: PublishPress (workflow), Nextend Social Login (Google sign-in), WP User Frontend (front-end posting), Rank Math (SEO), LiteSpeed Cache, Wordfence, UpdraftPlus, Antispam Bee, Polylang (Hindi + English), MailPoet (newsletter), OneSignal (browser push), Fluent Forms (grievance and tip forms), Site Kit by Google, an image optimiser that strips EXIF/GPS.
@@ -33,8 +35,9 @@ A **news-style website with community blogs**, built on **WordPress** within a s
 **Premium** is a membership level on top of any role.
 
 ## Content structure
-- Categories: News, Logistics, Industry, Crime, Region, Community Blogs, Case Files (premium).
-- **Editor-only categories:** News, Crime, Case Files. Contributors and Authors must never be able to post in them; enforce this in `portal-core`, not only in the UI.
+- Categories: News, Logistics, Industry, Crime, Region, Community Blogs, Case Files (premium), Industry Intelligence (premium, added in Task 21).
+- **Editor-only categories:** News, Crime, Case Files, Industry Intelligence. Contributors and Authors must never be able to post in them; enforce this in `portal-core`, not only in the UI.
+- **Series:** community posts can belong to a series (Part 1, 2, 3…), Task 17A.
 - Custom post meta on posts (registered with `show_in_rest: true`):
   - `portal_verified` (bool)
   - `portal_fir_number` (string)
@@ -51,6 +54,18 @@ A **news-style website with community blogs**, built on **WordPress** within a s
 4. Every post and comment has a **Report** button. Reports are stored and shown to admins.
 5. Admin actions (approve, reject, takedown, ban) are logged.
 6. Premium posts show a preview (the first ~150 words) plus a subscribe box to non-members. **Public-safety news and corrections are never premium.**
+7. **No ads** for Premium members, and none on Crime or Sensitive stories. Ads are labelled "Advertisement"; paid posts are always labelled **"Sponsored"** and never appear in news sections without that label. Advertisers never influence news coverage.
+
+## Premium and ads (agreed with the owner, 2026-11-12)
+| Free for everyone | CityCharcha Premium (₹99/month, ₹999/year, 7-day trial) |
+|---|---|
+| All daily news, crime, region; public-safety news and corrections (never paid) | **Industry Intelligence**: weekly coal / steel / scrap price tracker, freight and rake updates, tenders digest (own reporting or permitted sources only) |
+| Community blogs, series, comments, likes, follows | **Case Files**: in-depth investigations |
+| Breaking strip and alerts | **7 am morning briefing** e-mail; **ad-free**; Premium badge; early access |
+
+- Do not switch the paywall on until there is a month of Premium content ready.
+- Writers may mark a post Premium (an editor approves). **Writer subscriptions with revenue share are phase 2** (about 6 months after launch or 500 Premium members); until then a manual "Writer of the Month" reward.
+- Ads: fixed slots in our own theme (not AdSense Auto ads), lazy-loaded so PageSpeed stays ≥ 80; each slot shows AdSense, a direct sponsor banner, or nothing (portal-core screen, Task 19C).
 
 ## Legal pages (create as pages; content is drafted by a human or lawyer)
 Terms of Use, Privacy Policy, Community Guidelines, Editorial & Corrections Policy, Grievance Officer (contact and form), About / Ownership.

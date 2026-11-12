@@ -41,16 +41,36 @@ for slug in $SLUGS $INSTALL_ONLY_SLUGS; do
     echo "-- $slug already installed"
   else
     echo "-- installing $slug"
-    wp plugin install "$slug" --quiet
+    # Up to 3 tries: a download can fail once for no lasting reason (seen in the Task 18 rehearsal).
+    tries=0
+    until wp plugin install "$slug" --quiet; do
+      tries=$((tries + 1))
+      if [ "$tries" -ge 3 ]; then
+        echo "ERROR: could not install $slug after 3 tries" >&2
+        wp plugin install "$slug"   # once more without --quiet, to show the reason
+        exit 1
+      fi
+      echo "   retrying $slug ($tries)..."
+      sleep 5
+    done
   fi
 done
 
-echo "== Activating"
+echo "== Activating (our own plugin portal-core in the same command)"
+# All in ONE command. Found in the Task 18 rehearsal: on a fresh site Nextend Social Login
+# redirects to its welcome page the first time it loads, which ends the NEXT wp command early
+# while still reporting success - so a separate "activate portal-core" silently never ran.
 # shellcheck disable=SC2086
-wp plugin activate $SLUGS
+wp plugin activate $SLUGS portal-core
 
-# Our own plugin (lives in the repo, mounted by docker-compose).
-wp plugin activate portal-core
+echo "== Checking every plugin really is active"
+for slug in $SLUGS portal-core; do
+  if ! wp plugin is-active "$slug"; then
+    echo "   $slug is not active yet - activating again"
+    wp plugin activate "$slug"
+    wp plugin is-active "$slug" || { echo "ERROR: $slug could not be activated" >&2; exit 1; }
+  fi
+done
 
 echo "== Keeping these off until configured"
 for slug in $INSTALL_ONLY_SLUGS; do

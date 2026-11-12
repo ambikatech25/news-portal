@@ -46,7 +46,7 @@ docker compose run --rm -T wpcli eval-file /scripts/setup-security.php
 ```
 
 Optional sample stories for design work (local only): see `docs/home-page.md`.
-What each part of the home page and article page shows, and how editors control it: `docs/home-page.md`, `docs/article-page.md`, `docs/author-profiles.md`. Sign-up, Google sign-in setup and My Account: `docs/accounts.md`. Write a story and Become a writer: `docs/writing.md`. Comments, likes, saves and follows: `docs/engagement.md`. Review workflow: `docs/review.md`. Sensitive stories (two editors): `docs/sensitive.md`. Photo safety (hidden data, blurring guide): `docs/blurring.md`. Reports, takedowns, suspensions, grievances, audit log: `docs/moderation.md`. SEO, speed, security, backups, Cloudflare: `docs/seo.md`, `docs/speed.md`, `docs/security.md`, `docs/cloudflare.md`.
+What each part of the home page and article page shows, and how editors control it: `docs/home-page.md`, `docs/article-page.md`, `docs/author-profiles.md`. Sign-up, Google sign-in setup and My Account: `docs/accounts.md`. Write a story and Become a writer: `docs/writing.md`. Comments, likes, saves and follows: `docs/engagement.md`. Review workflow: `docs/review.md`. Sensitive stories (two editors): `docs/sensitive.md`. Photo safety (hidden data, blurring guide): `docs/blurring.md`. Reports, takedowns, suspensions, grievances, audit log: `docs/moderation.md`. SEO, speed, security, backups, Cloudflare: `docs/seo.md`, `docs/speed.md`, `docs/security.md`, `docs/cloudflare.md`. **Going live on Hostinger: `docs/deploy.md`** (cost, owner steps, `scripts/deploy/`).
 
 ## Tests
 
