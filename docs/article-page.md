@@ -13,16 +13,21 @@ updates keep working.
 
 | Part | What decides it | How an editor changes it |
 |---|---|---|
-| Category, headline, writer's photo and name, date | Kadence | The post itself. An **Updated** date appears when a story is changed after publishing. |
-| **Premium** label, **read time** | Premium switch; length of the text (200 words a minute, Hindi counted correctly) | Post sidebar → **Editorial** → *Premium* |
+| Category, headline, writer's photo and name, **Follow** button, date | Kadence; Follow from the theme (not shown to writers on their own stories) | The post itself. An **Updated** date appears when a story is changed after publishing. |
+| **Series** line ("Part 2 of 3") | Only for stories in a series (Task 17A, `series.md`) | Write page → *Series* box, or the block editor's *Series* panel |
+| **Premium** label, **read time**, **Reading mode** button | Premium switch; length of the text (200 words a minute, Hindi counted correctly); reading mode on every story (Task 17B, `reading.md`) | Post sidebar → **Editorial** → *Premium* |
 | **✓ Verified** box with **FIR No.** and **Police station** | Shown **only** when *Verified* is on | Post sidebar → **Editorial** → *Verified*, then fill in FIR number and police station. An FIR number typed in without *Verified* is never shown. |
 | Picture | The post's *Featured image*, under the headline | Post sidebar → *Featured image* |
 | Article text, tags | Kadence | The post itself |
+| **← Previous part / Next part →** | Only for stories in a series | Order: My Account → My series |
+| **Author card** | Writer's photo, name, bio, number of stories, Follow. *News desk* for Editors/Admins, *Community writer* for everyone else | The writer's own profile (Users → Profile → *Biographical Info*) |
+| **Like, Save, Comments (n)** | | Nothing to set |
 | **Share** buttons | WhatsApp, Facebook, X, Telegram, LinkedIn, Copy link. On phones: WhatsApp, the phone's own Share sheet and Copy link | Nothing to set |
 | **Report** button | On every post | Nothing to set |
-| **Author card** | Writer's photo, name, bio, number of stories. *News desk* for Editors/Admins, *Community writer* for everyone else | The writer's own profile (Users → Profile → *Biographical Info*) |
+| Comments | Kadence / WordPress. **Folded under the Comments button and opened in place** when it is pressed (like video sites). Open straight away when a link points at a comment (e.g. after posting one, or a "Reply" link). Without JavaScript they are simply shown. | Settings → Discussion (Task 12) |
 | **Related stories** | 4 newest posts from the same section, topped up with the newest overall | Choosing the right category |
-| Comments | Kadence / WordPress | Settings → Discussion (Task 12) |
+
+A thin red **progress bar** runs along the top of the screen on every story.
 
 Kadence's own related-posts carousel, author box and Previous/Next links are switched off
 (`scripts/setup-design.php`), because the parts above replace them.

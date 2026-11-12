@@ -25,21 +25,24 @@ $portal_station  = trim( (string) get_post_meta( $portal_post->ID, 'portal_polic
 $portal_minutes  = function_exists( 'portal_read_minutes' ) ? portal_read_minutes( $portal_post ) : 0;
 ?>
 <div class="portal-article-flags">
-	<?php if ( $portal_minutes || $portal_premium ) : ?>
-		<p class="portal-article-flags__line">
-			<?php if ( $portal_premium ) : ?>
-				<span class="portal-badge portal-badge--premium"><?php esc_html_e( 'Premium', 'portal' ); ?></span>
-			<?php endif; ?>
-			<?php if ( $portal_minutes ) : ?>
-				<span class="portal-read-time">
-					<?php
-					/* translators: %s: number of minutes. */
-					echo esc_html( sprintf( _n( '%s min read', '%s min read', $portal_minutes, 'portal' ), number_format_i18n( $portal_minutes ) ) );
-					?>
-				</span>
-			<?php endif; ?>
-		</p>
-	<?php endif; ?>
+	<p class="portal-article-flags__line">
+		<?php if ( $portal_premium ) : ?>
+			<span class="portal-badge portal-badge--premium"><?php esc_html_e( 'Premium', 'portal' ); ?></span>
+		<?php endif; ?>
+		<?php if ( $portal_minutes ) : ?>
+			<span class="portal-read-time">
+				<?php
+				/* translators: %s: number of minutes. */
+				echo esc_html( sprintf( _n( '%s min read', '%s min read', $portal_minutes, 'portal' ), number_format_i18n( $portal_minutes ) ) );
+				?>
+			</span>
+		<?php endif; ?>
+		<?php // Task 17B. Hidden until reading.js runs, so it never shows as a dead button. ?>
+		<button type="button" class="portal-reading-toggle" data-portal-reading-toggle aria-pressed="false" hidden>
+			<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1v-13ZM12 6.5v13"/></svg>
+			<span class="portal-reading-toggle__label"><?php esc_html_e( 'Reading mode', 'portal' ); ?></span>
+		</button>
+	</p>
 
 	<?php if ( $portal_verified ) : ?>
 		<aside class="portal-verified" aria-label="<?php esc_attr_e( 'Verification', 'portal' ); ?>">

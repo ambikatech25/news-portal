@@ -16,7 +16,11 @@ Text Domain:  portal
  */
 
 :root {
-	--portal-serif: Georgia, "Noto Serif", "Noto Serif Devanagari", "Times New Roman", serif;
+	--portal-serif: Georgia, "Noto Serif", "Noto Serif Devanagari", "Kohinoor Devanagari", "Nirmala UI", "Times New Roman", serif;
+	/* Task 17B: story text. System fonts only (no download); the Devanagari names make Hindi use a
+	   proper Hindi font on each device: Android, Windows, iPhone/Mac, older Windows. */
+	--portal-read-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Devanagari", "Nirmala UI", "Kohinoor Devanagari", Mangal, "Helvetica Neue", Arial, sans-serif;
+	--portal-read-scale: 1;
 	--portal-accent: var(--global-palette1, #c8102e);
 	--portal-text: var(--global-palette3, #111827);
 	--portal-body: var(--global-palette4, #1f2937);
@@ -1656,5 +1660,294 @@ Text Domain:  portal
 }
 
 .portal-link-button--danger {
+	color: var(--portal-accent);
+}
+
+/* ---------------------------------------------------------------- Reading comfort (Task 17B) */
+
+/* Story text on every article: larger, taller lines (Hindi matras need the room). */
+.single-entry .entry-content {
+	font-family: var(--portal-read-font);
+	font-size: 1.125rem;
+	line-height: 1.75;
+}
+
+.single-entry .entry-content :is(p, li) {
+	overflow-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+	.single-entry .entry-content {
+		font-size: 1.1875rem;
+	}
+}
+
+/* Reading mode button, next to "x min read". */
+.portal-reading-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	padding: 0.25rem 0.75rem;
+	border: 1px solid var(--portal-border);
+	border-radius: 999px;
+	background: transparent;
+	color: var(--portal-text);
+	font-size: 0.875rem;
+	line-height: 1.4;
+	cursor: pointer;
+}
+
+.portal-reading-toggle:hover,
+.portal-reading-toggle:focus-visible {
+	border-color: var(--portal-accent);
+	color: var(--portal-accent);
+	background: transparent; /* beat Kadence's own button hover colours */
+	box-shadow: none;
+}
+
+.portal-reading-toggle[hidden] {
+	display: none;
+}
+
+/* Progress bar: drawn over the page (fixed), so it never pushes anything (no layout shift). */
+.portal-progress {
+	position: fixed;
+	top: var(--wp-admin--admin-bar--height, 0px);
+	right: 0;
+	left: 0;
+	z-index: 1001;
+	height: 3px;
+	pointer-events: none;
+}
+
+.portal-progress__bar {
+	width: 100%;
+	height: 100%;
+	background: var(--portal-accent);
+	transform: scaleX(0);
+	transform-origin: 0 50%;
+}
+
+/* Toolbar: only in reading mode. */
+.portal-reading-bar {
+	display: none;
+}
+
+html.portal-reading .portal-reading-bar {
+	position: fixed;
+	top: calc(var(--wp-admin--admin-bar--height, 0px) + 3px);
+	right: 0;
+	left: 0;
+	z-index: 1000;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 16px;
+	border-bottom: 1px solid var(--global-palette7);
+	background: var(--global-palette9);
+	color: var(--global-palette4);
+	font-family: var(--portal-read-font);
+	font-size: 0.875rem;
+}
+
+.portal-reading-bar__left {
+	margin-right: auto;
+	color: var(--global-palette5);
+	white-space: nowrap;
+}
+
+.portal-reading-bar__group {
+	display: inline-flex;
+	gap: 0.25rem;
+}
+
+.portal-reading-bar__btn {
+	min-width: 2.5rem;
+	min-height: 2.25rem;
+	padding: 0.25rem 0.625rem;
+	border: 1px solid var(--global-palette7);
+	border-radius: 6px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	line-height: 1.2;
+	cursor: pointer;
+}
+
+.portal-reading-bar__btn:hover,
+.portal-reading-bar__btn:focus-visible,
+.portal-reading-bar__btn[aria-pressed="true"] {
+	border-color: var(--global-palette1);
+	color: var(--global-palette1);
+	background: transparent; /* beat Kadence's own button hover colours */
+	box-shadow: none;
+}
+
+.portal-reading-bar__big {
+	font-size: 1.125rem;
+}
+
+/* Phones: colour buttons become small swatches (the words stay for screen readers). */
+@media (max-width: 479px) {
+	.portal-reading-bar__theme {
+		position: relative;
+		min-width: 2.25rem;
+		font-size: 0;
+	}
+
+	.portal-reading-bar__theme::before {
+		content: "";
+		position: absolute;
+		inset: 0.45rem;
+		border: 1px solid #9ca3af;
+		border-radius: 50%;
+	}
+
+	.portal-reading-bar__theme--light::before { background: #fff; }
+	.portal-reading-bar__theme--sepia::before { background: #f6efe1; }
+	.portal-reading-bar__theme--dark::before { background: #14161a; }
+}
+
+/* Reading mode: only the headline, the story and the series links stay. */
+html.portal-reading body {
+	padding-top: 3.5rem;
+	background: var(--global-palette9);
+}
+
+
+html.portal-reading :is(#masthead, .portal-breaking, #colophon, .portal-article-actions, .portal-author-card, #comments, .portal-comments-panel, .portal-byline-follow, .portal-related, .entry-footer, #kt-scroll-up, .post-navigation-wrap, .post-navigation) {
+	display: none !important;
+}
+
+html.portal-reading .content-container {
+	max-width: calc(42rem + 32px); /* about 65 characters a line */
+}
+
+html.portal-reading .single-entry {
+	box-shadow: none;
+	background: transparent;
+}
+
+html.portal-reading .single-entry .entry-content {
+	font-size: calc(1.125rem * var(--portal-read-scale));
+}
+
+@media (min-width: 768px) {
+	html.portal-reading .single-entry .entry-content {
+		font-size: calc(1.1875rem * var(--portal-read-scale));
+	}
+}
+
+/* Colours: reading mode swaps Kadence's palette, and everything built on it follows. */
+html.portal-reading[data-portal-theme="sepia"] {
+	--global-palette1: #9a3412;
+	--global-palette2: #7c2d12;
+	--global-palette3: #2f261b;
+	--global-palette4: #3d3326;
+	--global-palette5: #6b5d4b;
+	--global-palette6: #857560;
+	--global-palette7: #e4d8c1;
+	--global-palette8: #efe5d2;
+	--global-palette9: #f6efe1;
+	color-scheme: light;
+}
+
+html.portal-reading[data-portal-theme="dark"] {
+	--global-palette1: #f87171;
+	--global-palette2: #fca5a5;
+	--global-palette3: #f3f4f6;
+	--global-palette4: #e5e7eb;
+	--global-palette5: #a1a7b3;
+	--global-palette6: #8b919c;
+	--global-palette7: #2d3138;
+	--global-palette8: #1b1e23;
+	--global-palette9: #14161a;
+	color-scheme: dark;
+}
+
+html.portal-reading[data-portal-theme="dark"] .single-entry img {
+	filter: brightness(0.9); /* photos less glaring at night */
+}
+
+@media print {
+	.portal-progress,
+	.portal-reading-bar,
+	.portal-reading-toggle {
+		display: none !important;
+	}
+}
+
+/* Kadence colours every hovered/focused button; our reading buttons stay plain. */
+.portal-reading-toggle:is(:hover, :focus, :active),
+.portal-reading-bar__btn:is(:hover, :focus, :active) {
+	background: transparent;
+	box-shadow: none;
+}
+
+/* Small phones: the toolbar stays on one line (✕ instead of "Exit", tighter spacing). */
+@media (max-width: 479px) {
+	html.portal-reading .portal-reading-bar {
+		flex-wrap: nowrap;
+		gap: 0.375rem;
+		padding: 0.5rem 12px;
+	}
+
+	.portal-reading-bar__btn {
+		min-width: 2.25rem;
+		padding: 0.25rem 0.5rem;
+	}
+
+	.portal-reading-bar__word {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+}
+
+/* ---------------------------------------------------------------- Article: writer card, Follow, comments in place */
+
+/* "Follow" next to "By <writer>" under the headline. */
+.portal-byline-follow {
+	display: inline-block;
+	margin-left: 0.5rem;
+	vertical-align: middle;
+}
+
+.portal-byline-follow .portal-toggle {
+	padding: 0.125rem 0.625rem;
+	font-size: 0.8125rem;
+}
+
+/* The writer card now sits inside the story box, above Like / Save / Comments. */
+.single-entry .portal-author-card {
+	margin: 1.5rem 0 0;
+}
+
+/* Comments open right under the Comments button. */
+.portal-comments-panel[hidden] {
+	display: none;
+}
+
+.portal-comments-panel {
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--portal-border);
+}
+
+/* Kadence draws comments as their own box; inside the story box that would be a box in a box. */
+.single-entry .portal-comments-panel #comments {
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	background: transparent;
+}
+
+.portal-toggle--comments[aria-expanded="true"] {
+	border-color: var(--portal-accent);
 	color: var(--portal-accent);
 }

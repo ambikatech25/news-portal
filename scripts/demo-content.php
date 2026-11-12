@@ -179,7 +179,26 @@ function portal_demo_add() {
 		array( 'Truck diaries: leaving Raipur before dawn', 'community-blogs', 100, array( 'writer' => 0, 'series' => 'Truck diaries' ) ),
 		array( 'Truck diaries: a night at a dhaba near Sambalpur', 'community-blogs', 60, array( 'writer' => 0, 'series' => 'Truck diaries' ) ),
 		array( 'Truck diaries: unloading at Paradip port', 'community-blogs', 12, array( 'writer' => 0, 'series' => 'Truck diaries' ) ),
+		// Task 17B: a long Hindi story, to check Hindi text, reading mode and the progress bar.
+		array( 'रायपुर के पुराने बाज़ार: एक सुबह की सैर', 'community-blogs', 30, array( 'writer' => 2, 'hindi' => true ) ),
 	);
+	$hindi_paragraphs = array(
+		'यह स्थानीय जाँच के लिए डेमो लेख है। यह असली ख़बर नहीं है और वेबसाइट शुरू होने से पहले हटा दिया जाएगा। इसका काम सिर्फ़ यह देखना है कि लंबा हिंदी लेख फ़ोन और कंप्यूटर पर आराम से पढ़ा जा सकता है या नहीं।',
+		'सुबह छह बजे गोल बाज़ार की गलियों में सब्ज़ी वालों की आवाज़ें गूँजने लगती हैं। कोई टमाटर का भाव बता रहा है, कोई ताज़ी भिंडी दिखा रहा है, और चाय की दुकान पर पहली केतली चढ़ चुकी है।',
+		'पुराने दुकानदार बताते हैं कि पहले यहाँ बैलगाड़ियों से माल आता था। आज ट्रक और ई-रिक्शा हैं, पर मोलभाव का तरीक़ा वही है: पहले मुस्कान, फिर भाव, और आख़िर में थोड़ा धनिया मुफ़्त।',
+		'बाज़ार के बीच एक छोटी सी किताबों की दुकान है जहाँ स्कूल के बच्चे पुरानी किताबें आधे दाम पर ख़रीदते हैं। दुकान के मालिक कहते हैं कि किताब का दूसरा पाठक मिलना उन्हें सबसे अच्छा लगता है।',
+		'दोपहर होते-होते धूप तेज़ हो जाती है और भीड़ कम। तब दुकानदार आपस में शहर की ख़बरें बाँटते हैं: नई सड़क, बिजली का बिल, और अगले हफ़्ते का मेला।',
+		'शाम को बाज़ार फिर जाग उठता है। दफ़्तर से लौटते लोग, कॉलेज के छात्र और परिवार, सब अपनी-अपनी सूची लेकर निकलते हैं। रोशनी में फलों के ढेर और भी रंगीन दिखते हैं।',
+	);
+	$hindi_body = '';
+	for ( $round = 0; $round < 4; $round++ ) {
+		foreach ( $hindi_paragraphs as $paragraph ) {
+			$hindi_body .= "<!-- wp:paragraph -->\n<p>" . $paragraph . "</p>\n<!-- /wp:paragraph -->\n\n";
+		}
+		if ( $round < 3 ) {
+			$hindi_body .= "<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">भाग " . ( $round + 2 ) . "</h2>\n<!-- /wp:heading -->\n\n";
+		}
+	}
 	$series_parts = array();
 
 	mt_srand( 7 ); // Same "random" view counts every run.
@@ -188,7 +207,7 @@ function portal_demo_add() {
 		$post_id = wp_insert_post(
 			array(
 				'post_title'    => $title,
-				'post_content'  => $body,
+				'post_content'  => empty( $flags['hindi'] ) ? $body : $hindi_body,
 				'post_status'   => 'publish',
 				'post_author'   => isset( $flags['writer'] ) ? $writers[ $flags['writer'] ] : $desk,
 				'post_category' => array( $cat ? $cat->term_id : 1 ),

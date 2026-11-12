@@ -14,6 +14,50 @@
 		}
 	}
 
+	/* ---------- Comments: open in place under the Comments button ---------- */
+	( function () {
+		var panel = document.querySelector( '[data-portal-comments]' );
+		var button = document.querySelector( '[data-portal-comments-toggle]' );
+		if ( ! panel || ! button ) {
+			return;
+		}
+		// Stay open when the address points at a comment (after posting one, links to a
+		// comment, "Reply" links) so the reader lands on it.
+		var wanted = /^#(comments|respond|comment-\d+)$/.test( location.hash ) || /[?&]replytocom=/.test( location.search );
+
+		function show( open ) {
+			panel.hidden = ! open;
+			button.setAttribute( 'aria-expanded', open ? 'true' : 'false' );
+		}
+
+		show( wanted );
+		button.addEventListener( 'click', function ( event ) {
+			event.preventDefault();
+			var open = panel.hidden;
+			show( open );
+			if ( open ) {
+				var rect = panel.getBoundingClientRect();
+				if ( rect.top > window.innerHeight * 0.75 ) {
+					panel.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+				}
+				// No comments yet: go straight to the writing box (signed-in readers).
+				// The first VISIBLE box: the spam filter hides a decoy box named "comment".
+				var box = Array.prototype.find.call( panel.querySelectorAll( 'textarea' ), function ( el ) {
+					return el.offsetParent !== null;
+				} );
+				if ( box && ! panel.querySelector( '.comment-list' ) ) {
+					box.focus( { preventScroll: true } );
+				}
+			}
+		} );
+		// "Comments" links elsewhere on the page (e.g. #comments in the address) open it too.
+		window.addEventListener( 'hashchange', function () {
+			if ( /^#(comments|respond|comment-\d+)$/.test( location.hash ) ) {
+				show( true );
+			}
+		} );
+	}() );
+
 	/* ---------- Share: the phone's own share sheet, where available ---------- */
 	document.querySelectorAll( '[data-portal-share]' ).forEach( function ( btn ) {
 		if ( ! navigator.share ) {

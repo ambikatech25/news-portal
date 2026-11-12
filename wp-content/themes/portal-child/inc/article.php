@@ -4,13 +4,15 @@
  * instead of copying the whole template (so Kadence updates keep working).
  *
  * Order on the page:
- *   header (Kadence: category, headline, author, date)
- *   -> Verified box, Premium label, read time       kadence_single_after_entry_header
+ *   header (Kadence: category, headline, "By <writer> [Follow]", date)   + kadence_author_meta_output
+ *   -> Verified box, Premium label, read time, Reading mode   kadence_single_after_entry_header
  *   -> article text and tags (Kadence)
- *   -> series box, Like / Save / Comments, share, Report  kadence_single_after_inner_content
- *   -> author card, comments, related posts         kadence_single_after_content
+ *   -> series box (5), writer card (8), Like / Save / Comments, share, Report (10),
+ *      comments panel (12)                                     kadence_single_after_inner_content
+ *   -> related posts                                           kadence_single_after_content
  *
- * Comments come before related stories (readers missed them at the very bottom). Kadence prints
+ * Comments sit right under the Comments button and open in place when it is pressed (article.js),
+ * like on video sites, instead of at the very bottom where readers missed them. Kadence prints
  * comments last and has no hook after them, so we print them ourselves and hand Kadence's own
  * later call an empty template (portal_child_comments_once).
  *
@@ -46,29 +48,67 @@ function portal_child_article_actions() {
 		get_template_part( 'template-parts/portal/article-actions', null, array( 'post' => get_post() ) );
 	}
 }
-add_action( 'kadence_single_after_inner_content', 'portal_child_article_actions' );
+add_action( 'kadence_single_after_inner_content', 'portal_child_article_actions', 10 );
 
 /**
- * Author card, comments and related posts, after the article box.
+ * Writer card, right after the story (above Like / Save / Comments).
  */
-function portal_child_article_after() {
+function portal_child_article_author() {
+	if ( portal_child_is_article() ) {
+		get_template_part( 'template-parts/portal/author-card', null, array( 'post' => get_post() ) );
+	}
+}
+add_action( 'kadence_single_after_inner_content', 'portal_child_article_author', 8 );
+
+/**
+ * Comments panel, right under the Comments button. Open without JavaScript; article.js folds it
+ * and the button opens it in place (it stays open when a link points to a comment).
+ */
+function portal_child_article_comments() {
 	if ( ! portal_child_is_article() ) {
 		return;
 	}
-	$post = get_post();
-	get_template_part( 'template-parts/portal/author-card', null, array( 'post' => $post ) );
-
 	// Same condition Kadence uses (comments allowed on this post, open or already there).
 	$show = function_exists( '\Kadence\kadence' ) ? \Kadence\kadence()->show_comments() : ( comments_open() || get_comments_number() );
-	if ( $show ) {
-		comments_template();
+	if ( ! $show ) {
+		return;
 	}
+	echo '<div class="portal-comments-panel" id="portal-comments-panel" data-portal-comments>';
+	comments_template();
+	echo '</div>';
+}
+add_action( 'kadence_single_after_inner_content', 'portal_child_article_comments', 12 );
 
-	if ( function_exists( 'portal_get_related_posts' ) ) {
-		get_template_part( 'template-parts/portal/related', null, array( 'posts' => portal_get_related_posts( $post, 4 ) ) );
+/**
+ * Related posts, after the article box.
+ */
+function portal_child_article_after() {
+	if ( portal_child_is_article() && function_exists( 'portal_get_related_posts' ) ) {
+		get_template_part( 'template-parts/portal/related', null, array( 'posts' => portal_get_related_posts( get_post(), 4 ) ) );
 	}
 }
 add_action( 'kadence_single_after_content', 'portal_child_article_after' );
+
+/**
+ * "Follow" right after the writer's name under the headline, so readers can follow at once.
+ * Writers do not see it on their own stories (portal_child_toggle leaves it out).
+ *
+ * @param string $output Kadence's "By <writer>" markup.
+ * @return string
+ */
+function portal_child_byline_follow( $output ) {
+	if ( ! portal_child_is_article() || ! function_exists( 'portal_child_toggle' ) || ! in_the_loop() ) {
+		return $output;
+	}
+	$button = portal_child_toggle( 'follow-author', (int) get_the_author_meta( 'ID' ) );
+	$end    = strrpos( $output, '</span>' );
+	if ( ! $button || false === $end ) {
+		return $output;
+	}
+	// Inside Kadence's "posted-by" box, so its separator dot comes after the button.
+	return substr_replace( $output, '<span class="portal-byline-follow">' . $button . '</span>', $end, 0 );
+}
+add_filter( 'kadence_author_meta_output', 'portal_child_byline_follow' );
 
 /**
  * Print the comments only once per page: the second call (Kadence's own, at the bottom)

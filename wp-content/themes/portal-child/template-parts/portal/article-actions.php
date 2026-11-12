@@ -24,7 +24,7 @@ $portal_title = html_entity_decode( get_the_title( $portal_post ), ENT_QUOTES, '
 			// Jump to the comments (they come right after the writer's card).
 			if ( comments_open( $portal_post ) || get_comments_number( $portal_post ) ) {
 				printf(
-					'<a class="portal-toggle portal-toggle--comments" href="#comments">%1$s<span class="portal-toggle__label">%2$s</span><span class="portal-toggle__count">%3$s</span></a>',
+					'<a class="portal-toggle portal-toggle--comments" href="#comments" data-portal-comments-toggle aria-controls="portal-comments-panel">%1$s<span class="portal-toggle__label">%2$s</span><span class="portal-toggle__count">%3$s</span></a>',
 					portal_child_engage_icon( 'comment' ), // phpcs:ignore WordPress.Security.EscapeOutput -- trusted SVG.
 					esc_html__( 'Comments', 'portal' ),
 					esc_html( number_format_i18n( (int) get_comments_number( $portal_post ) ) )

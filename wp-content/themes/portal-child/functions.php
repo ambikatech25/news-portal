@@ -16,6 +16,7 @@ require_once get_stylesheet_directory() . '/inc/article.php';
 require_once get_stylesheet_directory() . '/inc/account.php';
 require_once get_stylesheet_directory() . '/inc/engagement.php';
 require_once get_stylesheet_directory() . '/inc/series.php';
+require_once get_stylesheet_directory() . '/inc/reading.php';
 
 /**
  * Load the child theme's stylesheet after Kadence's main stylesheet.
