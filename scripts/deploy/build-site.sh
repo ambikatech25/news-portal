@@ -25,7 +25,7 @@ sh "$DIR/setup-plugins.sh"
 step "Task 4: categories, legal pages, menus"
 sh "$DIR/setup-structure.sh"
 
-for s in design accounts writing engagement community review moderation seo speed security; do
+for s in design accounts writing engagement community tips review moderation seo speed security; do
   step "setup-$s.php"
   wp eval-file "$DIR/setup-$s.php"
 done

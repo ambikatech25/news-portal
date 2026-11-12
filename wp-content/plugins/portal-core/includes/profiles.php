@@ -364,18 +364,21 @@ add_filter(
  *
  * @param array  $file   One entry of $_FILES: name, type, tmp_name, error, size.
  * @param string $prefix Start of the error codes, e.g. "portal_avatar" -> "portal_avatar_size".
+ * @param int    $max    Largest allowed size in bytes (default 2 MB, profile photos).
  * @return array|WP_Error
  */
-function portal_check_photo_upload( array $file, $prefix = 'portal_avatar' ) {
+function portal_check_photo_upload( array $file, $prefix = 'portal_avatar', $max = PORTAL_AVATAR_MAX_BYTES ) {
+	/* translators: %s: size limit, e.g. "2 MB". */
+	$too_big = sprintf( __( 'The photo is too large. The limit is %s.', 'portal' ), size_format( $max ) );
 	// The server itself (PHP's upload limit) can turn a big file away before we see it.
 	if ( in_array( (int) ( $file['error'] ?? 0 ), array( UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE ), true ) ) {
-		return new WP_Error( $prefix . '_size', __( 'The photo is too large. The limit is 2 MB.', 'portal' ), array( 'status' => 400 ) );
+		return new WP_Error( $prefix . '_size', $too_big, array( 'status' => 400 ) );
 	}
 	if ( ! empty( $file['error'] ) || empty( $file['tmp_name'] ) ) {
 		return new WP_Error( $prefix . '_upload', __( 'The photo did not upload. Please try again.', 'portal' ), array( 'status' => 400 ) );
 	}
-	if ( (int) $file['size'] > PORTAL_AVATAR_MAX_BYTES ) {
-		return new WP_Error( $prefix . '_size', __( 'The photo is too large. The limit is 2 MB.', 'portal' ), array( 'status' => 400 ) );
+	if ( (int) $file['size'] > $max ) {
+		return new WP_Error( $prefix . '_size', $too_big, array( 'status' => 400 ) );
 	}
 	// Check the real file content, not just the name: a renamed script must not get through.
 	$mimes = array(

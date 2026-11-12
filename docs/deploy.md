@@ -118,6 +118,9 @@ every **5 minutes** → **Save**.
 - A test sign-up e-mail arrives in a real inbox (not spam).
 - Cron runs (`wp cron event list` shows jobs on time).
 - `x-litespeed-cache` appears in page headers (LiteSpeed cache is working).
+- Upload limit at least 10 MB per file (`wp eval "echo size_format( wp_max_upload_size() );"`), so reader
+  tips can carry phone photos up to 8 MB (Task 17D, `tips.md`).
+- The daily tips clean-up is scheduled (`wp cron event list` shows `portal_tips_cleanup`).
 
 ## Rehearsal (done locally before going live)
 

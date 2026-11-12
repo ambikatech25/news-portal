@@ -43,6 +43,8 @@ services:
       # and third-party plugins stay inside the container volume.
       - ./wp-content/themes/portal-child:/var/www/html/wp-content/themes/portal-child
       - ./wp-content/plugins/portal-core:/var/www/html/wp-content/plugins/portal-core
+      # Local upload limits close to the live host's (Task 17D), see docker/php-uploads.ini.
+      - ./docker/php-uploads.ini:/usr/local/etc/php/conf.d/portal-uploads.ini:ro
 
   wpcli:
     image: wordpress:cli-php8.2
