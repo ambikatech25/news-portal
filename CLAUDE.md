@@ -6,6 +6,7 @@
 A **news-style website with community blogs**, built on **WordPress** within a small budget (₹50k–1 lakh total).
 - An editor-run **news desk**: logistics, industry, coal and steel, crime, and regional news for Chhattisgarh and central India.
 - **Community blogs**: anyone can sign up, write and submit posts, and read others' posts.
+- **Reader news tips**: any signed-in member can send news (what, where, when, photos); editors verify it and publish it as a News story credited to a reader report. Members never publish directly into News or Crime.
 - **Admins** control users, content, reviews and takedowns.
 - One paid plan, **CityCharcha Premium at ₹99/month or ₹999/year** with a 7-day free trial (Razorpay on the web; in-app purchase in the future mobile app). See "Premium and ads" below.
 - The look is a **news site first** (headlines, sections, breaking strip, trending), with a lighter blog feel (author profiles, follows, comments).
@@ -64,6 +65,8 @@ A **news-style website with community blogs**, built on **WordPress** within a s
 | Breaking strip and alerts | **7 am morning briefing** e-mail; **ad-free**; Premium badge; early access |
 
 - Do not switch the paywall on until there is a month of Premium content ready.
+- **Premium series (agreed 2026-11-12):** a writer can make a community series Premium (an editor approves). The **first 3 parts are always free**; Part 4 onward shows the ~150-word preview and a subscribe box to non-members. One CityCharcha Premium subscription unlocks every series (no per-writer subscriptions until phase 2). Paid-part reads are counted per writer (Writer of the Month now, revenue share in phase 2).
+- **Trial:** the 7-day free trial starts only when the reader subscribes and sets up Razorpay autopay (UPI AutoPay or card); the first charge is on day 8 unless cancelled. One trial per person.
 - Writers may mark a post Premium (an editor approves). **Writer subscriptions with revenue share are phase 2** (about 6 months after launch or 500 Premium members); until then a manual "Writer of the Month" reward.
 - Ads: fixed slots in our own theme (not AdSense Auto ads), lazy-loaded so PageSpeed stays ≥ 80; each slot shows AdSense, a direct sponsor banner, or nothing (portal-core screen, Task 19C).
 
