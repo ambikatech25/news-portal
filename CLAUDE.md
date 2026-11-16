@@ -16,7 +16,7 @@ A **news-style website with community blogs**, built on **WordPress** within a s
 
 ## Tech stack (do not change without asking)
 - WordPress (latest), PHP 8.2+, MySQL/MariaDB
-- Local development: Docker (`docker compose`) with WP-CLI. Production: **MilesWeb Premium WordPress hosting** (LiteSpeed, mPanel, SSH, WP-CLI). The domain citycharcha.com stays registered at Hostinger and points to MilesWeb.
+- Local development: Docker (`docker compose`) with WP-CLI. Production: **Hostinger "Unlimited" web hosting** (48 months, bought 2026-11-16; LiteSpeed, hPanel, SSH, WP-CLI, daily backups). The domain is registered at Hostinger too (3 years). The same plan may also host small company / landing pages (e.g. ambikairon.com); they share its resources, so keep them few and updated.
 - Parent theme: Kadence or Blocksy (free). All customisation lives in our **child theme** `portal-child`.
 - Our custom code lives in **one plugin**, `portal-core`.
 - Approved free plugins: PublishPress (workflow), Nextend Social Login (Google sign-in), WP User Frontend (front-end posting), Rank Math (SEO), LiteSpeed Cache, Wordfence, UpdraftPlus, Antispam Bee, Polylang (Hindi + English), MailPoet (newsletter), OneSignal (browser push), Fluent Forms (grievance and tip forms), Site Kit by Google, an image optimiser that strips EXIF/GPS.

@@ -9,23 +9,26 @@ with exactly our settings. Stories, users and photos are then created on the liv
 
 **Rule (CLAUDE.md):** nothing on the live server is changed without the owner's OK.
 
-## 1. Cost (checked on hostinger.com/in, 10 Nov 2026)
+## 1. Cost (bought 16 Nov 2026)
 
 | Item | Price | Notes |
 |---|---|---|
-| **Hostinger "Unlimited" web hosting** (recommended) | **₹199/month** on a 48-month plan (≈ ₹9,552 + 18% GST ≈ **₹11,270 for 4 years**) | Renews at ₹649/month. Daily backups, NVMe storage, SSH + WP-CLI, free email, CDN. Shorter plans cost more per month: check at checkout |
-| Alternative: "Premium" | ₹139/month (48 months) | Cheapest plan with SSH (needed). Weekly backups only, 20 GB |
-| Later if traffic grows: "Cloud Startup" | ₹599/month (48 months) | 4 GB RAM, 4 CPU. Upgrade in a few clicks, no rebuild |
-| Domain citycharcha.com | already bought | yearly renewal at your registrar |
-| SSL certificate, email mailboxes, Cloudflare, all our plugins, Google Drive backups | ₹0 | Hostinger's free email is free for the first year on these plans; check the renewal price |
+| **Hostinger "Unlimited" web hosting, 48 months** (bought) | **₹199/month = ₹9,552 + 18% GST ≈ ₹11,271** for 4 years (sale price) | Renews in Nov 2030 at ₹649/month. Daily backups, 50 GB NVMe, SSH + WP-CLI, unlimited websites and mailboxes (mailboxes free for 1 year: check their price before Nov 2027), CDN |
+| Later if traffic grows: "Cloud Startup" | from ₹599/month | 4 GB RAM, 4 CPU. Upgrade in a few clicks, no rebuild |
+| Domain | registered at Hostinger for **3 years** (Nov 2026) | Renewal due Nov 2029: keep auto-renew on |
+| Free domain voucher (1 year) | ₹0 | Optional: `citycharcha.in`, redirected to citycharcha.com (brand protection) |
+| SSL certificate, Cloudflare, all our plugins, Google Drive backups | ₹0 | |
+
+The plan also hosts small company / landing pages (e.g. ambikairon.com) if wanted; they share its
+storage and power, so keep them few and updated. Moving an existing site: check where its e-mail runs first.
 
 Not needed yet: Premium membership plugin + Razorpay (Task 20, ask before buying), Google Workspace.
 
 ## 2. Owner steps (about 30 minutes)
 
-### A. Buy the hosting
-1. https://www.hostinger.com/in/web-hosting → **Unlimited** → choose the period (48 months is cheapest
-   per month) → create the account with the **company e-mail** → pay.
+### A. Buy the hosting (done 16 Nov 2026)
+1. https://www.hostinger.com/in/web-hosting → **Website hosting** (not VPS) → **Unlimited** → 48 months →
+   account with the **company e-mail** → pay.
 2. During setup, if asked about a domain: **"I already have a domain"** → `citycharcha.com`.
 
 ### B. Point the domain to Hostinger
@@ -121,6 +124,36 @@ every **5 minutes** → **Save**.
 - Upload limit at least 10 MB per file (`wp eval "echo size_format( wp_max_upload_size() );"`), so reader
   tips can carry phone photos up to 8 MB (Task 17D, `tips.md`).
 - The daily tips clean-up is scheduled (`wp cron event list` shows `portal_tips_cleanup`).
+
+## Live build (16 Nov 2026)
+
+Server: `ssh -i ~/.ssh/citycharcha_hostinger -p 65002 u587481986@147.93.109.94` (key-only; the key
+lives on the developer PC; remove it in hPanel → SSH Access to revoke). Site folder:
+`~/domains/citycharcha.com/public_html`; our code copy: `~/citycharcha` (outside the public folder).
+
+`build-site.sh` ran with no errors; all 14 plugins active; https, `www` and `http` redirects, security
+headers and LiteSpeed cache (`x-litespeed-cache: hit`) confirmed from outside.
+
+Found on the way (and fixed):
+
+| Problem | Fix |
+|---|---|
+| Hostinger's installer named the admin login **admin**, which our Wordfence settings block | Login renamed (password unchanged) through WordPress with `wp eval-file`; set your own display name in Users → Profile |
+| Hostinger pre-installs its own plugins (AI Assistant, Easy Onboarding, Reach, Hostinger) | Removed (not on the approved list). Its two must-use helpers (preview domain, auto-updates) stay |
+| **Hostinger disables `proc_open`**, so WP-CLI commands that start another process fail: `wp rewrite structure`, `wp rewrite flush --hard`, `wp plugin delete`, `wp theme delete`, `wp db query` / `export` | `setup-base.sh` saves the permalink option directly and falls back to a normal flush. For deletes: deactivate, then remove the folder. For database work: `wp eval` with `$wpdb` |
+| The server has no `WP_SITE_TITLE`, so the site name was saved empty | `setup-base.sh` falls back to "CityCharcha"; `setup-seo.php` re-run |
+| WordPress's "Hello world!" post was kept (WordPress was already installed, so the clean-up was skipped) | Deleted |
+| An upload deleted the old scripts before the new ones were unpacked | Always unpack into a new folder, then swap (see below) |
+
+Updating code later (from the developer PC, Git Bash, project folder):
+```sh
+git archive --format=tar.gz -o cc.tgz HEAD wp-content/themes/portal-child wp-content/plugins/portal-core scripts
+scp -i ~/.ssh/citycharcha_hostinger -P 65002 cc.tgz u587481986@147.93.109.94:cc.tgz && rm cc.tgz
+ssh -i ~/.ssh/citycharcha_hostinger -p 65002 u587481986@147.93.109.94 \
+  'set -e; rm -rf ~/cc-new && mkdir ~/cc-new && tar -xzf ~/cc.tgz -C ~/cc-new && rm -rf ~/citycharcha && mv ~/cc-new ~/citycharcha && rm ~/cc.tgz \
+   && sh ~/citycharcha/scripts/deploy/update-code.sh ~/domains/citycharcha.com/public_html'
+```
+(Use a relative file name with `tar` in Git Bash: a `C:\...` path is read as a remote computer.)
 
 ## Rehearsal (done locally before going live)
 

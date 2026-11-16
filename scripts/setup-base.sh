@@ -14,7 +14,7 @@ if wp core is-installed 2>/dev/null; then
 else
   wp core install \
     --url="$WP_SITE_URL" \
-    --title="$WP_SITE_TITLE" \
+    --title="${WP_SITE_TITLE:-CityCharcha}" \
     --admin_user="$WP_ADMIN_USER" \
     --admin_password="$WP_ADMIN_PASSWORD" \
     --admin_email="$WP_ADMIN_EMAIL" \
@@ -23,7 +23,7 @@ else
 fi
 
 echo "== 2. Site settings"
-wp option update blogname "$WP_SITE_TITLE"
+wp option update blogname "${WP_SITE_TITLE:-CityCharcha}" # the server has no WP_SITE_TITLE (found in Task 18)
 wp option update blogdescription "News and community voices from Chhattisgarh and central India"
 wp option update timezone_string "Asia/Kolkata"
 wp option update date_format "j F Y"
@@ -34,8 +34,12 @@ wp option update users_can_register 0
 wp option update default_role subscriber
 
 echo "== 3. Permalinks: /category/post-name/"
-wp rewrite structure '/%category%/%postname%/'
-wp rewrite flush --hard
+# Saved as a plain option, not with "wp rewrite structure": that command starts extra WP-CLI
+# processes, and Hostinger blocks starting processes (proc_open is disabled, found in Task 18).
+# Same for "rewrite flush --hard"; Hostinger's .htaccess already has WordPress's standard rules,
+# so the normal flush is enough there.
+wp option update permalink_structure '/%category%/%postname%/'
+wp rewrite flush --hard || wp rewrite flush
 
 echo "== 4. Remove sample content (only right after a fresh install)"
 if [ "$FRESH_INSTALL" = "1" ]; then
