@@ -145,6 +145,17 @@ Found on the way (and fixed):
 | WordPress's "Hello world!" post was kept (WordPress was already installed, so the clean-up was skipped) | Deleted |
 | An upload deleted the old scripts before the new ones were unpacked | Always unpack into a new folder, then swap (see below) |
 
+Finished on 17 Nov 2026:
+
+| Item | State |
+|---|---|
+| Mailboxes | `no-reply@citycharcha.com` (site sender), `officer@citycharcha.com` (Grievance Officer) |
+| `wp-config.php` | `WP_ENVIRONMENT_TYPE production`, `DISALLOW_FILE_EDIT`, `FORCE_SSL_ADMIN`, `WP_DEBUG false`, `DISABLE_WP_CRON`, `PORTAL_SMTP_HOST/PORT/USER`, `PORTAL_MAIL_FROM_NAME`; `PORTAL_SMTP_PASS` typed in by the owner (never in git or chat). Backup of the earlier file: `~/wp-config.backup-20261117-0636.php` |
+| Cron | hPanel → Cron Jobs, Custom, `*/5 * * * *`: `/usr/bin/php /home/u587481986/domains/citycharcha.com/public_html/wp-cron.php` (proven: a test job ran with WordPress's own scheduler off) |
+| E-mail | Test e-mail from the site reached the officer inbox (not spam). DNS: SPF `include:_spf.mail.hostinger.com`, DKIM `hostingermail-a/b/c`, DMARC `p=none`, MX `mx1/mx2.hostinger.com` |
+| Grievance e-mail option | `officer@citycharcha.com` |
+| Account | login `acehitansh` (Administrator), display name "CityCharcha Desk", profile `/writer/citycharcha-desk/` |
+
 Updating code later (from the developer PC, Git Bash, project folder):
 ```sh
 git archive --format=tar.gz -o cc.tgz HEAD wp-content/themes/portal-child wp-content/plugins/portal-core scripts
