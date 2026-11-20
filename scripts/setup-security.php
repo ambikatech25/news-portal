@@ -41,6 +41,17 @@ if ( class_exists( 'wfConfig' ) ) {
 		wfConfig::set( $portal_key, $portal_value );
 	}
 	WP_CLI::log( 'Wordfence: login protection, alerts and scans set.' );
+
+	// Two-factor login permissions. Wordfence normally adds them when it is first switched on in
+	// wp-admin; switched on from WP-CLI (our build) they were missing on the live site, so nobody
+	// could open Login Security (found in Task 19). Run Wordfence's own setup for them.
+	if ( class_exists( '\WordfenceLS\Controller_Permissions' ) ) {
+		$portal_perm = \WordfenceLS\Controller_Permissions::shared();
+		$portal_perm->install( true, true );      // Administrators: own 2FA, others' 2FA, settings
+		$portal_perm->allow_2fa_self( 'editor' ); // Editors set up their own two-factor login
+		$portal_perm->sync_login_security_menu_visibility();
+		WP_CLI::log( 'Wordfence: two-factor login available to Administrators and Editors.' );
+	}
 } else {
 	WP_CLI::warning( 'Wordfence is not active.' );
 }
