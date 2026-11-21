@@ -40,6 +40,18 @@ Work top to bottom. Each task lists what "done" means. Tick `[x]` when it is don
 - [x] **18. Deploy to Hostinger.** Hosting: Hostinger **Unlimited** web hosting, 48 months (bought 2026-11-16; LiteSpeed, hPanel, SSH, daily backups); domain registered at Hostinger for 3 years (registration to be completed and e-mail verified). Fresh site built by `scripts/deploy/build-site.sh` (rehearsed 2026-11-10), SSL, mailboxes, SMTP, cron, upload limit ≥ 10 MB, `www` and http redirect to https://citycharcha.com. *Done:* the live site works over https. _Live 16-17 Nov 2026: build with no errors, 14 plugins, https + redirects, security headers, LiteSpeed cache, production settings, hPanel cron every 5 min (proven), SMTP via no-reply@ (test mail in the inbox; SPF, DKIM, DMARC set), grievance e-mail officer@. Notes and lessons in `docs/deploy.md`. Google sign-in on the live site, 2FA, Drive backups, Search Console, PageSpeed: Task 19._
 - [ ] **19. Launch checklist.** Test every role, legal pages filled in, Grievance Officer named, AdSense applied for, Ministry of I&B details reminder. *Done:* checklist signed off by the owner.
 
+- [ ] **18A. Hindi + English site (agreed 21 Nov 2026).** With Polylang (free): **Hindi is the main language** (`citycharcha.com/`), **English at `/en/`**; an **English | हिंदी** switch on every page that opens the same story in the other language. News, Region, Industry, Logistics and Crime in both languages; Community Blogs in the writer's own language (translation optional). Steps:
+  1. Languages and addresses: Hindi default (no prefix), English `/en/`; existing English stories marked English.
+  2. Translate sections (समाचार, क्षेत्र, उद्योग, लॉजिस्टिक्स, अपराध, समुदाय…), menus, and pages (Community, Send news, Write, My Account, legal pages: Hindi placeholder until the lawyer's text).
+  3. Hindi interface text for our theme and plugin (buttons, labels, e-mails, messages) and WordPress / plugin language packs.
+  4. Our features follow the reader's language: home page, Breaking, trending, related, series, Community page, writer profiles, tips write-up, REST API (`?lang=hi|en`).
+  5. Short English-letter addresses for Hindi stories (title transliterated, e.g. `/region/khaira-saur-gaon/`), never the long `%e0%a4…` form.
+  6. Writing: writers pick the story's language (Hindi by default); editors get "Add Hindi / English version" on each story.
+  7. Translate the 13 published stories into Hindi as **drafts** for the Hindi writers to check and publish.
+  8. Google: language tags (hreflang) and sitemaps per language (Rank Math + Polylang).
+  9. Built and tested locally first, then put live only with the owner's OK.
+  *Done:* `citycharcha.com` opens in Hindi and `/en/` in English, the switch works on every page, the 13 stories exist in both languages, a writer can submit in either language, and all tests pass.
+
 ### After launch
 - [ ] **19A. Writer page upgrade.** Cover banner, the writer's series, followers up front on profile pages. *Done:* a writer can set a banner and their series show on their profile.
 - [ ] **19B. Reading lists.** Members turn Saved stories into named lists (e.g. "Steel prices", "Weekend reads"). *Done:* a member creates a list, adds stories and sees it in My Account.

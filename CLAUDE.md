@@ -39,6 +39,7 @@ A **news-style website with community blogs**, built on **WordPress** within a s
 - Categories: News, Logistics, Industry, Crime, Region, Community Blogs, Case Files (premium), Industry Intelligence (premium, added in Task 21).
 - **Editor-only categories:** News, Crime, Case Files, Industry Intelligence. Contributors and Authors must never be able to post in them; enforce this in `portal-core`, not only in the UI.
 - **Series:** community posts can belong to a series (Part 1, 2, 3…), Task 17A.
+- **Languages (agreed 2026-11-21, Task 18A):** Hindi is the main language (`/`), English at `/en/` (Polylang). News, Region, Industry, Logistics and Crime are published in both; Community Blogs in the writer's language. Every Hindi version is checked by a Hindi writer/editor before publishing (no unreviewed machine translation).
 - Custom post meta on posts (registered with `show_in_rest: true`):
   - `portal_verified` (bool)
   - `portal_fir_number` (string)
