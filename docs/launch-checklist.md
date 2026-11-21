@@ -10,15 +10,15 @@ Live site: https://citycharcha.com · wp-admin: https://citycharcha.com/wp-admin
 | # | Step | Who | Time | Guide | Done |
 |---|---|---|---|---|---|
 | 1 | **Two-factor login** for your admin account (phone code + password); require it for Admins and Editors | Owner | 5 min | `security.md` step 1 | [x] 18 Nov |
-| 2 | **Backups to Google Drive** (UpdraftPlus): sign in with the company Google account, run one backup | Owner | 10 min | `security.md` step 2 | [ ] |
-| 3 | **Wordfence firewall at full strength** ("Optimize the Wordfence Firewall") | Owner | 3 min | `security.md` step 3 | [ ] |
+| 2 | **Backups to Google Drive** (UpdraftPlus): sign in with the company Google account, run one backup | Owner | 10 min | `security.md` step 2 (Google account "City Charcha" = desk@citycharcha.com; first automatic backup 21 Nov 5:45 AM, success) | [x] 21 Nov |
+| 3 | **Wordfence firewall at full strength** ("Optimize the Wordfence Firewall") | Owner | 3 min | `security.md` step 3 (Extended Protection on; learning mode ends 23 Nov 2026 by itself) | [x] 21 Nov |
 
 ## B. Sign-in and roles
 
 | # | Step | Who | Time | Guide | Done |
 |---|---|---|---|---|---|
-| 4 | **Google sign-in on the live site**: add the live addresses in Google Cloud, paste the keys into Nextend on the live site, publish the Google app | Owner | 15 min | `accounts.md` steps D and E | [ ] |
-| 5 | **Test every role on the live site** with temporary test accounts (Member, Writer, Trusted writer, Editor): sign-up, writing → Pending, editor-only sections blocked, review, sensitive two-editor rule, reports, tips. Test accounts and their posts deleted afterwards | Dev | 20 min | this file, "Role test results" | [ ] |
+| 4 | **Google sign-in on the live site**: add the live addresses in Google Cloud, paste the keys into Nextend on the live site, publish the Google app | Owner | 15 min | `accounts.md` steps D and E (live test 21 Nov: new account via Google got Member + consent recorded) | [x] 21 Nov |
+| 5 | **Test every role on the live site** with temporary test accounts (Member, Writer, Trusted writer, Editor): sign-up, writing → Pending, editor-only sections blocked, review, sensitive two-editor rule, reports, tips. Test accounts and their posts deleted afterwards | Dev | 20 min | this file, "Role test results" | [x] 21 Nov |
 | 5b | **Admin e-mail on citycharcha.com**: create a mailbox (e.g. `desk@citycharcha.com`) → wp-admin **Settings → General → Administration Email Address** and **Users → Profile → Email** (WordPress e-mails a confirmation link to the new inbox: open it via Webmail) → then Dev points Wordfence alerts and UpdraftPlus reports to it (they still use the old Gmail) | Owner + Dev | 10 min | - | [x] 18 Nov |
 | 6 | **Editor accounts** for the news desk (each with their own `@citycharcha.com` mailbox): Users → Add New → role **Editor** → they set up two-factor login at first sign-in | Owner | 5 min each | `security.md` step 1 (first switch on the 10-day grace period in Login Security → Settings) | [ ] |
 
@@ -63,7 +63,23 @@ This is a list of topics, not legal text.
 
 ## Role test results
 
-(filled in by the developer after item 5)
+Run on the live site on 21 Nov 2026 with `scripts/live-role-test.php` (inside WordPress, as each role; no e-mails sent;
+everything created was deleted afterwards). **14 of 14 passed:**
+
+| # | Rule | Result |
+|---|---|---|
+| 1-2 | Trusted writer publishes community stories directly; cannot post in News | Pass |
+| 3 | Visitors read, but cannot write or like | Pass |
+| 4 | Members cannot write; can like and report | Pass |
+| 5-6 | Writer stories go to Pending; writers cannot publish or post in Crime | Pass |
+| 7 | Editors request changes (reason required) and approve | Pass |
+| 8-10 | Editors write in News; a sensitive story needs a second, different editor | Pass |
+| 11 | Reports stored; takedown hides the story and is in the audit log | Pass |
+| 12 | Reader tip is private; editor writes it up and publishes; tip marked published | Pass |
+| 13 | Writers make series of their own stories only | Pass |
+| 14 | Community page data loads for visitors | Pass |
+
+Re-run any time after an update (with the owner's OK): `cd ~/domains/citycharcha.com/public_html && wp eval-file ~/citycharcha/scripts/live-role-test.php`
 
 ## Sign-off
 
