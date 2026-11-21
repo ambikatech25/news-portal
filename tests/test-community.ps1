@@ -12,7 +12,7 @@ function Get-Html($session, $url) {
     return (curl.exe -s $url | Out-String)
 }
 function Get-Last($lines) { return ($lines | Where-Object { "$_".Trim() } | Select-Object -Last 1) }
-function Get-Community { return (Invoke-Rest $null GET '/portal/v1/community').Data }
+function Get-Community { return (Invoke-Rest $null GET '/portal/v1/community?lang=en').Data }
 function Get-Section($html, $id) { return [regex]::Match($html, "(?s)aria-labelledby=""$id"".*?</section>").Value }
 
 $tag = 'T17C-' + [guid]::NewGuid().ToString('N').Substring(0, 6)
@@ -24,13 +24,13 @@ try {
     $users = New-TestUsers @('subscriber', 'contributor', 'author', 'editor')
     $a = $users['author'].Session; $aId = $users['author'].Id
     $e = $users['editor'].Session
-    $url = "$Base/community/"
+    $url = "$Base/en/community/"
 
     Write-Host '== The page'
     $page = Get-Html $null $url
-    $homeHtml = Get-Html $null "$Base/"
-    $inMenu = $homeHtml -match '(?s)class="menu-item[^"]*"><a href="http://localhost:8080/community/"[^>]*>(<span[^>]*>)?Community'
-    $homeLink = $homeHtml -match 'portal-blogs-title">\s*<a href="http://localhost:8080/community/"'
+    $homeHtml = Get-Html $null "$Base/en/"
+    $inMenu = $homeHtml -match '(?s)class="menu-item[^"]*"><a href="http://localhost:8080/en/community/"[^>]*>(<span[^>]*>)?Community'
+    $homeLink = $homeHtml -match 'portal-blogs-title">\s*<a href="http://localhost:8080/en/community/"'
     Check '1. /community/ opens, the main menu''s "Community" goes there, and the home page''s Community block links to it' ((curl.exe -s -o NUL -w '%{http_code}' $url) -eq '200' -and $inMenu -and $homeLink) "menu=$inMenu home=$homeLink"
 
     $vis = [regex]::Match($page, 'class="portal-button" href="[^"]*">([^<]+)<').Groups[1].Value
@@ -73,10 +73,10 @@ try {
 
     Write-Host '== Trending writers'
     Wp post meta update $sid _portal_views 999999 | Out-Null
-    Wp transient delete portal_trending_writers | Out-Null
+    foreach ($k in "portal_trending_writers", "portal_trending_writers_en", "portal_trending_writers_hi") { Wp transient delete $k | Out-Null }
     $c = Get-Community
     $writersHtml = Get-Section (Get-Html $null $url) 'portal-writers-title'
-    Check '9. The writer with the most reads on recent community stories is first under Trending writers (page and API)' ($c.writers[0].id -eq $aId -and $writersHtml -match ('href="' + [regex]::Escape($c.writers[0].link) + '"')) "first=$($c.writers[0].id) expected=$aId"
+    Check '9. The writer with the most reads on recent community stories is first under Trending writers (page and API)' ($c.writers[0].id -eq $aId -and $writersHtml -match ('href="[^"]*' + [regex]::Escape(($c.writers[0].link -replace '^.*?(/writer/)', '$1')) + '"')) "first=$($c.writers[0].id) expected=$aId"
 
     Wp user meta update $aId portal_banned '{"by":1}' | Out-Null
     $banned = Get-Community

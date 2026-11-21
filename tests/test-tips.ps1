@@ -65,14 +65,14 @@ try {
     $photo = Join-Path $Tmp 'tip.jpg'; New-GpsPhoto $photo 320 200 1
 
     Write-Host '== Visitors'
-    $vis = Get-Html $null "$Base/send-news/"
-    $homeHtml = Get-Html $null "$Base/"
-    Check '1. Visitors see "Sign in to send news" (no form); the header has "Send news"; the page is kept out of Google' ($vis -match 'Sign in to send news' -and $vis -notmatch 'name="portal_tip_nonce"' -and $homeHtml -match 'portal-send-news-link"><a href="http://localhost:8080/send-news/"' -and $vis -match '<meta name=.robots.[^>]*noindex') 'visitor view'
+    $vis = Get-Html $null "$Base/en/send-news/"
+    $homeHtml = Get-Html $null "$Base/en/"
+    Check '1. Visitors see "Sign in to send news" (no form); the header has "Send news"; the page is kept out of Google' ($vis -match 'Sign in to send news' -and $vis -notmatch 'name="portal_tip_nonce"' -and $homeHtml -match 'portal-send-news-link"><a href="http://localhost:8080/en/send-news/"' -and $vis -match '<meta name=.robots.[^>]*noindex') 'visitor view'
 
     Write-Host '== A member sends a tip (form, with a GPS photo)'
-    $form = Get-Html $m "$Base/send-news/"
+    $form = Get-Html $m "$Base/en/send-news/"
     $nonce = [regex]::Match($form, 'name="portal_tip_nonce" value="([0-9a-f]+)"').Groups[1].Value
-    $sendArgs = @('-s', '-o', 'NUL', '-w', '%{redirect_url}', '-b', $m.Jar, '-c', $m.Jar, '-e', "$Base/send-news/",
+    $sendArgs = @('-s', '-o', 'NUL', '-w', '%{redirect_url}', '-b', $m.Jar, '-c', $m.Jar, '-e', "$Base/en/send-news/",
         '-F', 'action=portal_send_tip', '-F', "portal_tip_nonce=$nonce", '-F', "title=$tag Water pipeline burst near the market",
         '-F', 'details=The main water pipeline burst this morning and the road is flooded. Shops are closed.',
         '-F', 'where=Raipur', '-F', 'when=' + (Get-Date).ToString('yyyy-MM-dd'), '-F', 'how=saw', '-F', 'phone=98765 43210',
@@ -93,11 +93,11 @@ try {
     $byId = curl.exe -s -o NUL -w '%{http_code}' "$Base/?p=$tipId"
     $byType = curl.exe -s -o NUL -w '%{http_code}' "$Base/wp-json/wp/v2/portal_tip"
     $media = curl.exe -s -o NUL -w '%{http_code}' "$Base/wp-json/wp/v2/media/$photoId"
-    $search = Get-Html $null "$Base/?s=$tag"
+    $search = Get-Html $null "$Base/en/?s=$tag"
     Check '4. Tips are never public: no page, no API listing, photo hidden from the media API, not in search' ($byId -eq '404' -and $byType -eq '404' -and $media -in @('401', '403', '404') -and $search -notmatch "$tag Water") "page=$byId api=$byType media=$media"
 
-    $mine = Get-Html $m "$Base/account/?section=portal-tips&tip_sent=$tipId"
-    $other = Get-Html $m2 "$Base/account/?section=portal-tips"
+    $mine = Get-Html $m "$Base/en/account/?section=portal-tips&tip_sent=$tipId"
+    $other = Get-Html $m2 "$Base/en/account/?section=portal-tips"
     $api = Invoke-Rest $m GET '/portal/v1/me/tips'
     Check '5. My tips shows the tip as "Received" with a thank-you note; another member cannot see it; the app list has no phone' ($mine -match "$tag Water" -and $mine -match 'portal-tip-state--new">Received<' -and $mine -match "TIP-$tipId" -and $other -notmatch "$tag Water" -and $api.Data[0].id -eq $tipId -and -not ($api.Data[0].PSObject.Properties.Name -contains 'phone')) 'my tips'
 
@@ -121,7 +121,7 @@ try {
     Check '8. Editors open the tip (details, phone, photo); writers cannot; the menu shows how many tips are new' ($screen -match "$tag Water" -and $screen -match '\+919876543210' -and $screen -match 'wp-image-|attachment-thumbnail' -and $writer -notmatch '9876543210' -and $list -match 'Reader tips <span class="awaiting-mod"><span class="pending-count">\d+') 'editor screen'
 
     Invoke-TipAction $e $tipId 'checking' | Out-Null
-    $checking = Get-Html $m "$Base/account/?section=portal-tips"
+    $checking = Get-Html $m "$Base/en/account/?section=portal-tips"
     Check '9. "I am checking it": the member sees "Being checked"; written in the audit log' ((Get-TipMeta $tipId 'state') -eq 'checking' -and $checking -match 'portal-tip-state--checking">Being checked<' -and (Get-Log 'tip_checking' $tipId) -eq 1) 'checking'
 
     $to = Invoke-TipAction $e $tipId 'writeup'
@@ -131,7 +131,7 @@ try {
     Check '10. "Write it up" makes a DRAFT News story by the editor, with the reader''s text and photo' ($storyId -gt 0 -and $story.Data.status -eq 'draft' -and $story.Data.author -eq $users['editor'].Id -and ($story.Data.categories -contains $newsId) -and $story.Data.content.raw -match 'road is flooded' -and $story.Data.featured_media -eq $photoId) "story=$storyId status=$($story.Data.status)"
 
     Invoke-Rest $e POST "/wp/v2/posts/$storyId" @{ status = 'publish' } | Out-Null
-    $published = Get-Html $m "$Base/account/?section=portal-tips"
+    $published = Get-Html $m "$Base/en/account/?section=portal-tips"
     $link = (Invoke-Rest $null GET "/wp/v2/posts/$storyId").Data.link
     $done = Get-Mail $mMail "TIP-$tipId is published"
     $storyHtml = Get-Html $null $link
@@ -140,7 +140,7 @@ try {
     $short = Invoke-TipAction $e $tip2Id 'decline' 'no'
     $stillNew = Get-TipMeta $tip2Id 'state'
     Invoke-TipAction $e $tip2Id 'decline' 'We could not confirm this with the police or another source.' | Out-Null
-    $declined = Get-Html $m "$Base/account/?section=portal-tips"
+    $declined = Get-Html $m "$Base/en/account/?section=portal-tips"
     $why = Get-Mail $mMail "About your news tip TIP-$tip2Id"
     Check '12. Decline needs a real reason; then the member sees "Not published" with the reason, by e-mail too' ($short -match 'portal_msg=' -and $stillNew -eq 'new' -and (Get-TipMeta $tip2Id 'state') -eq 'declined' -and $declined -match 'portal-tip-state--declined">Not published<' -and $declined -match 'could not confirm' -and $why -and $why.Text -match 'could not confirm') "state=$(Get-TipMeta $tip2Id 'state') mail=$([bool]$why)"
 

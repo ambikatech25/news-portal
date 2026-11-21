@@ -82,7 +82,7 @@ try {
     Send-Rest $m1 POST "/portal/v1/bookmarks/$postId" | Out-Null
     $mine = Send-Rest $m1 GET '/portal/v1/me/bookmarks'
     $theirs = Send-Rest $m2 GET '/portal/v1/me/bookmarks'
-    $saved = Get-Html $m1 "$Base/account/?section=portal-saved"
+    $saved = Get-Html $m1 "$Base/en/account/?section=portal-saved"
     Check '4. Save for later: listed for that member (API and My Account > Saved), private from others' ((@($mine.Data | ForEach-Object { $_.id }) -contains $postId) -and -not (@($theirs.Data | ForEach-Object { $_.id }) -contains $postId) -and $saved -match "$tag story") "mine=$(@($mine.Data).Count) theirs=$(@($theirs.Data).Count)"
     $rm = Send-Rest $m1 DELETE "/portal/v1/bookmarks/$postId"
     $mine = Send-Rest $m1 GET '/portal/v1/me/bookmarks'
@@ -92,7 +92,7 @@ try {
     $fa = Send-Rest $m1 POST "/portal/v1/follows/author/$authorId"
     $self = Send-Rest $users['author'].Session POST "/portal/v1/follows/author/$authorId"
     $slug = Get-Last (Wp user get $authorId --field=user_nicename)
-    $prof = Get-Html $m1 "$Base/writer/$slug/"
+    $prof = Get-Html $m1 "$Base/en/writer/$slug/"
     $pbtn = [regex]::Match($prof, '<button[^>]*portal-toggle--follow-author[^>]*>').Value
     Check '6. Follow a writer: count 1, profile shows Following; writers cannot follow themselves' ($fa.Data.following -eq $true -and $fa.Data.followers -eq 1 -and $pbtn -match 'aria-pressed="true"' -and $prof -match "data-portal-count=""follow-author-$authorId"">1<" -and $self.Code -eq 400) "followers=$($fa.Data.followers) self=$($self.Code)"
 
@@ -101,9 +101,9 @@ try {
     $follows = Send-Rest $m2 GET '/portal/v1/me/follows'
     Check '7. Follow a tag from its page: button shows Following; listed in /me/follows' ($ft.Data.following -eq $true -and $tagPage -match 'portal-toggle--follow-tag"[^>]*aria-pressed="true"' -and (@($follows.Data.tags | ForEach-Object { $_.id }) -contains $tagId)) "tag follow=$($ft.Data.following)"
 
-    $feed1 = Get-Html $m1 "$Base/account/?section=portal-following"
+    $feed1 = Get-Html $m1 "$Base/en/account/?section=portal-following"
     $feed2 = Send-Rest $m2 GET '/portal/v1/me/feed'
-    Check '8. Following feed: the writer''s and the tag''s new story appear (My Account > Following and API)' ($feed1 -match "$tag story" -and $feed1 -match 'portal-follow-chips' -and (@($feed2.Data | ForEach-Object { $_.id }) -contains $postId)) 'story missing from feed'
+    Check '8. Following feed: the writer''s and the tag''s new story appear (My Account > Following and API)' ($feed1 -match "$tag story" -and $feed1 -match 'portal-follow-chips' -and (@($feed2.Data | ForEach-Object { $_.id }) -contains $postId)) "page story=$($feed1 -match "$tag story") chips=$($feed1 -match 'portal-follow-chips') api=$(@($feed2.Data | ForEach-Object { $_.id }) -contains $postId)"
 
     Write-Host '== Comments'
     $c1 = Send-Comment $m1 $postUrl $postId "$tag first comment"

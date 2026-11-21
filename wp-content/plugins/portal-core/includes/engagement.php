@@ -289,6 +289,7 @@ function portal_get_follows( $user_id ) {
 function portal_get_following_feed( $user_id, $limit = 10 ) {
 	$follows = portal_get_follows( $user_id );
 	$base    = array(
+		'lang'                => '', // every language: you follow people and topics, not a language (Task 18A).
 		'post_type'           => 'post',
 		'post_status'         => 'publish',
 		'has_password'        => false,
@@ -302,7 +303,14 @@ function portal_get_following_feed( $user_id, $limit = 10 ) {
 		$posts = array_merge( $posts, ( new WP_Query( $base + array( 'author__in' => $follows['author'] ) ) )->posts );
 	}
 	if ( $follows['tag'] ) {
-		$posts = array_merge( $posts, ( new WP_Query( $base + array( 'tag__in' => $follows['tag'] ) ) )->posts );
+		// A followed tag includes its other-language version (Raipur = रायपुर), Task 18A.
+		$tags = array_map( 'intval', $follows['tag'] );
+		if ( function_exists( 'pll_get_term_translations' ) ) {
+			foreach ( $follows['tag'] as $tag_id ) {
+				$tags = array_merge( $tags, array_map( 'intval', array_values( (array) pll_get_term_translations( (int) $tag_id ) ) ) );
+			}
+		}
+		$posts = array_merge( $posts, ( new WP_Query( $base + array( 'tag__in' => array_values( array_unique( $tags ) ) ) ) )->posts );
 	}
 	$unique = array();
 	foreach ( $posts as $post ) {

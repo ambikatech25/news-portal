@@ -23,8 +23,24 @@ $portal_premium  = (bool) get_post_meta( $portal_post->ID, 'portal_is_premium', 
 $portal_fir      = trim( (string) get_post_meta( $portal_post->ID, 'portal_fir_number', true ) );
 $portal_station  = trim( (string) get_post_meta( $portal_post->ID, 'portal_police_station', true ) );
 $portal_minutes  = function_exists( 'portal_read_minutes' ) ? portal_read_minutes( $portal_post ) : 0;
+$portal_versions = function_exists( 'portal_story_versions' ) ? portal_story_versions( $portal_post ) : array();
 ?>
 <div class="portal-article-flags">
+	<?php // Task 18A: हिन्दी | English, only when the story is published in both. ?>
+	<?php if ( count( $portal_versions ) > 1 ) : ?>
+		<nav class="portal-story-lang" aria-label="<?php esc_attr_e( 'Read this story in', 'portal' ); ?>">
+			<?php foreach ( $portal_versions as $portal_i => $portal_version ) : ?>
+				<?php if ( $portal_i ) : ?>
+					<span class="portal-story-lang__sep" aria-hidden="true">|</span>
+				<?php endif; ?>
+				<?php if ( $portal_version['current'] ) : ?>
+					<span class="portal-story-lang__item is-current" lang="<?php echo esc_attr( $portal_version['lang'] ); ?>" aria-current="page"><?php echo esc_html( $portal_version['name'] ); ?></span>
+				<?php else : ?>
+					<a class="portal-story-lang__item" href="<?php echo esc_url( $portal_version['url'] ); ?>" lang="<?php echo esc_attr( $portal_version['lang'] ); ?>" hreflang="<?php echo esc_attr( $portal_version['lang'] ); ?>"><?php echo esc_html( $portal_version['name'] ); ?></a>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</nav>
+	<?php endif; ?>
 	<p class="portal-article-flags__line">
 		<?php if ( $portal_premium ) : ?>
 			<span class="portal-badge portal-badge--premium"><?php esc_html_e( 'Premium', 'portal' ); ?></span>

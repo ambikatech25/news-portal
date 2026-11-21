@@ -42,6 +42,27 @@ function portal_child_setup() {
 add_action( 'after_setup_theme', 'portal_child_setup' );
 
 /**
+ * The Community page design for every language version of the page (Task 18A): WordPress only
+ * picks page-community.php for the address /community/, the Hindi page is /samuday/.
+ *
+ * @param string $template Template file.
+ * @return string
+ */
+function portal_child_translated_page_template( $template ) {
+	$page = get_queried_object();
+	if ( ! $page instanceof WP_Post || 'page' !== $page->post_type || ! function_exists( 'pll_get_post' ) ) {
+		return $template;
+	}
+	$community = get_page_by_path( 'community' );
+	if ( $community && (int) $page->ID !== (int) $community->ID && (int) pll_get_post( $page->ID, pll_get_post_language( $community->ID ) ) === (int) $community->ID ) {
+		$file = locate_template( 'page-community.php' );
+		return $file ? $file : $template;
+	}
+	return $template;
+}
+add_filter( 'page_template', 'portal_child_translated_page_template' );
+
+/**
  * Red Breaking strip under the header, on every page, while there is breaking news.
  */
 function portal_child_breaking_strip() {

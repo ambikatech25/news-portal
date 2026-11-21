@@ -27,7 +27,7 @@ const PORTAL_CONSENT_META = 'portal_consent';
  * @return array{terms_url:string,privacy_url:string,terms_version:string,privacy_version:string}
  */
 function portal_legal_pages() {
-	$terms   = get_page_by_path( 'terms-of-use' );
+	$terms   = function_exists( 'portal_page' ) ? portal_page( 'terms-of-use' ) : get_page_by_path( 'terms-of-use' );
 	$privacy = (int) get_option( 'wp_page_for_privacy_policy' );
 	return array(
 		'terms_url'       => $terms ? get_permalink( $terms ) : '',
@@ -181,6 +181,10 @@ add_action( 'edit_user_profile', 'portal_show_consent_record', 20 );
  */
 function portal_account_url() {
 	$page = function_exists( 'wpuf_get_option' ) ? (int) wpuf_get_option( 'account_page', 'wpuf_my_account', 0 ) : 0;
+	if ( $page && function_exists( 'portal_lang' ) && portal_lang() && function_exists( 'pll_get_post' ) ) {
+		$translated = pll_get_post( $page, portal_lang() ); // Hindi "मेरा खाता" on the Hindi site (Task 18A).
+		$page       = $translated ? (int) $translated : $page;
+	}
 	return $page ? (string) get_permalink( $page ) : '';
 }
 

@@ -439,6 +439,34 @@ Text Domain:  portal
 	text-align: left;
 }
 
+/* हिन्दी | English switch (Task 18A): the current language bold, the other a link. */
+.portal-story-lang {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9375rem;
+}
+
+.portal-story-lang__item {
+	padding: 0.25rem 0;
+	color: var(--portal-muted);
+}
+
+.portal-story-lang__item.is-current {
+	color: var(--portal-text);
+	font-weight: 700;
+}
+
+a.portal-story-lang__item {
+	color: var(--portal-accent);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.portal-story-lang__sep {
+	color: var(--portal-border);
+}
+
 .portal-article-flags__line {
 	display: flex;
 	flex-wrap: wrap;

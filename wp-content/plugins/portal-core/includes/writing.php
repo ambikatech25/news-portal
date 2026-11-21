@@ -379,7 +379,7 @@ function portal_writer_request_box() {
 	$request = portal_get_writer_request( get_current_user_id() );
 	// phpcs:ignore WordPress.Security.NonceVerification -- only chooses which message to show.
 	$error = isset( $_GET['portal_writer_error'] ) ? sanitize_text_field( wp_unslash( $_GET['portal_writer_error'] ) ) : '';
-	$rules = get_page_by_path( 'community-guidelines' );
+	$rules = function_exists( 'portal_page' ) ? portal_page( 'community-guidelines' ) : get_page_by_path( 'community-guidelines' );
 	ob_start();
 	?>
 	<div class="portal-write-box">

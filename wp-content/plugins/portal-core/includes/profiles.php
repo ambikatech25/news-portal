@@ -180,6 +180,7 @@ function portal_profile_query( $query ) {
 	if ( ! is_admin() && $query->is_main_query() && $query->is_author() ) {
 		$query->set( 'posts_per_page', 12 );
 		$query->set( 'post_type', 'post' );
+		$query->set( 'lang', '' ); // a writer's page lists all their stories, in both languages (Task 18A).
 	}
 }
 add_action( 'pre_get_posts', 'portal_profile_query' );

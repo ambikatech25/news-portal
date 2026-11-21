@@ -127,15 +127,15 @@ try {
     Check '9. Only writers can import (visitor 401, member 403); uploaded documents are never stored' ($anon.Code -eq 401 -and $mem.Code -eq 403 -and $attAfter -eq $attBefore) "visitor=$($anon.Code) member=$($mem.Code) files before/after=$attBefore/$attAfter"
 
     Write-Host '== Write page and AI disclosure'
-    $wp = (curl.exe -s -b $c.Jar "$Base/write/" | Out-String)
-    $mp = (curl.exe -s -b $users['subscriber'].Session.Jar "$Base/write/" | Out-String)
+    $wp = (curl.exe -s -b $c.Jar "$Base/en/write/" | Out-String)
+    $mp = (curl.exe -s -b $users['subscriber'].Session.Jar "$Base/en/write/" | Out-String)
     Check '10. Writers see the import box (template link, upload, paste, ChatGPT prompt); members do not' ($wp -match 'class="portal-import"' -and $wp -match 'action=portal_story_template' -and $wp -match 'data-portal-import-file' -and $wp -match 'data-portal-import-prompt' -and $wp -match 'name="portal_ai_assisted\[\]"' -and $mp -notmatch 'portal-import') 'box or AI checkbox missing'
 
     $form = [regex]::Match($wp, '(?s)<form class="wpuf-form-add.*?</form>').Value
     $nonce = [regex]::Match($form, 'name="_wpnonce" value="([^"]+)"').Groups[1].Value
     $formId = [regex]::Match($form, 'name="form_id" value="(\d+)"').Groups[1].Value
     $pageId = [regex]::Match($form, 'name="page_id" value="(\d+)"').Groups[1].Value
-    curl.exe -s -o NUL -b $c.Jar -e "$Base/write/" --data-urlencode 'action=wpuf_submit_post' --data-urlencode "form_id=$formId" --data-urlencode "page_id=$pageId" `
+    curl.exe -s -o NUL -b $c.Jar -e "$Base/en/write/" --data-urlencode 'action=wpuf_submit_post' --data-urlencode "form_id=$formId" --data-urlencode "page_id=$pageId" `
         --data-urlencode "_wpnonce=$nonce" --data-urlencode "post_title=$tag ai story" --data-urlencode "post_content=<p>Text.</p>" `
         --data-urlencode "category=$($cat['region'])" --data-urlencode 'portal_ai_assisted[]=yes' "$Base/wp-admin/admin-ajax.php"
     $sid = Get-Last (Wp db query "SELECT ID FROM wp_posts WHERE post_type = 'post' AND post_title = '$tag ai story' LIMIT 1" --skip-column-names)

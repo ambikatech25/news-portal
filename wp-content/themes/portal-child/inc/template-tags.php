@@ -39,7 +39,7 @@ function portal_child_get_posts( array $args ) {
  * @return int
  */
 function portal_child_blog_category_id() {
-	$cat = get_category_by_slug( 'community-blogs' );
+	$cat = function_exists( 'portal_category' ) ? portal_category( 'community-blogs' ) : get_category_by_slug( 'community-blogs' );
 	return $cat ? (int) $cat->term_id : 0;
 }
 

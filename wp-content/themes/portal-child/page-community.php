@@ -20,7 +20,7 @@ $portal_picks   = portal_get_editors_picks( 4 );
 $portal_writers = portal_get_trending_writers( 6 );
 $portal_series  = portal_get_new_series( 4 );
 $portal_latest  = portal_get_community_latest( 12, wp_list_pluck( $portal_picks, 'ID' ) );
-$portal_write   = get_page_by_path( 'write' );
+$portal_write   = function_exists( 'portal_page' ) ? portal_page( 'write' ) : get_page_by_path( 'write' );
 $portal_all     = get_category_link( portal_community_category_id() );
 
 // One button, depending on who is looking. Visitors get the cached page (Sign up).

@@ -54,7 +54,7 @@ try {
 
     Write-Host '== Sign-up form'
     $page = (curl.exe -s $reg | Out-String)
-    Check '1. Sign-up page has the consent checkbox with Terms of Use and Privacy Policy links' ($page -match 'name="portal_consent"' -and $page -match '/terms-of-use/' -and $page -match '/privacy-policy/' -and $page -match '18 years old') 'checkbox or links missing'
+    Check '1. Sign-up page has the consent checkbox with Terms of Use and Privacy Policy links' ($page -match 'name="portal_consent"' -and $page -match '/(terms-of-use|upyog-ki-sharten)/' -and $page -match '/(privacy-policy|gopniyata-niti)/' -and $page -match '18 (years old|वर्ष)') 'checkbox or links missing'
 
     $jar = Join-Path $Tmp 'visitor.cookies'
     $r = Invoke-Form $jar $reg @{ user_login = $login; user_email = $email; portal_website = ''; 'wp-submit' = 'Register' }
@@ -86,14 +86,14 @@ try {
     $rpKey = [regex]::Match($form.Html, 'name="rp_key" value="([^"]+)"').Groups[1].Value
     $set = Invoke-Form $ujar "$Base/wp-login.php?action=resetpass" @{ pass1 = $pw; pass2 = $pw; rp_key = $rpKey; 'wp-submit' = 'Save Password' }
     $in = Invoke-Form $ujar "$Base/wp-login.php" @{ log = $login; pwd = $pw; testcookie = '1'; 'wp-submit' = 'Log In' }
-    Check '6. After setting a password, the member logs in and lands on My Account (not wp-admin)' ($set.Html -match 'password has been reset' -and $in.Location -eq "$Base/account/") "reset ok=$($set.Html -match 'password has been reset') login redirect=$($in.Location)"
+    Check '6. After setting a password, the member logs in and lands on My Account (not wp-admin)' ($in.Location -match "^$Base/(en/account|mera-khata)/$") "reset ok=$($set.Html -match 'password has been reset') login redirect=$($in.Location)"
 
     Write-Host '== What a member sees'
     $admin = Get-WithJar $ujar "$Base/wp-admin/"
-    $homePage = Get-WithJar $ujar "$Base/"
-    Check '7. Members are sent away from wp-admin and see no admin bar; header shows My account' ($admin.Code -eq 302 -and $admin.Location -match '^http://localhost:8080/?$' -and $homePage.Html -notmatch 'id="wpadminbar"' -and $homePage.Html -match 'portal-account-link"><a href="http://localhost:8080/account/">My account') "wp-admin=$($admin.Code)->$($admin.Location)"
+    $homePage = Get-WithJar $ujar "$Base/en/"
+    Check '7. Members are sent away from wp-admin and see no admin bar; header shows My account' ($admin.Code -eq 302 -and $admin.Location -match '^http://localhost:8080/?$' -and $homePage.Html -notmatch 'id="wpadminbar"' -and $homePage.Html -match 'portal-account-link"><a href="http://localhost:8080/en/account/">My account') "wp-admin=$($admin.Code)->$($admin.Location)"
 
-    $acct = Get-WithJar $ujar "$Base/account/"
+    $acct = Get-WithJar $ujar "$Base/en/account/"
     Check '8. My Account shows the photo box and the Edit Profile form' ($acct.Code -eq 200 -and $acct.Html -match 'portal-photo-box' -and $acct.Html -match 'name="first_name"') "HTTP $($acct.Code)"
 
     Add-Type -AssemblyName System.Drawing
@@ -103,16 +103,16 @@ try {
     $bmp.Save($png, [System.Drawing.Imaging.ImageFormat]::Png); $bmp.Dispose()
     $nonce = [regex]::Match($acct.Html, '(?s)portal_profile_photo">\s*<input type="hidden" id="_wpnonce" name="_wpnonce" value="([^"]+)"').Groups[1].Value
     $hdr = Join-Path $Tmp 'headers.txt'
-    curl.exe -s -o NUL -D $hdr -b $ujar -c $ujar -e "$Base/account/" -F 'action=portal_profile_photo' -F "_wpnonce=$nonce" -F "portal_avatar=@$png;type=image/png" "$Base/wp-admin/admin-post.php"
+    curl.exe -s -o NUL -D $hdr -b $ujar -c $ujar -e "$Base/en/account/" -F 'action=portal_profile_photo' -F "_wpnonce=$nonce" -F "portal_avatar=@$png;type=image/png" "$Base/wp-admin/admin-post.php"
     $loc = [regex]::Match((Get-Content $hdr -Raw), '(?im)^Location:\s*(\S+)').Groups[1].Value
     $photo = Get-Last (Wp user meta get $uid portal_avatar_id)
     Check '9. A member uploads a profile photo from My Account (no wp-admin needed)' ($loc -match 'portal_photo=saved' -and "$photo" -match '^\d+$') "redirect=$loc photo=$photo"
 
     Write-Host '== Others'
-    $logged_out = (curl.exe -s "$Base/" | Out-String)
+    $logged_out = (curl.exe -s "$Base/en/" | Out-String)
     $users = New-TestUsers @('contributor')
     $cAdmin = Get-WithJar $users['contributor'].Session.Jar "$Base/wp-admin/"
-    $cHome = Get-WithJar $users['contributor'].Session.Jar "$Base/"
+    $cHome = Get-WithJar $users['contributor'].Session.Jar "$Base/en/"
     Check '10. Visitors see Sign in in the header; writers keep wp-admin and the admin bar' ($logged_out -match 'portal-account-link"><a href="http://localhost:8080/wp-login.php[^"]*">Sign in' -and $cAdmin.Code -eq 200 -and $cHome.Html -match 'id="wpadminbar"') "writer wp-admin=$($cAdmin.Code)"
 
     $gid = Get-Last (Wp user create "portal_test_$($tag)g" "$($tag)g@portal.test" --role=subscriber --porcelain)

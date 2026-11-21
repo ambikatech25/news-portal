@@ -24,10 +24,10 @@ function Get-Location($session, $url) {
 
 function Send-WriterRequest($session, $reason) {
     # Submit the Become-a-writer form like a browser (nonce from the page). Returns the redirect.
-    $page = Get-Html $session "$Base/write/"
+    $page = Get-Html $session "$Base/en/write/"
     $nonce = [regex]::Match($page, '(?s)value="portal_writer_request">\s*<input type="hidden" id="_wpnonce" name="_wpnonce" value="([^"]+)"').Groups[1].Value
     $hdr = Join-Path $Tmp 'h.txt'
-    curl.exe -s -o NUL -D $hdr -b $session.Jar -c $session.Jar -e "$Base/write/" `
+    curl.exe -s -o NUL -D $hdr -b $session.Jar -c $session.Jar -e "$Base/en/write/" `
         --data-urlencode 'action=portal_writer_request' --data-urlencode "_wpnonce=$nonce" `
         --data-urlencode "reason=$reason" --data-urlencode 'sample_url=' --data-urlencode 'agree=1' "$Base/wp-admin/admin-post.php"
     return [regex]::Match((Get-Content $hdr -Raw), '(?im)^Location:\s*(\S+)').Groups[1].Value
@@ -35,14 +35,16 @@ function Send-WriterRequest($session, $reason) {
 
 function Send-Story($session, $title, $category) {
     # Submit the WP User Frontend story form exactly as its JavaScript does. Returns the post ID (0 if refused).
-    $page = Get-Html $session "$Base/write/"
+    $page = Get-Html $session "$Base/en/write/"
     $form = [regex]::Match($page, '(?s)<form class="wpuf-form-add.*?</form>').Value
     $nonce = [regex]::Match($form, 'name="_wpnonce" value="([^"]+)"').Groups[1].Value
     $formId = [regex]::Match($form, 'name="form_id" value="(\d+)"').Groups[1].Value
     $pageId = [regex]::Match($form, 'name="page_id" value="(\d+)"').Groups[1].Value
-    $json = (curl.exe -s -b $session.Jar -c $session.Jar -e "$Base/write/" `
+    $langNonce = [regex]::Match($form, 'name="portal_story_lang_nonce" value="([^"]+)"').Groups[1].Value
+    $json = (curl.exe -s -b $session.Jar -c $session.Jar -e "$Base/en/write/" `
         --data-urlencode 'action=wpuf_submit_post' --data-urlencode "form_id=$formId" --data-urlencode "page_id=$pageId" `
         --data-urlencode "_wpnonce=$nonce" --data-urlencode '_wp_http_referer=/write/' `
+        --data-urlencode 'portal_story_lang=en' --data-urlencode "portal_story_lang_nonce=$langNonce" `
         --data-urlencode "post_title=$title" --data-urlencode "post_content=<p>Story text for $title. Who, what, where and when.</p>" `
         --data-urlencode "category=$category" --data-urlencode 'tags=raipur, trucking' "$Base/wp-admin/admin-ajax.php" | Out-String)
     $id = Get-Last (Wp db query "SELECT ID FROM wp_posts WHERE post_type = 'post' AND post_title = '$title' ORDER BY ID DESC LIMIT 1" --skip-column-names)
@@ -67,8 +69,8 @@ try {
     $admin = $users['administrator'].Session
 
     Write-Host '== Write page for each kind of visitor'
-    $v = Get-Html $null "$Base/write/"
-    $mp = Get-Html $m "$Base/write/"
+    $v = Get-Html $null "$Base/en/write/"
+    $mp = Get-Html $m "$Base/en/write/"
     Check '1. Visitors are invited to sign in; members see Become a writer; neither gets the story form' ($v -match 'Write for us' -and $v -notmatch 'wpuf-form-add' -and $mp -match 'Become a writer' -and $mp -match 'name="reason"' -and $mp -notmatch 'wpuf-form-add') 'wrong box'
 
     Write-Host '== Become a writer'
@@ -92,7 +94,7 @@ try {
     Check '4. Admin sees the request under Users > Writer requests and approves: member becomes Contributor and is e-mailed' ($list -match "$tag" -and $done -match 'portal_writer_done=approve' -and $role -eq 'contributor' -and $userMail -ge 1) "role=$role mail=$userMail redirect=$done"
 
     Write-Host '== Writing a story'
-    $wp = Get-Html $m "$Base/write/"
+    $wp = Get-Html $m "$Base/en/write/"
     $sel = [regex]::Match($wp, "(?s)<select[^>]*name='category'.*?</select>").Value
     $offered = @([regex]::Matches($sel, 'value="(\d+)"') | ForEach-Object { [int]$_.Groups[1].Value })
     $bad = @($offered | Where-Object { $_ -in @($cat['news'], $cat['crime'], $cat['case-files']) })
@@ -137,7 +139,7 @@ try {
     $noAgree = Invoke-Rest $users['subscriber'].Session POST '/portal/v1/me/writer-request' @{ reason = ('y' * 40); agree = $false }
     Check '10. A member cannot approve themselves (forged link refused); writers cannot request again' ($role3 -eq 'subscriber' -and $noAgree.Code -eq 400) "role after forged link=$role3 writer request=$($noAgree.Code)"
 
-    $myPosts = Get-Html $m "$Base/account/?section=post"
+    $myPosts = Get-Html $m "$Base/en/account/?section=post"
     Check '11. The writer sees their pending story under My Account > Posts' ($myPosts -match "$tag contributor story") 'not listed'
 }
 finally {

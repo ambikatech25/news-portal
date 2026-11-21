@@ -32,7 +32,7 @@ function portal_child_account_tips() {
 	}
 	$tips = portal_get_user_tips( get_current_user_id() );
 	$sent = isset( $_GET['tip_sent'] ) ? absint( $_GET['tip_sent'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification -- display only.
-	$page = get_page_by_path( 'send-news' );
+	$page = function_exists( 'portal_page' ) ? portal_page( 'send-news' ) : get_page_by_path( 'send-news' );
 
 	echo '<div class="portal-account-list portal-my-tips"><h2>' . esc_html__( 'My tips', 'portal' ) . '</h2>';
 	if ( $sent && in_array( $sent, wp_list_pluck( $tips, 'id' ), true ) ) {
@@ -76,7 +76,7 @@ function portal_child_send_news_link( $items, $args ) {
 	if ( ! in_array( $args->theme_location ?? '', array( 'primary', 'mobile' ), true ) ) {
 		return $items;
 	}
-	$page = get_page_by_path( 'send-news' );
+	$page = function_exists( 'portal_page' ) ? portal_page( 'send-news' ) : get_page_by_path( 'send-news' );
 	if ( ! $page ) {
 		return $items;
 	}

@@ -9,7 +9,7 @@
 . "$PSScriptRoot\lib.ps1"
 
 function Get-Home {
-    $raw = (curl.exe -s -w "`n%{http_code}" "$Base/" | Out-String).TrimEnd()
+    $raw = (curl.exe -s -w "`n%{http_code}" "$Base/en/" | Out-String).TrimEnd()
     return @{
         Code = [int]($raw.Substring($raw.LastIndexOf("`n") + 1))
         Html = $raw.Substring(0, $raw.LastIndexOf("`n"))

@@ -61,7 +61,7 @@ function portal_child_account_menu_item( $items, $args ) {
 		$label = __( 'Sign in', 'portal' );
 	}
 	// "Write" for everyone: visitors are invited to sign up, members to apply, writers get the form.
-	$write = get_page_by_path( 'write' );
+	$write = function_exists( 'portal_page' ) ? portal_page( 'write' ) : get_page_by_path( 'write' );
 	if ( $write ) {
 		$items .= '<li class="menu-item portal-write-link"><a href="' . esc_url( get_permalink( $write ) ) . '">' . esc_html__( 'Write', 'portal' ) . '</a></li>';
 	}

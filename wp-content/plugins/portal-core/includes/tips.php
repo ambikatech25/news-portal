@@ -410,7 +410,10 @@ function portal_tip_write_up( WP_Post $tip, $by ) {
 	if ( $existing && get_post( $existing ) ) {
 		return $existing;
 	}
-	$news   = get_category_by_slug( 'news' );
+	// The draft is written in the tip's language (Hindi text -> Hindi story, in the Hindi News section).
+	$lang   = preg_match( '/[\x{0900}-\x{097F}]/u', $tip->post_title . ' ' . $tip->post_content ) ? 'hi' : 'en';
+	$lang   = ( function_exists( 'portal_has_languages' ) && portal_has_languages() && in_array( $lang, pll_languages_list(), true ) ) ? $lang : '';
+	$news   = function_exists( 'portal_category' ) ? portal_category( 'news', $lang ) : get_category_by_slug( 'news' );
 	$photos = portal_tip_get( $tip, 'photos' );
 	$where  = (string) portal_tip_get( $tip, 'where' );
 	$when   = (string) portal_tip_get( $tip, 'when' );
@@ -448,6 +451,9 @@ function portal_tip_write_up( WP_Post $tip, $by ) {
 		return $story;
 	}
 	update_post_meta( $story, '_portal_tip_id', $tip->ID );
+	if ( $lang ) {
+		pll_set_post_language( $story, $lang );
+	}
 	foreach ( $photos as $photo ) {
 		wp_update_post(
 			array(

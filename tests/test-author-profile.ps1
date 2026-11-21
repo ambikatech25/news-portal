@@ -41,18 +41,18 @@ try {
     $slug = Get-Last (Wp user get $authorId --field=user_nicename)
 
     Write-Host '== Profile URL'
-    $page = Get-Page "$Base/writer/$slug/"
+    $page = Get-Page "$Base/en/writer/$slug/"
     $h = $page.Html
     $errors = [regex]::Matches($h, '(Fatal error|Warning|Notice|Deprecated)</b>:').Count
     Check '1. Public profile /writer/<name>/ loads with photo, name, bio and Community writer label' ($slug -eq "writer-$($tag.ToLower())" -and $page.Code -eq 200 -and $errors -eq 0 -and $h -match "<h1 class=""portal-profile__name"">Writer $tag</h1>" -and $h -match "$tag bio" -and $h -match 'Community writer' -and $h -match 'portal-profile__photo') "slug=$slug HTTP $($page.Code) PHP messages=$errors"
 
     $byLogin1 = (Get-Page "$Base/author/portal_test_author/").Code
-    $byLogin2 = (Get-Page "$Base/writer/portal_test_author/").Code
-    $leak = (Get-Page "$Base/writer/$slug/").Html -match 'portal_test_author'
+    $byLogin2 = (Get-Page "$Base/en/writer/portal_test_author/").Code
+    $leak = (Get-Page "$Base/en/writer/$slug/").Html -match 'portal_test_author'
     Check '2. The login name is not in the URL, does not open the profile, and is not on the page' ($byLogin1 -eq 404 -and $byLogin2 -eq 404 -and -not $leak) "/author/login=$byLogin1 /writer/login=$byLogin2 login on page=$leak"
 
     $subSlug = Get-Last (Wp user get $subId --field=user_nicename)
-    $subPage = (Get-Page "$Base/writer/$subSlug/").Code
+    $subPage = (Get-Page "$Base/en/writer/$subSlug/").Code
     $subApi = (Invoke-Rest $null GET "/portal/v1/authors/$subId").Code
     Check '3. A plain member (Subscriber) has no public profile: page 404, API 404' ($subPage -eq 404 -and $subApi -eq 404) "page=$subPage api=$subApi"
 
@@ -74,7 +74,7 @@ try {
     $self = Get-Last (Wp eval "echo (int) portal_follow_author($authorId, $authorId);")
     $member = Get-Last (Wp eval "echo (int) portal_follow_author($authorId, $subId);")
     $api = Invoke-Rest $null GET "/portal/v1/authors/$authorId"
-    $profileHtml = (Get-Page "$Base/writer/$slug/").Html
+    $profileHtml = (Get-Page "$Base/en/writer/$slug/").Html
     Check '5. Followers counted once each; following yourself or a member is refused; count on page and API' ($f1 -eq '1' -and $f2 -eq '1' -and $f3 -eq '1' -and $self -eq '0' -and $member -eq '0' -and $api.Data.followers -eq 2 -and $profileHtml -match '<strong[^>]*>2</strong>\s*followers') "self=$self member=$member api=$($api.Data.followers)"
 
     $fan = Get-Last (Wp user create "portal_test_t9fan" "t9fan@portal.test" --role=subscriber --porcelain)
@@ -86,15 +86,15 @@ try {
 
     Write-Host '== Stories list and API'
     Wp post generate --count=13 "--post_author=$authorId" --post_status=publish | Out-Null
-    $p1 = Get-Page "$Base/writer/$slug/"
-    $p2 = Get-Page "$Base/writer/$slug/page/2/"
+    $p1 = Get-Page "$Base/en/writer/$slug/"
+    $p2 = Get-Page "$Base/en/writer/$slug/page/2/"
     $n1 = [regex]::Matches($p1.Html, 'portal-card--tile').Count
     $n2 = [regex]::Matches($p2.Html, 'portal-card--tile').Count
     Check '7. Stories list: 12 per page, page 2 has the 13th' ($n1 -eq 12 -and $p2.Code -eq 200 -and $n2 -eq 1) "page1=$n1 page2=$n2 (HTTP $($p2.Code))"
 
     $api = Invoke-Rest $null GET "/portal/v1/authors/$authorId"
     $desk = Invoke-Rest $null GET "/portal/v1/authors/$editorId"
-    Check '8. API /portal/v1/authors/<id>: name, link, stories, News desk vs community' ($api.Code -eq 200 -and $api.Data.name -eq "Writer $tag" -and $api.Data.link -eq "$Base/writer/$slug/" -and $api.Data.posts -eq 13 -and $api.Data.desk -eq 'community' -and $desk.Data.desk -eq 'news') "HTTP $($api.Code) link=$($api.Data.link) posts=$($api.Data.posts) desk=$($api.Data.desk)/$($desk.Data.desk)"
+    Check '8. API /portal/v1/authors/<id>: name, link, stories, News desk vs community' ($api.Code -eq 200 -and $api.Data.name -eq "Writer $tag" -and $api.Data.link -match "^$Base/(en/)?writer/$slug/$" -and $api.Data.posts -eq 13 -and $api.Data.desk -eq 'community' -and $desk.Data.desk -eq 'news') "HTTP $($api.Code) link=$($api.Data.link) posts=$($api.Data.posts) desk=$($api.Data.desk)/$($desk.Data.desk)"
 
     Write-Host '== Profile photo'
     Add-Type -AssemblyName System.Drawing
@@ -115,7 +115,7 @@ try {
 
     $a = $users['author'].Session
     $up = Send-Avatar $a $png 'image/png'
-    $img = [regex]::Match((Get-Page "$Base/writer/$slug/").Html, '(?s)<div class="portal-profile__photo">.*?<img[^>]+src=''([^'']+)''').Groups[1].Value
+    $img = [regex]::Match((Get-Page "$Base/en/writer/$slug/").Html, '(?s)<div class="portal-profile__photo">.*?<img[^>]+src=''([^'']+)''').Groups[1].Value
     Check '10. Writer uploads a photo: profile page and API show it from our site, not Gravatar' ($up.Code -eq 200 -and $up.Data.avatar -like "$Base/wp-content/uploads/*" -and $img -like "$Base/wp-content/uploads/*") "HTTP $($up.Code) api=$($up.Data.avatar) page=$img"
 
     $photoId = Get-Last (Wp user meta get $authorId portal_avatar_id)

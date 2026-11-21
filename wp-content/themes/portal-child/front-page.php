@@ -93,7 +93,7 @@ get_header();
 			<div class="portal-home__sections">
 				<?php
 				foreach ( portal_child_home_sections() as $portal_slug ) :
-					$portal_cat = get_category_by_slug( $portal_slug );
+					$portal_cat = function_exists( 'portal_category' ) ? portal_category( $portal_slug ) : get_category_by_slug( $portal_slug );
 					if ( ! $portal_cat ) {
 						continue;
 					}

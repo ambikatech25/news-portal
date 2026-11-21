@@ -22,7 +22,7 @@ try {
     $body = ((1..40) | ForEach-Object { "<p>$($para * 3)</p>" }) -join ''
     $p = Invoke-Rest $users['author'].Session POST '/wp/v2/posts' @{ title = "$tag हिंदी लेख"; status = 'publish'; content = $body; categories = @($cat['community-blogs']) }
     $html = Get-Html $p.Data.link
-    $homeHtml = Get-Html "$Base/"
+    $homeHtml = Get-Html "$Base/en/"
 
     Write-Host '== On every story'
     $head = [regex]::Match($html, '(?s)<head.*?</head>').Value

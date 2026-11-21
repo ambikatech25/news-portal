@@ -23,8 +23,8 @@ function portal_article_schema_type( $entity ) {
 	$post = get_post();
 	// This hook sees every schema piece (organisation, web page, breadcrumbs ...): change articles only.
 	if ( $post && 'post' === $post->post_type && in_array( $entity['@type'] ?? '', array( 'Article', 'BlogPosting', 'NewsArticle' ), true ) ) {
-		$blog            = get_category_by_slug( 'community-blogs' );
-		$is_blog         = $blog && has_category( $blog->term_id, $post ) && count( wp_get_post_categories( $post->ID ) ) === 1;
+		$blog_ids        = function_exists( 'portal_category_ids_all' ) ? portal_category_ids_all( 'community-blogs' ) : array();
+		$is_blog         = $blog_ids && has_category( $blog_ids, $post ) && count( wp_get_post_categories( $post->ID ) ) === 1;
 		$entity['@type'] = $is_blog ? 'BlogPosting' : 'NewsArticle';
 	}
 	return $entity;

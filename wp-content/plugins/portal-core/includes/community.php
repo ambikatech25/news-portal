@@ -29,28 +29,31 @@ const PORTAL_PICKED_AT_META = '_portal_picked_at';
  * @return int
  */
 function portal_community_category_id() {
-	$cat = get_category_by_slug( 'community-blogs' );
+	// In the reader's language (Hindi "सामुदायिक ब्लॉग" on the Hindi site), Task 18A.
+	$cat = function_exists( 'portal_category' ) ? portal_category( 'community-blogs' ) : get_category_by_slug( 'community-blogs' );
 	return $cat ? (int) $cat->term_id : (int) get_option( 'default_category' );
 }
 
 /**
- * Whether a post is a published community story.
+ * Whether a post is a published community story (in any language).
  *
  * @param WP_Post|int $post Post.
  * @return bool
  */
 function portal_is_community_story( $post ) {
 	$post = get_post( $post );
-	return $post && portal_is_public_post( $post ) && has_category( portal_community_category_id(), $post );
+	$ids  = function_exists( 'portal_category_ids_all' ) ? portal_category_ids_all( 'community-blogs' ) : array( portal_community_category_id() );
+	return $post && portal_is_public_post( $post ) && has_category( $ids ? $ids : array( portal_community_category_id() ), $post );
 }
 
 /**
- * Address of the Community page (falls back to the Community Blogs category).
+ * Address of the Community page in the reader's language (falls back to the Community Blogs
+ * section).
  *
  * @return string
  */
 function portal_community_page_url() {
-	$page = get_page_by_path( 'community' );
+	$page = function_exists( 'portal_page' ) ? portal_page( 'community' ) : get_page_by_path( 'community' );
 	if ( $page && 'publish' === $page->post_status ) {
 		return (string) get_permalink( $page );
 	}
@@ -59,10 +62,24 @@ function portal_community_page_url() {
 }
 
 /**
+ * Cache key of the writer ranking (one per language).
+ *
+ * @param string $lang Language ('' = current).
+ * @return string
+ */
+function portal_trending_writers_key( $lang = '' ) {
+	$lang = $lang ? $lang : ( function_exists( 'portal_lang' ) ? portal_lang() : '' );
+	return 'portal_trending_writers' . ( $lang ? '_' . $lang : '' );
+}
+
+/**
  * Refresh the Community page in LiteSpeed's cache (live server) and forget the writer ranking.
  */
 function portal_community_refresh() {
 	delete_transient( 'portal_trending_writers' );
+	foreach ( ( function_exists( 'pll_languages_list' ) ? (array) pll_languages_list() : array() ) as $lang ) {
+		delete_transient( portal_trending_writers_key( $lang ) );
+	}
 	do_action( 'litespeed_purge_url', portal_community_page_url() );
 }
 
@@ -218,7 +235,7 @@ add_filter( 'display_post_states', 'portal_pick_post_state', 10, 2 );
  * @return array<int,array{id:int,score:int,stories:int}>
  */
 function portal_get_trending_writers( $limit = 6 ) {
-	$cached = get_transient( 'portal_trending_writers' );
+	$cached = get_transient( portal_trending_writers_key() );
 	if ( is_array( $cached ) ) {
 		return array_slice( $cached, 0, $limit );
 	}
@@ -260,7 +277,7 @@ function portal_get_trending_writers( $limit = 6 ) {
 		}
 	}
 	$ranked = array_slice( array_values( $ranked ), 0, 12 );
-	set_transient( 'portal_trending_writers', $ranked, HOUR_IN_SECONDS );
+	set_transient( portal_trending_writers_key(), $ranked, HOUR_IN_SECONDS );
 	return array_slice( $ranked, 0, $limit );
 }
 

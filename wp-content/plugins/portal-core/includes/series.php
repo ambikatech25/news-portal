@@ -104,6 +104,74 @@ function portal_register_series() {
 }
 add_action( 'init', 'portal_register_series', 9 );
 
+/* ------------------------------------------------------------------ Language (Task 18A) */
+
+/**
+ * Series pages also exist under the language prefix (/en/series/…). Series are not translated
+ * (one writer, one language), so Polylang would otherwise not add the /en/ addresses.
+ *
+ * @param string[] $types Rewrite rule groups Polylang prefixes with the language.
+ * @return string[]
+ */
+function portal_series_language_addresses( $types ) {
+	$types[] = PORTAL_SERIES_TAX;
+	return $types;
+}
+add_filter( 'pll_rewrite_rules', 'portal_series_language_addresses' );
+
+/**
+ * The language of a series = the language of its first part (any status), '' if none.
+ *
+ * @param WP_Term $term Series term.
+ * @return string
+ */
+function portal_series_lang( $term ) {
+	static $cache = array();
+	if ( ! portal_has_languages() ) {
+		return '';
+	}
+	if ( ! isset( $cache[ $term->term_id ] ) ) {
+		$parts                    = portal_series_parts( $term, array( 'publish', 'pending', 'draft', 'future' ) );
+		$cache[ $term->term_id ] = $parts ? portal_post_lang( $parts[0] ) : '';
+	}
+	return $cache[ $term->term_id ];
+}
+
+/**
+ * A series link uses the language of its stories, so an English series opens at /en/series/…
+ * with the English interface, a Hindi one at /series/….
+ *
+ * @param string  $link     Term link.
+ * @param WP_Term $term     Term.
+ * @param string  $taxonomy Taxonomy.
+ * @return string
+ */
+function portal_series_link_language( $link, $term, $taxonomy ) {
+	if ( PORTAL_SERIES_TAX !== $taxonomy || ! function_exists( 'PLL' ) || empty( PLL()->links_model ) ) {
+		return $link;
+	}
+	$lang = portal_series_lang( $term );
+	$lang = $lang ? PLL()->model->get_language( $lang ) : false;
+	return $lang ? PLL()->links_model->switch_language_in_link( $link, $lang ) : $link;
+}
+add_filter( 'term_link', 'portal_series_link_language', 20, 3 );
+
+/**
+ * A series opened in the other language's address goes to its own address (one page per series).
+ */
+function portal_series_redirect_to_language() {
+	if ( ! is_tax( PORTAL_SERIES_TAX ) || is_paged() ) {
+		return;
+	}
+	$term = get_queried_object();
+	$lang = $term instanceof WP_Term ? portal_series_lang( $term ) : '';
+	if ( $lang && portal_lang() && portal_lang() !== $lang ) {
+		wp_safe_redirect( get_term_link( $term ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'portal_series_redirect_to_language', 5 );
+
 /* ------------------------------------------------------------------ Reading */
 
 /**
@@ -162,6 +230,7 @@ function portal_series_parts( $term, array $statuses = array( 'publish' ) ) {
 	}
 	$posts = get_posts(
 		array(
+			'lang'             => '', // a series is one writer's; never hide parts by page language (Task 18A).
 			'post_type'        => 'post',
 			'post_status'      => $statuses,
 			'numberposts'      => 200,

@@ -121,11 +121,11 @@ try {
 
     Write-Host '== Grievance form'
     $gjar = Join-Path $Tmp 'visitor.cookies'
-    $gpage = (curl.exe -s -c $gjar -b $gjar "$Base/grievance-officer/" | Out-String)
+    $gpage = (curl.exe -s -c $gjar -b $gjar "$Base/en/grievance-officer/" | Out-String)
     $formId = Get-Last (Wp option get portal_grievance_form_id)
     $gnonce = [regex]::Match($gpage, "name=""_fluentform_$($formId)_fluentformnonce"" value=""([^""]+)""").Groups[1].Value
     $inner = "names%5Bfirst_name%5D=Sunita&names%5Blast_name%5D=Sahu&email=sunita.$tag%40portal.test&complaint_type=" + [uri]::EscapeDataString('My privacy: personal information or photo') + "&content_url=" + [uri]::EscapeDataString($link1) + "&details=" + [uri]::EscapeDataString("My photo was used without permission. $tag") + "&declaration=on&_fluentform_$($formId)_fluentformnonce=$gnonce&_wp_http_referer=%2Fgrievance-officer%2F"
-    $resp = (curl.exe -s -c $gjar -b $gjar -e "$Base/grievance-officer/" --data-urlencode 'action=fluentform_submit' --data-urlencode "form_id=$formId" --data-urlencode "data=$inner" "$Base/wp-admin/admin-ajax.php" | Out-String)
+    $resp = (curl.exe -s -c $gjar -b $gjar -e "$Base/en/grievance-officer/" --data-urlencode 'action=fluentform_submit' --data-urlencode "form_id=$formId" --data-urlencode "data=$inner" "$Base/wp-admin/admin-ajax.php" | Out-String)
     $entry = [int](Get-Last (Wp db query "SELECT id FROM wp_fluentform_submissions WHERE form_id = $formId AND response LIKE '%$tag%' ORDER BY id DESC LIMIT 1" --skip-column-names))
     Start-Sleep -Seconds 1
     $ack = Get-Mail "sunita.$tag@portal.test" "GRV-$entry"

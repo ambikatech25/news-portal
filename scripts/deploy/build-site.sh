@@ -30,6 +30,15 @@ for s in design accounts writing engagement community tips review moderation seo
   wp eval-file "$DIR/setup-$s.php"
 done
 
+step "Task 18A: Hindi + English"
+# WordPress / plugin Hindi language packs (dates, comment form, login). "|| true": a pack that
+# does not exist (Kadence, WP User Frontend) is skipped; portal-core translates those words itself.
+wp language core install hi_IN || true
+wp language plugin install --all hi_IN || true
+# Languages, Hindi sections / pages / menus, Hindi as the main language. On a site that already
+# has English stories, add their Hindi versions first (docs/languages.md), or the Hindi home is empty.
+wp eval-file "$DIR/setup-languages.php" hindi-default
+
 step "Final: URL rules and caches"
 wp rewrite flush
 wp cache flush || true

@@ -1,0 +1,1777 @@
+# Copyright (C) 2026 
+# This file is distributed under the same license as the Portal Core plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Portal Core 0.18.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/portal-core\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-21T11:31:20+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: portal\n"
+
+#. Plugin Name of the plugin
+#: portal-core.php
+msgid "Portal Core"
+msgstr ""
+
+#. Description of the plugin
+#: portal-core.php
+msgid "Custom rules for the portal (roles, custom fields, publishing rules, REST API)."
+msgstr ""
+
+#. translators: 1: Terms of Use link, 2: Privacy Policy link.
+#: includes/accounts.php:49
+#, php-format
+msgid "I am at least 18 years old and I agree to the %1$s and the %2$s."
+msgstr ""
+
+#: includes/accounts.php:50
+msgid "Terms of Use"
+msgstr ""
+
+#: includes/accounts.php:51
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/accounts.php:70
+msgid "Leave this empty"
+msgstr ""
+
+#: includes/accounts.php:86
+msgid "<strong>Error:</strong> Sign-up could not be completed."
+msgstr ""
+
+#: includes/accounts.php:89
+msgid "<strong>Error:</strong> Please agree to the Terms of Use and Privacy Policy to create an account."
+msgstr ""
+
+#: includes/accounts.php:153
+msgid "Consent"
+msgstr ""
+
+#. translators: 1: date and time (UTC), 2: e-mail or Google.
+#: includes/accounts.php:160
+#, php-format
+msgid "Agreed to the Terms of Use and Privacy Policy on %1$s UTC, when signing up with %2$s."
+msgstr ""
+
+#: includes/accounts.php:162
+msgid "e-mail"
+msgstr ""
+
+#: includes/accounts.php:166
+msgid "No consent record (account created by an administrator or before Task 10)."
+msgstr ""
+
+#: includes/accounts.php:244
+#: includes/profiles.php:392
+msgid "Please choose a JPG, PNG or WebP photo."
+msgstr ""
+
+#: includes/accounts.php:245
+msgid "The photo is too large. The limit is 2 MB."
+msgstr ""
+
+#: includes/accounts.php:246
+#: includes/profiles.php:379
+msgid "The photo did not upload. Please try again."
+msgstr ""
+
+#: includes/accounts.php:253
+#: includes/profiles.php:466
+msgid "Profile photo"
+msgstr ""
+
+#: includes/accounts.php:255
+msgid "Photo saved."
+msgstr ""
+
+#: includes/accounts.php:257
+msgid "Photo removed."
+msgstr ""
+
+#: includes/accounts.php:265
+msgid "Upload photo"
+msgstr ""
+
+#: includes/accounts.php:267
+msgid "JPG, PNG or WebP, up to 2 MB."
+msgstr ""
+
+#: includes/accounts.php:273
+msgid "Remove photo"
+msgstr ""
+
+#: includes/article.php:89
+#: includes/engagement.php:77
+#: includes/feeds.php:225
+msgid "Post not found."
+msgstr ""
+
+#: includes/article.php:105
+msgid "Minutes needed to read the post."
+msgstr ""
+
+#: includes/audit-log.php:64
+msgid "Report received"
+msgstr ""
+
+#: includes/audit-log.php:65
+msgid "Reports dismissed"
+msgstr ""
+
+#: includes/audit-log.php:66
+msgid "Story taken down"
+msgstr ""
+
+#: includes/audit-log.php:67
+msgid "Story restored"
+msgstr ""
+
+#: includes/audit-log.php:68
+msgid "Comment taken down"
+msgstr ""
+
+#: includes/audit-log.php:69
+msgid "Account suspended"
+msgstr ""
+
+#: includes/audit-log.php:70
+msgid "Account reinstated"
+msgstr ""
+
+#: includes/audit-log.php:71
+msgid "Grievance received"
+msgstr ""
+
+#: includes/audit-log.php:72
+msgid "Story approved"
+msgstr ""
+
+#: includes/audit-log.php:73
+#: includes/review.php:410
+msgid "Changes requested"
+msgstr ""
+
+#: includes/audit-log.php:74
+msgid "Story rejected"
+msgstr ""
+
+#: includes/audit-log.php:75
+msgid "Writer request approved"
+msgstr ""
+
+#: includes/audit-log.php:76
+msgid "Writer request turned down"
+msgstr ""
+
+#: includes/audit-log.php:77
+msgid "Sensitive: second approval"
+msgstr ""
+
+#: includes/audit-log.php:78
+msgid "Sensitive: approval withdrawn"
+msgstr ""
+
+#: includes/audit-log.php:79
+msgid "Sensitive flag removed"
+msgstr ""
+
+#: includes/audit-log.php:80
+msgid "Story moved to trash"
+msgstr ""
+
+#: includes/audit-log.php:81
+msgid "Story deleted permanently"
+msgstr ""
+
+#: includes/audit-log.php:82
+msgid "Comment approved"
+msgstr ""
+
+#: includes/audit-log.php:83
+msgid "Comment marked spam"
+msgstr ""
+
+#: includes/audit-log.php:84
+msgid "Comment moved to trash"
+msgstr ""
+
+#: includes/audit-log.php:85
+msgid "Role changed"
+msgstr ""
+
+#: includes/audit-log.php:86
+msgid "Account deleted"
+msgstr ""
+
+#: includes/audit-log.php:314
+msgid "Visitor / system"
+msgstr ""
+
+#: includes/audit-log.php:325
+msgid "Only administrators can read the audit log."
+msgstr ""
+
+#: includes/audit-log.php:343
+#: includes/moderation.php:385
+msgid "Audit log"
+msgstr ""
+
+#: includes/audit-log.php:344
+msgid "Download CSV"
+msgstr ""
+
+#: includes/audit-log.php:345
+msgid "Every admin action, newest first. Entries cannot be changed or deleted from the website."
+msgstr ""
+
+#: includes/audit-log.php:349
+msgid "All actions"
+msgstr ""
+
+#: includes/audit-log.php:354
+msgid "Filter"
+msgstr ""
+
+#: includes/audit-log.php:358
+msgid "When (UTC)"
+msgstr ""
+
+#: includes/audit-log.php:359
+msgid "Who"
+msgstr ""
+
+#: includes/audit-log.php:360
+msgid "Action"
+msgstr ""
+
+#: includes/audit-log.php:361
+msgid "What"
+msgstr ""
+
+#: includes/audit-log.php:362
+#: includes/tips.php:684
+#: includes/tips.php:987
+msgid "Details"
+msgstr ""
+
+#: includes/audit-log.php:366
+msgid "Nothing recorded yet."
+msgstr ""
+
+#: includes/audit-log.php:395
+msgid "Only administrators can download the audit log."
+msgstr ""
+
+#: includes/community.php:189
+msgid "Remove from picks"
+msgstr ""
+
+#: includes/community.php:189
+msgid "Pick for Community"
+msgstr ""
+
+#: includes/community.php:201
+msgid "You cannot pick this story. Only published community stories can be picked, by editors."
+msgstr ""
+
+#: includes/community.php:222
+msgid "Editor's pick"
+msgstr ""
+
+#: includes/engagement.php:192
+msgid "You cannot follow yourself."
+msgstr ""
+
+#: includes/engagement.php:194
+#: includes/profiles.php:557
+msgid "Profile not found."
+msgstr ""
+
+#: includes/engagement.php:198
+msgid "Tag not found."
+msgstr ""
+
+#: includes/engagement.php:376
+msgid "Saved"
+msgstr ""
+
+#: includes/engagement.php:377
+msgid "Following"
+msgstr ""
+
+#: includes/engagement.php:389
+#: includes/series.php:1033
+#: includes/story-import.php:467
+#: includes/tips.php:273
+#: includes/tips.php:1154
+#: includes/writing.php:83
+msgid "Please sign in first."
+msgstr ""
+
+#: includes/engagement.php:515
+msgid "Number of likes."
+msgstr ""
+
+#: includes/feeds.php:246
+msgid "Number of counted reads."
+msgstr ""
+
+#. translators: 1: reference, 2: site name.
+#: includes/grievance.php:54
+#, php-format
+msgid "We received your complaint (%1$s) - %2$s"
+msgstr ""
+
+#. translators: 1: name, 2: site, 3: reference, 4: date.
+#: includes/grievance.php:57
+#, php-format
+msgid ""
+"Dear %1$s,\n"
+"\n"
+"Thank you for writing to the Grievance Officer of %2$s.\n"
+"\n"
+"Your reference number: %3$s\n"
+"Received on: %4$s (UTC)\n"
+"\n"
+"We will look into your complaint and reply within 15 days, as required by India's Information Technology Rules, 2021. Please quote your reference number in any message about this complaint.\n"
+"\n"
+"Grievance Officer\n"
+"%2$s"
+msgstr ""
+
+#: includes/grievance.php:58
+msgid "Sir/Madam"
+msgstr ""
+
+#. translators: 1: reference, 2: type.
+#: includes/grievance.php:69
+#, php-format
+msgid "New grievance %1$s: %2$s"
+msgstr ""
+
+#. translators: 1: ref, 2: name, 3: email, 4: type, 5: url, 6: details, 7: entries link.
+#: includes/grievance.php:72
+#, php-format
+msgid ""
+"Reference: %1$s\n"
+"From: %2$s <%3$s>\n"
+"Type: %4$s\n"
+"Content: %5$s\n"
+"\n"
+"%6$s\n"
+"\n"
+"Reply within 15 days. All entries: %7$s"
+msgstr ""
+
+#: includes/image-safety.php:83
+msgid "This photo could not be cleaned of its hidden location data, so it was not uploaded. Please take a screenshot of it, or save it again as JPG, and upload that."
+msgstr ""
+
+#: includes/languages.php:423
+msgid "Language of your story"
+msgstr ""
+
+#: includes/languages.php:432
+msgid "Write in the language you are most comfortable with. Our editors may add a version in the other language."
+msgstr ""
+
+#: includes/moderation.php:26
+msgctxt "post status"
+msgid "Taken down"
+msgstr ""
+
+#. translators: %s: number.
+#: includes/moderation.php:31
+#, php-format
+msgid "Taken down <span class=\"count\">(%s)</span>"
+msgid_plural "Taken down <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/moderation.php:128
+#, php-format
+msgid "Comment #%d"
+msgstr ""
+
+#. translators: %s: story title or comment number.
+#: includes/moderation.php:130
+#, php-format
+msgid "New report: %s"
+msgstr ""
+
+#. translators: 1: item, 2: reason, 3: link.
+#: includes/moderation.php:133
+#, php-format
+msgid ""
+"A reader reported: %1$s\n"
+"Reason: %2$s\n"
+"\n"
+"Review it (Take down / Dismiss):\n"
+"%3$s"
+msgstr ""
+
+#: includes/moderation.php:158
+#: includes/moderation.php:317
+#: includes/moderation.php:530
+msgid "Please give a reason (at least 5 characters)."
+msgstr ""
+
+#: includes/moderation.php:164
+msgid "You cannot take this story down."
+msgstr ""
+
+#. translators: %s: title.
+#: includes/moderation.php:192
+#, php-format
+msgid "Your story was taken down: %s"
+msgstr ""
+
+#. translators: 1: name, 2: title, 3: reason.
+#: includes/moderation.php:195
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Your story \"%2$s\" has been removed from the website.\n"
+"\n"
+"Reason:\n"
+"%3$s\n"
+"\n"
+"If you think this is a mistake, please contact our Grievance Officer."
+msgstr ""
+
+#: includes/moderation.php:205
+msgid "You cannot take this comment down."
+msgstr ""
+
+#: includes/moderation.php:210
+msgid "Unknown item."
+msgstr ""
+
+#: includes/moderation.php:238
+msgid "This story is not taken down, or you cannot restore it."
+msgstr ""
+
+#: includes/moderation.php:251
+msgid "The story could not be published again (it may need a second approval as a Sensitive story)."
+msgstr ""
+
+#: includes/moderation.php:271
+msgid "There are no open reports for this item."
+msgstr ""
+
+#: includes/moderation.php:311
+msgid "Only administrators can suspend accounts."
+msgstr ""
+
+#: includes/moderation.php:314
+msgid "Administrators (and you yourself) cannot be suspended here."
+msgstr ""
+
+#: includes/moderation.php:342
+msgid "This account is not suspended, or you cannot reinstate it."
+msgstr ""
+
+#: includes/moderation.php:357
+msgid "<strong>Error:</strong> This account has been suspended. If you think this is a mistake, please contact our Grievance Officer."
+msgstr ""
+
+#: includes/moderation.php:382
+#: includes/moderation.php:383
+#: includes/moderation.php:384
+#: includes/moderation.php:440
+#: includes/moderation.php:456
+msgid "Reports"
+msgstr ""
+
+#: includes/moderation.php:387
+#: includes/moderation.php:603
+msgid "Suspend account"
+msgstr ""
+
+#: includes/moderation.php:402
+#, php-format
+msgid "Story #%d (deleted)"
+msgstr ""
+
+#: includes/moderation.php:404
+msgid "View"
+msgstr ""
+
+#: includes/moderation.php:405
+msgid "Story"
+msgstr ""
+
+#: includes/moderation.php:409
+#, php-format
+msgid "Comment #%d (deleted)"
+msgstr ""
+
+#: includes/moderation.php:411
+msgid "Comment by"
+msgstr ""
+
+#: includes/moderation.php:411
+msgid "on"
+msgstr ""
+
+#: includes/moderation.php:419
+msgid "You are not allowed to see reports."
+msgstr ""
+
+#: includes/moderation.php:429
+#: includes/tips.php:929
+msgid "Open"
+msgstr ""
+
+#: includes/moderation.php:430
+msgid "Taken down"
+msgstr ""
+
+#: includes/moderation.php:431
+msgid "Dismissed"
+msgstr ""
+
+#: includes/moderation.php:434
+msgid "Taken down. The reports are closed and the action is in the audit log."
+msgstr ""
+
+#: includes/moderation.php:435
+msgid "Reports dismissed. The content stays up; the decision is in the audit log."
+msgstr ""
+
+#: includes/moderation.php:436
+msgid "Story restored and published again."
+msgstr ""
+
+#: includes/moderation.php:441
+msgid "What readers reported. Each row is one story or comment, with all its reports. Every decision needs a reason and is written to the audit log."
+msgstr ""
+
+#: includes/moderation.php:455
+msgid "Reported item"
+msgstr ""
+
+#: includes/moderation.php:457
+msgid "Reasons and readers’ notes"
+msgstr ""
+
+#: includes/moderation.php:458
+msgid "Decide"
+msgstr ""
+
+#: includes/moderation.php:458
+msgid "Decision"
+msgstr ""
+
+#: includes/moderation.php:462
+msgid "Nothing here."
+msgstr ""
+
+#: includes/moderation.php:484
+msgid "Reason (required, kept in the audit log)"
+msgstr ""
+
+#: includes/moderation.php:486
+msgid "Take down"
+msgstr ""
+
+#: includes/moderation.php:487
+msgid "Dismiss (keep up)"
+msgstr ""
+
+#: includes/moderation.php:499
+msgid "Restore story"
+msgstr ""
+
+#: includes/moderation.php:520
+#: includes/review.php:311
+#: includes/writing.php:309
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: includes/moderation.php:535
+#: includes/review.php:112
+msgid "Unknown decision."
+msgstr ""
+
+#: includes/moderation.php:559
+msgid "Reinstate"
+msgstr ""
+
+#: includes/moderation.php:561
+msgid "Suspend"
+msgstr ""
+
+#: includes/moderation.php:578
+msgid "Suspended"
+msgstr ""
+
+#: includes/moderation.php:591
+msgid "User not found."
+msgstr ""
+
+#: includes/moderation.php:595
+#, php-format
+msgid "Suspend %s"
+msgstr ""
+
+#: includes/moderation.php:596
+msgid "A suspended account cannot log in (with a password or Google), and is logged out everywhere at once. Their stories and comments stay as they are; take them down separately if needed."
+msgstr ""
+
+#: includes/moderation.php:601
+msgid "Reason (kept in the audit log)"
+msgstr ""
+
+#: includes/post-meta.php:27
+msgid "Checked by the editorial desk. Shows the Verified badge."
+msgstr ""
+
+#: includes/post-meta.php:33
+msgid "FIR number shown with the Verified badge."
+msgstr ""
+
+#: includes/post-meta.php:39
+msgid "Police station shown with the Verified badge."
+msgstr ""
+
+#: includes/post-meta.php:45
+msgid "Crime, minors or sexual offence: needs a second approval before publishing."
+msgstr ""
+
+#: includes/post-meta.php:51
+msgid "User ID of the second Editor or Admin who approved a sensitive post."
+msgstr ""
+
+#: includes/post-meta.php:57
+msgid "Premium post: non-members see a preview and a subscribe box."
+msgstr ""
+
+#: includes/post-meta.php:63
+msgid "Breaking news: shown in the red Breaking strip for 24 hours after publishing."
+msgstr ""
+
+#: includes/post-meta.php:69
+msgid "Editor's pick: shown under \"Editors' picks\" on the Community page (Task 17C)."
+msgstr ""
+
+#. translators: %s: size limit, e.g. "2 MB".
+#: includes/profiles.php:373
+#, php-format
+msgid "The photo is too large. The limit is %s."
+msgstr ""
+
+#: includes/profiles.php:469
+msgid "Photo"
+msgstr ""
+
+#: includes/profiles.php:473
+msgid "JPG, PNG or WebP, up to 2 MB. A square photo of your face works best. Shown on your profile page and next to your stories."
+msgstr ""
+
+#: includes/profiles.php:475
+msgid "Remove my photo"
+msgstr ""
+
+#: includes/profiles.php:574
+msgid "Send the photo in a field named \"file\"."
+msgstr ""
+
+#: includes/reports.php:75
+msgid "False or misleading information"
+msgstr ""
+
+#: includes/reports.php:76
+msgid "Identifies a victim, a minor or a witness"
+msgstr ""
+
+#: includes/reports.php:77
+msgid "Hate, abuse or harassment"
+msgstr ""
+
+#: includes/reports.php:78
+msgid "Shares my private information"
+msgstr ""
+
+#: includes/reports.php:79
+msgid "Copied without permission"
+msgstr ""
+
+#: includes/reports.php:80
+msgid "Spam or advertising"
+msgstr ""
+
+#: includes/reports.php:81
+msgid "Something else"
+msgstr ""
+
+#: includes/reports.php:147
+msgid "You have sent many reports. Please try again in an hour."
+msgstr ""
+
+#: includes/reports.php:166
+msgid "The report could not be saved. Please try again."
+msgstr ""
+
+#: includes/reports.php:241
+msgid "This item cannot be reported."
+msgstr ""
+
+#: includes/reports.php:251
+msgid "Thank you. Our team will review this report."
+msgstr ""
+
+#. translators: %s: category names, e.g. "News, Crime".
+#: includes/restricted-categories.php:109
+#, php-format
+msgid "Only editors can publish in: %s. Please choose a different category."
+msgstr ""
+
+#: includes/review.php:31
+msgctxt "post status"
+msgid "Changes requested"
+msgstr ""
+
+#. translators: %s: number of posts.
+#: includes/review.php:37
+#, php-format
+msgid "Changes requested <span class=\"count\">(%s)</span>"
+msgid_plural "Changes requested <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/review.php:43
+msgctxt "post status"
+msgid "Rejected"
+msgstr ""
+
+#. translators: %s: number of posts.
+#: includes/review.php:49
+#, php-format
+msgid "Rejected <span class=\"count\">(%s)</span>"
+msgid_plural "Rejected <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/review.php:88
+#: includes/sensitive.php:81
+#: includes/series.php:510
+msgid "Story not found."
+msgstr ""
+
+#: includes/review.php:91
+msgid "This story is not waiting for review."
+msgstr ""
+
+#: includes/review.php:95
+msgid "Please tell the writer why (at least 10 characters)."
+msgstr ""
+
+#: includes/review.php:129
+msgid "The story could not be published yet. Check the messages in the editor."
+msgstr ""
+
+#. translators: %s: story title.
+#: includes/review.php:179
+#, php-format
+msgid "Published: %s"
+msgstr ""
+
+#. translators: 1: name, 2: title, 3: link.
+#: includes/review.php:181
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Your story \"%2$s\" has been approved and published:\n"
+"%3$s"
+msgstr ""
+
+#. translators: %s: editor's note.
+#: includes/review.php:184
+#, php-format
+msgid ""
+"Note from the editor:\n"
+"%s"
+msgstr ""
+
+#. translators: %s: story title.
+#: includes/review.php:188
+#, php-format
+msgid "Changes requested: %s"
+msgstr ""
+
+#. translators: 1: name, 2: title, 3: note, 4: link.
+#: includes/review.php:190
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Our editors read your story \"%2$s\" and ask for some changes before it can be published:\n"
+"\n"
+"%3$s\n"
+"\n"
+"Edit it here (My Account > Posts), then submit it again:\n"
+"%4$s"
+msgstr ""
+
+#. translators: %s: story title.
+#: includes/review.php:193
+#, php-format
+msgid "Not published: %s"
+msgstr ""
+
+#. translators: 1: name, 2: title, 3: note.
+#: includes/review.php:195
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Thank you for your story \"%2$s\". We are not able to publish it, for this reason:\n"
+"\n"
+"%3$s\n"
+"\n"
+"You are welcome to write another story."
+msgstr ""
+
+#. translators: %s: story title.
+#: includes/review.php:219
+#, php-format
+msgid "Waiting for review: %s"
+msgstr ""
+
+#. translators: 1: title, 2: writer, 3: resubmitted note, 4: edit link.
+#: includes/review.php:222
+#, php-format
+msgid ""
+"A story is waiting for review.\n"
+"\n"
+"Title: %1$s\n"
+"Writer: %2$s%3$s\n"
+"\n"
+"Open it and use the Review panel (Approve / Request changes / Reject):\n"
+"%4$s"
+msgstr ""
+
+#: includes/review.php:225
+msgid "(Resubmitted after changes were requested.)"
+msgstr ""
+
+#: includes/review.php:297
+msgid "Approve & publish"
+msgstr ""
+
+#: includes/review.php:298
+msgid "Review (changes / reject)"
+msgstr ""
+
+#: includes/review.php:326
+msgid "Approved and published. The writer has been e-mailed."
+msgstr ""
+
+#: includes/review.php:370
+msgid "Only editors can review stories."
+msgstr ""
+
+#: includes/review.php:409
+#: includes/writing.php:282
+msgid "Approved"
+msgstr ""
+
+#: includes/review.php:411
+msgid "Rejected"
+msgstr ""
+
+#: includes/sensitive.php:55
+msgid "This story is marked Sensitive. A second editor must give their approval first (Review panel → Give second approval). Then it can be published."
+msgstr ""
+
+#: includes/sensitive.php:58
+msgid "The second approval on this Sensitive story is no longer valid (that person is not an editor any more). Another editor must approve it again."
+msgstr ""
+
+#: includes/sensitive.php:61
+msgid "You gave the second approval for this Sensitive story, so a different editor must publish it."
+msgstr ""
+
+#: includes/sensitive.php:64
+msgid "The writer of a Sensitive story cannot be its second approver. Another editor must approve it."
+msgstr ""
+
+#: includes/sensitive.php:84
+msgid "This story is not marked Sensitive, so it does not need a second approval."
+msgstr ""
+
+#: includes/sensitive.php:87
+#: includes/sensitive.php:215
+msgid "Only editors can give a second approval."
+msgstr ""
+
+#: includes/sensitive.php:90
+msgid "You wrote this story, so you cannot be its second approver."
+msgstr ""
+
+#: includes/sensitive.php:94
+msgid "Another editor has already given the second approval."
+msgstr ""
+
+#: includes/sensitive.php:113
+msgid "Only the editor who approved (or an admin) can withdraw the approval."
+msgstr ""
+
+#: includes/sensitive.php:149
+msgid "This story is marked Sensitive. Save it first, then a second editor must give their approval (Review panel) before it can be published."
+msgstr ""
+
+#: includes/series.php:41
+#: includes/series.php:42
+#: includes/series.php:51
+msgid "Series"
+msgstr ""
+
+#: includes/series.php:43
+msgid "Search series"
+msgstr ""
+
+#: includes/series.php:44
+msgid "All series"
+msgstr ""
+
+#: includes/series.php:45
+msgid "Edit series"
+msgstr ""
+
+#: includes/series.php:46
+msgid "Update series"
+msgstr ""
+
+#: includes/series.php:47
+msgid "Add new series"
+msgstr ""
+
+#: includes/series.php:48
+#: includes/series.php:790
+msgid "New series name"
+msgstr ""
+
+#: includes/series.php:49
+msgid "No series found."
+msgstr ""
+
+#: includes/series.php:50
+msgid "← Back to series"
+msgstr ""
+
+#: includes/series.php:83
+msgid "Place of the story in its series (1, 2, 3...). Set automatically."
+msgstr ""
+
+#: includes/series.php:391
+msgid "The series name must be 3 to 80 characters long."
+msgstr ""
+
+#: includes/series.php:394
+msgid "The description can be at most 600 characters long."
+msgstr ""
+
+#: includes/series.php:409
+#: includes/series.php:1035
+msgid "Only writers can create a series. Ask to become a writer first."
+msgstr ""
+
+#: includes/series.php:416
+#: includes/series.php:836
+msgid "You already have 30 series. Please add new parts to an existing one."
+msgstr ""
+
+#: includes/series.php:518
+#: includes/series.php:842
+#: includes/series.php:1040
+#: includes/series.php:1065
+msgid "That series does not exist."
+msgstr ""
+
+#: includes/series.php:521
+#: includes/series.php:845
+msgid "You can only add your own stories to your own series."
+msgstr ""
+
+#. translators: %s: series name.
+#: includes/series.php:632
+#, php-format
+msgid "Series cover: %s"
+msgstr ""
+
+#: includes/series.php:668
+msgid "The series could not be deleted."
+msgstr ""
+
+#: includes/series.php:779
+msgid "Series (optional)"
+msgstr ""
+
+#: includes/series.php:783
+msgid "Not part of a series"
+msgstr ""
+
+#: includes/series.php:787
+msgid "+ Start a new series…"
+msgstr ""
+
+#: includes/series.php:791
+msgid "e.g. Raipur's old markets"
+msgstr ""
+
+#: includes/series.php:793
+msgid "Writing in parts? Put each part in the same series. Readers get \"Part 1 of 3\" and a \"Next part\" button. Cover photo, description and order: My Account → My series."
+msgstr ""
+
+#: includes/series.php:888
+msgid "My series"
+msgstr ""
+
+#: includes/series.php:970
+#: includes/series.php:1042
+msgid "You cannot change that series."
+msgstr ""
+
+#: includes/series.php:1079
+msgid "Story IDs in reading order."
+msgstr ""
+
+#: includes/series.php:1164
+msgid "You cannot change this story."
+msgstr ""
+
+#: includes/series.php:1209
+msgid "The series this story belongs to, as readers see it: \"Part number of total\"."
+msgstr ""
+
+#: includes/story-import.php:85
+msgid "This server cannot read Word files."
+msgstr ""
+
+#: includes/story-import.php:89
+msgid "This is not a Word (.docx) file. In Word or Google Docs choose File → Save as / Download → .docx."
+msgstr ""
+
+#: includes/story-import.php:94
+#: includes/story-import.php:111
+msgid "This Word file could not be read. Please save it again as .docx and retry."
+msgstr ""
+
+#. translators: %s: section name.
+#: includes/story-import.php:423
+#, php-format
+msgid "Only editors can publish in \"%s\". Please choose another section."
+msgstr ""
+
+#. translators: %s: section name.
+#: includes/story-import.php:425
+#, php-format
+msgid "Section \"%s\" was not recognised. Please choose one from the list."
+msgstr ""
+
+#: includes/story-import.php:430
+msgid "No headline was found. Please type one."
+msgstr ""
+
+#: includes/story-import.php:433
+msgid "No story text was found. Check that the text comes after the STORY label."
+msgstr ""
+
+#. translators: %d: number of pictures.
+#: includes/story-import.php:438
+#, php-format
+msgid "Your document has %d picture. Pictures are not copied: add them with \"Insert Photo\" or \"Main picture\"."
+msgid_plural "Your document has %d pictures. Pictures are not copied: add them with \"Insert Photo\" or \"Main picture\"."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/story-import.php:469
+msgid "Only writers can import stories."
+msgstr ""
+
+#: includes/story-import.php:489
+#: includes/story-import.php:506
+msgid "The file is too large. The limit is 2 MB."
+msgstr ""
+
+#: includes/story-import.php:497
+msgid "This text file is not in UTF-8. Save it as UTF-8 and retry."
+msgstr ""
+
+#: includes/story-import.php:501
+msgid "PDF files cannot be read reliably. Open the PDF in Word or Google Docs and save it as .docx, then upload that."
+msgstr ""
+
+#: includes/story-import.php:503
+msgid "Please upload a Word file (.docx) or a text file (.txt)."
+msgstr ""
+
+#: includes/story-import.php:510
+msgid "The text is too long."
+msgstr ""
+
+#: includes/story-import.php:514
+msgid "Choose a file or paste your text first."
+msgstr ""
+
+#: includes/story-import.php:622
+msgid "Reading…"
+msgstr ""
+
+#: includes/story-import.php:623
+msgid "Done! Check every field, add pictures, then press Submit story."
+msgstr ""
+
+#: includes/story-import.php:624
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/story-import.php:625
+msgid "Prompt copied"
+msgstr ""
+
+#: includes/story-import.php:626
+msgid "This will replace what you have typed in the form. Continue?"
+msgstr ""
+
+#: includes/story-import.php:633
+msgid "Already written it? Fill the form from a document"
+msgstr ""
+
+#: includes/story-import.php:637
+msgid "Download the Word template"
+msgstr ""
+
+#: includes/story-import.php:638
+msgid "and write your story in it (or in Google Docs, then File → Download → .docx)."
+msgstr ""
+
+#: includes/story-import.php:642
+msgid "Upload it here (.docx or .txt, up to 2 MB):"
+msgstr ""
+
+#: includes/story-import.php:647
+msgid "Or paste text from ChatGPT or anywhere else:"
+msgstr ""
+
+#: includes/story-import.php:650
+msgid "Fill the form"
+msgstr ""
+
+#: includes/story-import.php:651
+msgid "Copy a ChatGPT prompt"
+msgstr ""
+
+#: includes/story-import.php:654
+msgid "PDF? Open it in Word or Google Docs and save as .docx. Pictures in documents are not copied. You are responsible for what you submit, even if a tool helped write it."
+msgstr ""
+
+#: includes/tips.php:44
+#: includes/tips.php:46
+msgid "Reader tips"
+msgstr ""
+
+#: includes/tips.php:45
+#: includes/tips.php:48
+#: includes/tips.php:802
+msgid "Reader tip"
+msgstr ""
+
+#: includes/tips.php:47
+#: includes/tips.php:962
+msgid "All tips"
+msgstr ""
+
+#: includes/tips.php:49
+msgid "Search tips"
+msgstr ""
+
+#: includes/tips.php:50
+msgid "No tips yet."
+msgstr ""
+
+#: includes/tips.php:103
+#: includes/tips.php:879
+#: includes/tips.php:984
+msgid "Received"
+msgstr ""
+
+#: includes/tips.php:104
+msgid "Being checked"
+msgstr ""
+
+#: includes/tips.php:105
+msgid "Published"
+msgstr ""
+
+#: includes/tips.php:106
+msgid "Not published"
+msgstr ""
+
+#: includes/tips.php:117
+msgid "I saw it myself"
+msgstr ""
+
+#: includes/tips.php:118
+msgid "Someone told me"
+msgstr ""
+
+#: includes/tips.php:119
+msgid "I have documents"
+msgstr ""
+
+#: includes/tips.php:222
+msgid "Please say in one line what happened (10 to 120 characters)."
+msgstr ""
+
+#: includes/tips.php:225
+msgid "Please describe what happened in a few sentences (30 to 5,000 characters)."
+msgstr ""
+
+#: includes/tips.php:228
+msgid "Please say where it happened (town or district)."
+msgstr ""
+
+#: includes/tips.php:233
+msgid "Please choose the date it happened (not in the future)."
+msgstr ""
+
+#: includes/tips.php:237
+msgid "Please tell us how you know about it."
+msgstr ""
+
+#: includes/tips.php:242
+msgid "The video link does not look right. Please paste the full link (starting with https://)."
+msgstr ""
+
+#: includes/tips.php:251
+msgid "Please give a 10-digit Indian mobile number, or leave it empty."
+msgstr ""
+
+#: includes/tips.php:256
+msgid "Please confirm that what you send is true to your knowledge and that you may share the photos."
+msgstr ""
+
+#: includes/tips.php:286
+msgid "You have sent 5 tips today. Please try again tomorrow, or write to us if it is urgent."
+msgstr ""
+
+#: includes/tips.php:294
+msgid "Please send at most 4 photos."
+msgstr ""
+
+#: includes/tips.php:367
+msgid "This tip is already being checked or published."
+msgstr ""
+
+#: includes/tips.php:386
+msgid "Please write a short reason for the reader (at least 10 characters)."
+msgstr ""
+
+#: includes/tips.php:389
+msgid "This tip has already been published."
+msgstr ""
+
+#. translators: %s: reader's name.
+#: includes/tips.php:515
+#, php-format
+msgid "Based on a report by %s, a CityCharcha reader."
+msgstr ""
+
+#: includes/tips.php:517
+msgid "Based on a reader report."
+msgstr ""
+
+#. translators: 1: reference, 2: headline.
+#: includes/tips.php:529
+#, php-format
+msgid "New reader tip %1$s: %2$s"
+msgstr ""
+
+#. translators: 1: headline, 2: place, 3: how they know, 4: number of photos, 5: link.
+#: includes/tips.php:533
+#, php-format
+msgid ""
+"A reader sent news.\n"
+"\n"
+"What happened: %1$s\n"
+"Where: %2$s\n"
+"How they know: %3$s\n"
+"Photos: %4$d\n"
+"\n"
+"Check it before anything is published:\n"
+"%5$s"
+msgstr ""
+
+#. translators: %s: reference.
+#: includes/tips.php:568
+#, php-format
+msgid "Your news tip %s is published"
+msgstr ""
+
+#. translators: 1: name, 2: headline, 3: story link.
+#: includes/tips.php:570
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Thank you. Our editors checked your news tip \"%2$s\" and published a story based on it:\n"
+"%3$s"
+msgstr ""
+
+#. translators: %s: reference.
+#: includes/tips.php:574
+#, php-format
+msgid "About your news tip %s"
+msgstr ""
+
+#. translators: 1: name, 2: headline, 3: reason, 4: My tips link.
+#: includes/tips.php:576
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Thank you for sending \"%2$s\". Our editors decided not to publish it.\n"
+"\n"
+"Reason: %3$s\n"
+"\n"
+"Please keep sending news. Your tips: %4$s"
+msgstr ""
+
+#. translators: %s: reference.
+#: includes/tips.php:580
+#, php-format
+msgid "We received your news tip %s"
+msgstr ""
+
+#. translators: 1: name, 2: headline, 3: reference, 4: My tips link.
+#: includes/tips.php:582
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Thank you for sending news: \"%2$s\" (reference %3$s).\n"
+"\n"
+"Our editors will check it before anything is published. You will get an e-mail when it is published or if we decide not to publish it.\n"
+"\n"
+"Your tips: %4$s"
+msgstr ""
+
+#: includes/tips.php:607
+msgid "My tips"
+msgstr ""
+
+#: includes/tips.php:657
+msgid "Sign in to send news"
+msgstr ""
+
+#: includes/tips.php:658
+msgid "Seen something our readers should know about? Sign in or create a free account, then tell us what happened. Our editors check every tip before anything is published."
+msgstr ""
+
+#: includes/tips.php:659
+#: includes/writing.php:351
+msgid "Sign in"
+msgstr ""
+
+#: includes/tips.php:660
+msgid "Create an account"
+msgstr ""
+
+#: includes/tips.php:679
+msgid "Our editors read every tip and check it before anything is published. Please send only what you know to be true. For emergencies call 112 first."
+msgstr ""
+
+#: includes/tips.php:681
+msgid "What happened? (one line)"
+msgstr ""
+
+#: includes/tips.php:682
+msgid "e.g. Water pipeline burst near Telibandha, road closed"
+msgstr ""
+
+#: includes/tips.php:685
+msgid "What did you see or hear? When did it start? Who is affected? Anything officials said?"
+msgstr ""
+
+#: includes/tips.php:688
+msgid "Where? (town or district)"
+msgstr ""
+
+#: includes/tips.php:690
+msgid "When? (date)"
+msgstr ""
+
+#: includes/tips.php:699
+msgid "How do you know?"
+msgstr ""
+
+#. translators: %s: size limit, e.g. "8 MB".
+#: includes/tips.php:708
+#, php-format
+msgid "Photos (optional, up to 4, JPG/PNG/WebP, %s each)"
+msgstr ""
+
+#: includes/tips.php:712
+msgid "We remove the hidden location data from photos. Do not send photos of injured people, children or victims' faces."
+msgstr ""
+
+#: includes/tips.php:714
+msgid "Video link (optional)"
+msgstr ""
+
+#: includes/tips.php:716
+msgid "Upload the video to YouTube (unlisted) or Google Drive and paste the link. Video files can reveal where they were filmed, so we do not take them directly."
+msgstr ""
+
+#: includes/tips.php:718
+msgid "Mobile number (optional, only our editors see it)"
+msgstr ""
+
+#: includes/tips.php:720
+msgid "So an editor can call you to check details. Deleted 90 days after we close your tip."
+msgstr ""
+
+#: includes/tips.php:722
+msgid "If we publish a story"
+msgstr ""
+
+#: includes/tips.php:723
+msgid "Keep me anonymous (\"Based on a reader report\")"
+msgstr ""
+
+#: includes/tips.php:724
+msgid "Credit me by name"
+msgstr ""
+
+#: includes/tips.php:725
+msgid "Anonymous means readers will not see your name. Our editors always know who sent a tip."
+msgstr ""
+
+#: includes/tips.php:731
+msgid "What I am sending is true to my knowledge, I may share these photos, and I understand the editors may contact me and may decide not to publish it."
+msgstr ""
+
+#: includes/tips.php:733
+msgid "Send news"
+msgstr ""
+
+#: includes/tips.php:746
+msgid "This form has expired. Please go back, reload the page and try again."
+msgstr ""
+
+#: includes/tips.php:873
+msgid "What happened"
+msgstr ""
+
+#: includes/tips.php:874
+msgid "Reference"
+msgstr ""
+
+#: includes/tips.php:875
+#: includes/tips.php:976
+msgid "Sent by"
+msgstr ""
+
+#: includes/tips.php:876
+msgid "Where"
+msgstr ""
+
+#: includes/tips.php:877
+#: includes/tips.php:968
+msgid "State"
+msgstr ""
+
+#: includes/tips.php:878
+#: includes/tips.php:989
+msgid "Photos"
+msgstr ""
+
+#: includes/tips.php:902
+msgid "anonymous to readers"
+msgstr ""
+
+#: includes/tips.php:944
+#: includes/tips.php:1038
+msgid "Tip not found."
+msgstr ""
+
+#: includes/tips.php:970
+msgid "Reason sent to the reader:"
+msgstr ""
+
+#: includes/tips.php:973
+msgid "Open the published story"
+msgstr ""
+
+#: includes/tips.php:973
+msgid "Open the draft story"
+msgstr ""
+
+#: includes/tips.php:980
+msgid "Wants to be credited by name."
+msgstr ""
+
+#: includes/tips.php:980
+msgid "Wants to stay anonymous to readers."
+msgstr ""
+
+#: includes/tips.php:982
+msgid "Mobile"
+msgstr ""
+
+#: includes/tips.php:983
+msgid "For checking only. Never publish it. Deleted 90 days after the tip is closed."
+msgstr ""
+
+#: includes/tips.php:985
+msgid "Where / when"
+msgstr ""
+
+#: includes/tips.php:986
+msgid "How they know"
+msgstr ""
+
+#: includes/tips.php:988
+msgid "Video link"
+msgstr ""
+
+#: includes/tips.php:1002
+msgid "Location data was removed on upload. Blur faces of victims and children and number plates before publishing (see the blurring guide)."
+msgstr ""
+
+#: includes/tips.php:1006
+msgid "What to do"
+msgstr ""
+
+#: includes/tips.php:1010
+msgid "I am checking it"
+msgstr ""
+
+#: includes/tips.php:1013
+msgid "Open the News story"
+msgstr ""
+
+#: includes/tips.php:1013
+msgid "Write it up as a News story"
+msgstr ""
+
+#: includes/tips.php:1021
+msgid "Not publishing it? Reason for the reader:"
+msgstr ""
+
+#: includes/tips.php:1022
+msgid "e.g. We could not confirm this with the police or another source."
+msgstr ""
+
+#: includes/tips.php:1023
+msgid "Decline and e-mail the reader"
+msgstr ""
+
+#: includes/tips.php:1026
+msgid "\"Write it up\" makes a draft in News with the reader's text and photos. Check the facts, call the reader if needed, rewrite, and publish as usual. Sensitive stories still need a second editor. The reader is told automatically when the story is published."
+msgstr ""
+
+#: includes/tips.php:1042
+msgid "Only editors can handle tips."
+msgstr ""
+
+#: includes/tips.php:1048
+msgid "Marked as being checked. The reader sees \"Being checked\" in My tips."
+msgstr ""
+
+#: includes/tips.php:1059
+msgid "Declined. The reader has been e-mailed the reason."
+msgstr ""
+
+#: includes/tips.php:1062
+msgid "Unknown action."
+msgstr ""
+
+#: includes/writing.php:86
+msgid "You can already write stories."
+msgstr ""
+
+#: includes/writing.php:91
+msgid "Your request is already with our team."
+msgstr ""
+
+#. translators: %s: date.
+#: includes/writing.php:99
+#, php-format
+msgid "You can send a new request after %s."
+msgstr ""
+
+#: includes/writing.php:109
+msgid "Please tell us in 30 to 1000 characters what you would like to write about."
+msgstr ""
+
+#: includes/writing.php:112
+msgid "The sample link does not look like a web address (it should start with https://)."
+msgstr ""
+
+#: includes/writing.php:115
+msgid "Please agree to the Community Guidelines."
+msgstr ""
+
+#. translators: %s: person's name.
+#: includes/writing.php:129
+#, php-format
+msgid "Writer request from %s"
+msgstr ""
+
+#. translators: 1: name, 2: reason, 3: sample link, 4: review link.
+#: includes/writing.php:132
+#, php-format
+msgid ""
+"%1$s would like to write for the site.\n"
+"\n"
+"Why:\n"
+"%2$s\n"
+"\n"
+"Sample: %3$s\n"
+"\n"
+"Approve or turn down: %4$s"
+msgstr ""
+
+#: includes/writing.php:157
+msgid "There is no open request for this person."
+msgstr ""
+
+#: includes/writing.php:169
+msgid "You can now write for us"
+msgstr ""
+
+#. translators: 1: name, 2: write page link.
+#: includes/writing.php:172
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Good news: your request was approved. You can now write stories here:\n"
+"%2$s\n"
+"\n"
+"Our editors read every story before it is published."
+msgstr ""
+
+#: includes/writing.php:178
+msgid "About your writer request"
+msgstr ""
+
+#. translators: 1: name, 2: days.
+#: includes/writing.php:181
+#, php-format
+msgid ""
+"Hello %1$s,\n"
+"\n"
+"Thank you for your interest. We cannot accept your writer request right now. You are welcome to ask again after %2$d days."
+msgstr ""
+
+#: includes/writing.php:230
+msgid "Writer requests"
+msgstr ""
+
+#: includes/writing.php:261
+msgid "Writer request"
+msgstr ""
+
+#: includes/writing.php:281
+msgid "Waiting"
+msgstr ""
+
+#: includes/writing.php:283
+msgid "Turned down"
+msgstr ""
+
+#: includes/writing.php:289
+msgid "Sample"
+msgstr ""
+
+#: includes/writing.php:292
+msgid "Approve"
+msgstr ""
+
+#: includes/writing.php:292
+msgid "Turn down"
+msgstr ""
+
+#: includes/writing.php:326
+msgid "Approved: the person is now a Contributor and has been e-mailed."
+msgstr ""
+
+#: includes/writing.php:327
+msgid "Turned down: the person has been e-mailed."
+msgstr ""
+
+#: includes/writing.php:328
+msgid "That request was already decided."
+msgstr ""
+
+#: includes/writing.php:348
+msgid "Write for us"
+msgstr ""
+
+#: includes/writing.php:349
+msgid "Share news, experiences and ideas from Chhattisgarh and central India. Sign in or create a free account to get started."
+msgstr ""
+
+#: includes/writing.php:352
+msgid "Create account"
+msgstr ""
+
+#: includes/writing.php:362
+msgid "Your story is published when you submit it."
+msgstr ""
+
+#: includes/writing.php:363
+msgid "Our editors read every story before it is published. You will find it under My Account → Posts."
+msgstr ""
+
+#: includes/writing.php:386
+msgid "Become a writer"
+msgstr ""
+
+#: includes/writing.php:388
+msgid "Thank you! Your request is with our team. We will e-mail you when it has been reviewed."
+msgstr ""
+
+#: includes/writing.php:391
+msgid "Your last request was not accepted. You can ask again a week after it was reviewed."
+msgstr ""
+
+#: includes/writing.php:393
+msgid "Members can apply to write. Tell us a little about yourself; an admin will review your request."
+msgstr ""
+
+#: includes/writing.php:401
+msgid "What would you like to write about, and why?"
+msgstr ""
+
+#: includes/writing.php:405
+msgid "Link to something you wrote (optional)"
+msgstr ""
+
+#. translators: %s: Community Guidelines link.
+#: includes/writing.php:414
+#, php-format
+msgid "I have read and will follow the %s."
+msgstr ""
+
+#: includes/writing.php:415
+msgid "Community Guidelines"
+msgstr ""
+
+#: includes/writing.php:420
+msgid "Send request"
+msgstr ""

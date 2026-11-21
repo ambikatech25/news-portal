@@ -35,7 +35,7 @@ try {
     Wp eval "portal_take_down( 'post', $($blog.Data.id), 'Test takedown for the sitemap check.', $($users['editor'].Id) );" | Out-Null
 
     Write-Host '== Security'
-    $homePage = Get-Page "$Base/"
+    $homePage = Get-Page "$Base/en/"
     $login = Get-Page "$Base/wp-login.php"
     $need = @('X-Content-Type-Options: nosniff', 'X-Frame-Options: SAMEORIGIN', 'Referrer-Policy: strict-origin-when-cross-origin', 'Permissions-Policy:')
     $missing = @($need | Where-Object { $homePage.Headers -notmatch [regex]::Escape($_) -or $login.Headers -notmatch [regex]::Escape($_) })
@@ -65,9 +65,9 @@ try {
 
     $title = [regex]::Match($homePage.Html, '<title>([^<]+)</title>').Groups[1].Value
     $desc = [regex]::Match($homePage.Html, '<meta name="description" content="([^"]+)"').Groups[1].Value
-    $acct = (Get-Page "$Base/account/").Html
+    $acct = (Get-Page "$Base/en/account/").Html
     $slug = Get-Last (Wp user get $users['author'].Id --field=user_nicename)
-    $prof = (Get-Page "$Base/writer/$slug/").Html
+    $prof = (Get-Page "$Base/en/writer/$slug/").Html
     Check '8. Home title and description set; My Account is noindex; writer profiles may appear in Google' ($title -match '^CityCharcha' -and $desc -match 'Chhattisgarh' -and $acct -match '<meta name=.robots. content=.[^>]*noindex' -and $prof -notmatch '<meta name=.robots. content=.[^>]*noindex') "title=$title desc=$desc"
 
     Write-Host '== Wordfence, backups, cache'

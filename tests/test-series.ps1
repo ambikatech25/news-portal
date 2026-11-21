@@ -91,14 +91,14 @@ try {
     $cov = (curl.exe -s -b $w.Jar -H "X-WP-Nonce: $($w.Nonce)" -F "cover=@$png;type=image/png" "$Base/wp-json/portal/v1/series/$sid/cover" | Out-String) | ConvertFrom-Json
     Check '10. The writer reorders parts (another writer cannot: 403) and uploads a cover photo' ($bad.Code -eq 403 -and ($after -join ',') -eq (@($parts[2], $parts[0], $parts[1]) -join ',') -and $cov.cover -match '^http') "bad=$($bad.Code) order=$($after -join ',') cover=$($cov.cover)"
 
-    $acct = Get-Html $w "$Base/account/?section=portal-series"
-    $write = Get-Html $w "$Base/write/"
+    $acct = Get-Html $w "$Base/en/account/?section=portal-series"
+    $write = Get-Html $w "$Base/en/write/"
     $nonce = [regex]::Match($acct, '(?s)name="portal_do" value="create">.*?name="_wpnonce" value="([0-9a-f]+)"').Groups[1].Value
     curl.exe -s -o NUL -b $w.Jar -c $w.Jar --data-urlencode 'action=portal_series_action' --data-urlencode 'portal_do=create' --data-urlencode "_wpnonce=$nonce" --data-urlencode "_wp_http_referer=/account/" --data-urlencode "name=$tag second series" "$Base/wp-admin/admin-post.php"
     $mine = Invoke-Rest $w GET '/portal/v1/me/series'
     $second = $mine.Data | Where-Object { $_.name -eq "$tag second series" }
     if ($second) { $seriesIds += $second.id }
-    $memAcct = Get-Html $users['subscriber'].Session "$Base/account/"
+    $memAcct = Get-Html $users['subscriber'].Session "$Base/en/account/"
     Check '11. My Account has a My series tab (not for members), the Write page has a Series box, and the Create form works' ($acct -match 'portal-my-series' -and $acct -match "$tag Raipur markets" -and $write -match 'name="portal_series_choice"' -and $write -match "$tag Raipur markets" -and $second -and $memAcct -notmatch 'section=portal-series') "acct=$($acct -match 'portal-my-series') write=$($write -match 'portal_series_choice') created=$([bool]$second)"
 
     Write-Host '== Deleting a series'

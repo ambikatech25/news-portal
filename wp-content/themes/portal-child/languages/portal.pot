@@ -1,0 +1,642 @@
+# Copyright (C) 2026 
+# This file is distributed under the same license as the Portal Child theme.
+msgid ""
+msgstr ""
+"Project-Id-Version: Portal Child 0.7.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/portal-child\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-21T11:31:16+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: portal\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "Portal Child"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Child theme for the news portal. All design changes go here, never in the parent theme."
+msgstr ""
+
+#: author.php:35
+#: template-parts/portal/author-card.php:35
+msgid "News desk"
+msgstr ""
+
+#: author.php:35
+#: template-parts/portal/author-card.php:35
+msgid "Community writer"
+msgstr ""
+
+#: author.php:46
+msgid "story"
+msgid_plural "stories"
+msgstr[0] ""
+msgstr[1] ""
+
+#: author.php:50
+msgid "follower"
+msgid_plural "followers"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: month and year, e.g. "November 2026".
+#: author.php:55
+#, php-format
+msgid "Joined %s"
+msgstr ""
+
+#. translators: %s: writer's name.
+#: author.php:81
+#, php-format
+msgid "Stories by %s"
+msgstr ""
+
+#: author.php:106
+msgid "Newer"
+msgstr ""
+
+#: author.php:107
+msgid "Older"
+msgstr ""
+
+#: author.php:108
+msgid "More stories"
+msgstr ""
+
+#: author.php:113
+msgid "No published stories yet."
+msgstr ""
+
+#: front-page.php:48
+msgid "No stories have been published yet."
+msgstr ""
+
+#: front-page.php:50
+msgid "Top story"
+msgstr ""
+
+#: front-page.php:68
+msgid "Latest"
+msgstr ""
+
+#: front-page.php:81
+msgid "Trending"
+msgstr ""
+
+#: front-page.php:117
+#: front-page.php:145
+msgid "More"
+msgstr ""
+
+#: front-page.php:142
+#: front-page.php:145
+msgid "Community Blogs"
+msgstr ""
+
+#: inc/account.php:58
+msgid "My account"
+msgstr ""
+
+#: inc/account.php:61
+msgid "Sign in"
+msgstr ""
+
+#: inc/account.php:66
+msgid "Write"
+msgstr ""
+
+#: inc/article.php:202
+msgid "Link copied"
+msgstr ""
+
+#: inc/article.php:203
+msgid "Sending…"
+msgstr ""
+
+#: inc/article.php:204
+msgid "Could not send the report. Please try again."
+msgstr ""
+
+#: inc/article.php:205
+msgid "Please choose a reason."
+msgstr ""
+
+#: inc/engagement.php:42
+msgid "Like"
+msgstr ""
+
+#: inc/engagement.php:42
+msgid "Liked"
+msgstr ""
+
+#: inc/engagement.php:43
+#: inc/series.php:144
+msgid "Save"
+msgstr ""
+
+#: inc/engagement.php:43
+msgid "Saved"
+msgstr ""
+
+#: inc/engagement.php:44
+#: inc/engagement.php:45
+msgid "Follow"
+msgstr ""
+
+#: inc/engagement.php:44
+#: inc/engagement.php:45
+#: inc/engagement.php:148
+msgid "Following"
+msgstr ""
+
+#: inc/engagement.php:97
+msgid "That did not work. Please try again."
+msgstr ""
+
+#. translators: %s: tag name.
+#: inc/engagement.php:113
+#, php-format
+msgid "Get stories about %s in your Following list"
+msgstr ""
+
+#: inc/engagement.php:123
+msgid "Saved stories"
+msgstr ""
+
+#: inc/engagement.php:125
+msgid "Nothing saved yet. Press \"Save\" under any story to read it later."
+msgstr ""
+
+#: inc/engagement.php:150
+msgid "You are not following anyone yet. Press \"Follow\" on a writer's profile or a tag page."
+msgstr ""
+
+#: inc/engagement.php:165
+msgid "Newest stories"
+msgstr ""
+
+#: inc/engagement.php:187
+#: template-parts/portal/article-actions.php:69
+msgid "Report"
+msgstr ""
+
+#: inc/reading.php:42
+#: inc/reading.php:83
+#: template-parts/portal/article-flags.php:59
+msgid "Reading mode"
+msgstr ""
+
+#: inc/reading.php:44
+msgid "Exit"
+msgstr ""
+
+#: inc/reading.php:47
+msgid "Text size"
+msgstr ""
+
+#: inc/reading.php:48
+msgid "Smaller text"
+msgstr ""
+
+#: inc/reading.php:49
+msgid "Larger text"
+msgstr ""
+
+#: inc/reading.php:51
+msgid "Colours"
+msgstr ""
+
+#: inc/reading.php:52
+msgid "Light"
+msgstr ""
+
+#: inc/reading.php:53
+msgid "Sepia"
+msgstr ""
+
+#: inc/reading.php:54
+msgid "Dark"
+msgstr ""
+
+#: inc/reading.php:84
+msgid "Exit reading mode"
+msgstr ""
+
+#. translators: %s: number of minutes.
+#: inc/reading.php:86
+#, php-format
+msgid "%s min left"
+msgstr ""
+
+#: inc/reading.php:87
+msgid "Finished"
+msgstr ""
+
+#: inc/series.php:26
+#: page-community.php:115
+#: taxonomy-portal_series.php:34
+#: template-parts/portal/series-nav.php:18
+msgid "Series"
+msgstr ""
+
+#. translators: 1: part number, 2: number of parts.
+#: inc/series.php:29
+#, php-format
+msgid "Part %1$s of %2$s"
+msgstr ""
+
+#: inc/series.php:56
+msgid "Published"
+msgstr ""
+
+#: inc/series.php:57
+msgid "Scheduled"
+msgstr ""
+
+#: inc/series.php:58
+msgid "Waiting for review"
+msgstr ""
+
+#: inc/series.php:59
+msgid "Draft"
+msgstr ""
+
+#: inc/series.php:60
+msgid "Changes requested"
+msgstr ""
+
+#: inc/series.php:61
+msgid "Not accepted"
+msgstr ""
+
+#: inc/series.php:62
+msgid "Taken down"
+msgstr ""
+
+#: inc/series.php:63
+msgid "Private"
+msgstr ""
+
+#: inc/series.php:97
+msgid "Series created. Now add stories to it: on the Write page, pick it in the \"Series\" box."
+msgstr ""
+
+#: inc/series.php:98
+msgid "Series saved."
+msgstr ""
+
+#: inc/series.php:99
+msgid "Cover photo saved."
+msgstr ""
+
+#: inc/series.php:100
+msgid "Cover photo removed."
+msgstr ""
+
+#: inc/series.php:101
+msgid "Series deleted. Its stories are still published."
+msgstr ""
+
+#: inc/series.php:106
+msgid "My series"
+msgstr ""
+
+#: inc/series.php:112
+msgid "A series is a story told in parts (Part 1, 2, 3…). Readers see \"Part 2 of 3\" and a \"Next part\" button. Only published parts are shown, in the order you set here."
+msgstr ""
+
+#. translators: 1: published parts, 2: all parts.
+#: inc/series.php:119
+#, php-format
+msgid "%1$s published of %2$s"
+msgstr ""
+
+#: inc/series.php:124
+#: inc/series.php:173
+msgid "Name"
+msgstr ""
+
+#: inc/series.php:125
+msgid "Description (shown on the series page)"
+msgstr ""
+
+#: inc/series.php:127
+msgid "Order of parts (change the numbers, then Save)"
+msgstr ""
+
+#. translators: %s: story title.
+#: inc/series.php:134
+#, php-format
+msgid "Part number for %s"
+msgstr ""
+
+#: inc/series.php:142
+msgid "No stories yet. On the Write page, pick this series in the \"Series\" box."
+msgstr ""
+
+#: inc/series.php:146
+msgid "View series page"
+msgstr ""
+
+#: inc/series.php:156
+msgid "Cover photo (JPG, PNG or WebP, up to 2 MB; wide photos look best)"
+msgstr ""
+
+#: inc/series.php:157
+msgid "Upload cover"
+msgstr ""
+
+#: inc/series.php:160
+msgid "Remove cover"
+msgstr ""
+
+#: inc/series.php:166
+msgid "Delete this series? The stories stay published, they just stop being a series."
+msgstr ""
+
+#: inc/series.php:166
+msgid "Delete series"
+msgstr ""
+
+#: inc/series.php:171
+msgid "Start a new series"
+msgstr ""
+
+#: inc/series.php:174
+msgid "Description (optional)"
+msgstr ""
+
+#: inc/series.php:175
+msgid "Create series"
+msgstr ""
+
+#. translators: %s: time difference, e.g. "2 hours".
+#: inc/template-tags.php:84
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: inc/template-tags.php:97
+msgid "Verified"
+msgstr ""
+
+#: inc/template-tags.php:100
+#: template-parts/portal/article-flags.php:46
+msgid "Premium"
+msgstr ""
+
+#: inc/tips.php:37
+msgid "My tips"
+msgstr ""
+
+#. translators: %s: reference, e.g. TIP-123.
+#: inc/tips.php:40
+#, php-format
+msgid "Thank you! Your tip %s has reached our editors. We have e-mailed you a receipt and will tell you when it is published or if we decide not to publish it."
+msgstr ""
+
+#: inc/tips.php:43
+#: inc/tips.php:83
+msgid "Send news"
+msgstr ""
+
+#: inc/tips.php:46
+msgid "You have not sent any news yet. Seen something our readers should know? Tell us: our editors check every tip."
+msgstr ""
+
+#: inc/tips.php:56
+msgid "Read the story →"
+msgstr ""
+
+#: inc/tips.php:59
+msgid "Reason:"
+msgstr ""
+
+#: page-community.php:28
+msgid "Write a story"
+msgstr ""
+
+#: page-community.php:30
+msgid "Become a writer"
+msgstr ""
+
+#: page-community.php:32
+msgid "Sign up to write"
+msgstr ""
+
+#: page-community.php:56
+msgid "Editors' picks"
+msgstr ""
+
+#: page-community.php:64
+msgid "Editors: no picks yet. In wp-admin → Posts, hover over a published community story and click \"Pick for Community\" (or switch on \"Editor's pick\" in the Editorial panel). Only editors see this note."
+msgstr ""
+
+#: page-community.php:69
+msgid "Trending writers"
+msgstr ""
+
+#. translators: %s: number of stories.
+#: page-community.php:86
+#: template-parts/portal/author-card.php:46
+#, php-format
+msgid "%s story"
+msgid_plural "%s stories"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of followers.
+#: page-community.php:88
+#, php-format
+msgid "%s follower"
+msgid_plural "%s followers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: page-community.php:101
+msgid "New series"
+msgstr ""
+
+#. translators: %s: number of parts.
+#: page-community.php:120
+#: taxonomy-portal_series.php:47
+#, php-format
+msgid "%s part"
+msgid_plural "%s parts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: page-community.php:132
+msgid "Newest community stories"
+msgstr ""
+
+#: page-community.php:134
+msgid "All"
+msgstr ""
+
+#: page-community.php:134
+msgid "community stories"
+msgstr ""
+
+#: page-community.php:144
+msgid "No community stories yet. Be the first to write one!"
+msgstr ""
+
+#. translators: %s: writer name (link).
+#: taxonomy-portal_series.php:42
+#, php-format
+msgid "by %s"
+msgstr ""
+
+#: taxonomy-portal_series.php:55
+msgid "Start reading: Part 1"
+msgstr ""
+
+#: taxonomy-portal_series.php:57
+msgid "No part is published yet, so only you and the editors can see this page."
+msgstr ""
+
+#: taxonomy-portal_series.php:64
+msgid "Contents"
+msgstr ""
+
+#. translators: %s: part number.
+#: taxonomy-portal_series.php:72
+#, php-format
+msgid "Part %s"
+msgstr ""
+
+#. translators: %s: number of minutes.
+#: taxonomy-portal_series.php:82
+#: template-parts/portal/article-flags.php:52
+#, php-format
+msgid "%s min read"
+msgid_plural "%s min read"
+msgstr[0] ""
+msgstr[1] ""
+
+#: template-parts/portal/article-actions.php:20
+msgid "Like, save or comment on this story"
+msgstr ""
+
+#: template-parts/portal/article-actions.php:29
+msgid "Comments"
+msgstr ""
+
+#: template-parts/portal/article-actions.php:36
+msgid "Share this story"
+msgstr ""
+
+#: template-parts/portal/article-actions.php:37
+#: template-parts/portal/article-actions.php:43
+msgid "Share"
+msgstr ""
+
+#. translators: %s: app name, e.g. WhatsApp.
+#: template-parts/portal/article-actions.php:53
+#, php-format
+msgid "Share on %s"
+msgstr ""
+
+#: template-parts/portal/article-actions.php:62
+msgid "Copy link"
+msgstr ""
+
+#: template-parts/portal/article-flags.php:31
+msgid "Read this story in"
+msgstr ""
+
+#: template-parts/portal/article-flags.php:64
+msgid "Verification"
+msgstr ""
+
+#: template-parts/portal/article-flags.php:67
+msgid "Verified by our news desk"
+msgstr ""
+
+#: template-parts/portal/article-flags.php:72
+msgid "FIR No."
+msgstr ""
+
+#: template-parts/portal/article-flags.php:78
+msgid "Police station"
+msgstr ""
+
+#: template-parts/portal/author-card.php:29
+msgid "About the author"
+msgstr ""
+
+#. translators: %s: number of followers.
+#: template-parts/portal/author-card.php:55
+#, php-format
+msgid "Followers: %s"
+msgstr ""
+
+#: template-parts/portal/author-card.php:68
+msgid "View profile"
+msgstr ""
+
+#: template-parts/portal/breaking.php:16
+msgid "Breaking news"
+msgstr ""
+
+#: template-parts/portal/breaking.php:18
+msgid "Breaking"
+msgstr ""
+
+#: template-parts/portal/related.php:20
+msgid "Related stories"
+msgstr ""
+
+#: template-parts/portal/report-dialog.php:20
+msgid "Report this"
+msgstr ""
+
+#: template-parts/portal/report-dialog.php:21
+msgid "Tell us what is wrong. Our team reviews every report. Your name is not shown to the writer."
+msgstr ""
+
+#: template-parts/portal/report-dialog.php:27
+msgid "Reason"
+msgstr ""
+
+#: template-parts/portal/report-dialog.php:37
+msgid "More details (optional)"
+msgstr ""
+
+#: template-parts/portal/report-dialog.php:44
+msgid "Cancel"
+msgstr ""
+
+#: template-parts/portal/report-dialog.php:45
+msgid "Send report"
+msgstr ""
+
+#. translators: 1: part number, 2: number of parts, 3: series name (link).
+#: template-parts/portal/series-nav.php:23
+#, php-format
+msgid "Part %1$s of %2$s in %3$s"
+msgstr ""
+
+#: template-parts/portal/series-nav.php:33
+msgid "← Previous part"
+msgstr ""
+
+#: template-parts/portal/series-nav.php:39
+msgid "Next part →"
+msgstr ""
+
+#: template-parts/portal/series-nav.php:44
+msgid "You have reached the latest part."
+msgstr ""
+
+#: template-parts/portal/series-nav.php:48
+msgid "Follow the writer to hear about the next one."
+msgstr ""

@@ -1,4 +1,4 @@
-# Task 5 test: editor-only categories and Contributor image uploads.
+﻿# Task 5 test: editor-only categories and Contributor image uploads.
 #
 # Run from the project folder (Docker must be running):
 #   powershell -ExecutionPolicy Bypass -File tests\test-restricted-categories.ps1
@@ -50,7 +50,16 @@ try {
     Write-Host '== Safety net (not via REST)'
     $id = [int](Wp post create "--user=$($users['contributor'].Login)" '--post_title=Safety net test' "--post_category=$($cat['news'])" --porcelain | Select-Object -Last 1)
     $slugs = (Wp post term list $id category --field=slug) -join ','
-    Check '10. News added outside the API is removed (falls back to Community Blogs)' ($slugs -eq 'community-blogs') "categories=$slugs"
+    Check '10. News added outside the API is removed (falls back to Community Blogs, in the story''s language)' ($slugs -in @('community-blogs', 'samudayik-blog')) "categories=$slugs"
+
+    Write-Host '== Hindi sections (Task 18A)'
+    $hiNews  = [int]("$(Wp term list category --slug=samachar --field=term_id --lang= 2>$null | Select-Object -Last 1)".Trim())
+    $hiCrime = [int]("$(Wp term list category --slug=apradh --field=term_id --lang= 2>$null | Select-Object -Last 1)".Trim())
+    if ($hiNews -gt 0) {
+        $r1 = Invoke-Rest $c POST '/wp/v2/posts' @{ title = 'Contributor tries Hindi News'; categories = @($hiNews) }
+        $r2 = Invoke-Rest $a POST '/wp/v2/posts' @{ title = 'Author tries Hindi Crime'; status = 'publish'; categories = @($hiCrime) }
+        Check '11. Writers cannot post in the Hindi News (समाचार) or Hindi Crime (अपराध) sections either' ($r1.Code -eq 403 -and $r2.Code -eq 403) "hindi news=$($r1.Code) hindi crime=$($r2.Code)"
+    }
 }
 finally {
     Complete-Test

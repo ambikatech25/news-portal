@@ -1,0 +1,624 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CityCharcha theme\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/portal-child\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-21T11:31:16+00:00\n"
+"PO-Revision-Date: 2026-11-21 11:31+0000\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: portal\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "Portal Child"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Child theme for the news portal. All design changes go here, never in the parent theme."
+msgstr ""
+
+#: author.php:35 template-parts/portal/author-card.php:35
+msgid "News desk"
+msgstr "समाचार डेस्क"
+
+#: author.php:35 template-parts/portal/author-card.php:35
+msgid "Community writer"
+msgstr "सामुदायिक लेखक"
+
+#: author.php:46
+msgid "story"
+msgid_plural "stories"
+msgstr[0] "कहानी"
+msgstr[1] "कहानियाँ"
+
+#: author.php:50
+msgid "follower"
+msgid_plural "followers"
+msgstr[0] "फ़ॉलोअर"
+msgstr[1] "फ़ॉलोअर्स"
+
+#. translators: %s: month and year, e.g. "November 2026".
+#: author.php:55
+#, php-format
+msgid "Joined %s"
+msgstr "%s से सदस्य"
+
+#. translators: %s: writer's name.
+#: author.php:81
+#, php-format
+msgid "Stories by %s"
+msgstr "%s की कहानियाँ"
+
+#: author.php:106
+msgid "Newer"
+msgstr "नई"
+
+#: author.php:107
+msgid "Older"
+msgstr "पुरानी"
+
+#: author.php:108
+msgid "More stories"
+msgstr "और कहानियाँ"
+
+#: author.php:113
+msgid "No published stories yet."
+msgstr "अभी कोई कहानी प्रकाशित नहीं हुई है।"
+
+#: front-page.php:48
+msgid "No stories have been published yet."
+msgstr "अभी कोई खबर प्रकाशित नहीं हुई है।"
+
+#: front-page.php:50
+msgid "Top story"
+msgstr "मुख्य खबर"
+
+#: front-page.php:68
+msgid "Latest"
+msgstr "ताज़ा खबरें"
+
+#: front-page.php:81
+msgid "Trending"
+msgstr "ट्रेंडिंग"
+
+#: front-page.php:117 front-page.php:145
+msgid "More"
+msgstr "और"
+
+#: front-page.php:142 front-page.php:145
+msgid "Community Blogs"
+msgstr "सामुदायिक ब्लॉग"
+
+#: inc/account.php:58
+msgid "My account"
+msgstr "मेरा खाता"
+
+#: inc/account.php:61
+msgid "Sign in"
+msgstr "साइन इन"
+
+#: inc/account.php:66
+msgid "Write"
+msgstr "लिखें"
+
+#: inc/article.php:202
+msgid "Link copied"
+msgstr "लिंक कॉपी हो गया"
+
+#: inc/article.php:203
+msgid "Sending…"
+msgstr "भेजा जा रहा है…"
+
+#: inc/article.php:204
+msgid "Could not send the report. Please try again."
+msgstr "रिपोर्ट नहीं भेजी जा सकी। कृपया फिर से कोशिश करें।"
+
+#: inc/article.php:205
+msgid "Please choose a reason."
+msgstr "कृपया एक कारण चुनें।"
+
+#: inc/engagement.php:42
+msgid "Like"
+msgstr "पसंद"
+
+#: inc/engagement.php:42
+msgid "Liked"
+msgstr "पसंद किया"
+
+#: inc/engagement.php:43 inc/series.php:144
+msgid "Save"
+msgstr "सेव करें"
+
+#: inc/engagement.php:43
+msgid "Saved"
+msgstr "सेव किया"
+
+#: inc/engagement.php:44 inc/engagement.php:45
+msgid "Follow"
+msgstr "फ़ॉलो करें"
+
+#: inc/engagement.php:44 inc/engagement.php:45 inc/engagement.php:148
+msgid "Following"
+msgstr "फ़ॉलो कर रहे हैं"
+
+#: inc/engagement.php:97
+msgid "That did not work. Please try again."
+msgstr "यह नहीं हो सका। कृपया फिर से कोशिश करें।"
+
+#. translators: %s: tag name.
+#: inc/engagement.php:113
+#, php-format
+msgid "Get stories about %s in your Following list"
+msgstr "%s से जुड़ी कहानियाँ अपनी फ़ॉलोइंग सूची में पाएँ"
+
+#: inc/engagement.php:123
+msgid "Saved stories"
+msgstr "सेव की गई कहानियाँ"
+
+#: inc/engagement.php:125
+msgid "Nothing saved yet. Press \"Save\" under any story to read it later."
+msgstr "अभी कुछ सेव नहीं किया गया है। बाद में पढ़ने के लिए किसी भी कहानी के नीचे \"सेव करें\" दबाएँ।"
+
+#: inc/engagement.php:150
+msgid "You are not following anyone yet. Press \"Follow\" on a writer's profile or a tag page."
+msgstr "आप अभी किसी को फ़ॉलो नहीं कर रहे हैं। किसी लेखक की प्रोफ़ाइल या टैग पेज पर \"फ़ॉलो करें\" दबाएँ।"
+
+#: inc/engagement.php:165
+msgid "Newest stories"
+msgstr "नई कहानियाँ"
+
+#: inc/engagement.php:187 template-parts/portal/article-actions.php:69
+msgid "Report"
+msgstr "रिपोर्ट करें"
+
+#: inc/reading.php:42 inc/reading.php:83
+#: template-parts/portal/article-flags.php:59
+msgid "Reading mode"
+msgstr "पढ़ने का मोड"
+
+#: inc/reading.php:44
+msgid "Exit"
+msgstr "बाहर निकलें"
+
+#: inc/reading.php:47
+msgid "Text size"
+msgstr "अक्षर का आकार"
+
+#: inc/reading.php:48
+msgid "Smaller text"
+msgstr "छोटे अक्षर"
+
+#: inc/reading.php:49
+msgid "Larger text"
+msgstr "बड़े अक्षर"
+
+#: inc/reading.php:51
+msgid "Colours"
+msgstr "रंग"
+
+#: inc/reading.php:52
+msgid "Light"
+msgstr "सफ़ेद"
+
+#: inc/reading.php:53
+msgid "Sepia"
+msgstr "सीपिया"
+
+#: inc/reading.php:54
+msgid "Dark"
+msgstr "गहरा"
+
+#: inc/reading.php:84
+msgid "Exit reading mode"
+msgstr "पढ़ने का मोड बंद करें"
+
+#. translators: %s: number of minutes.
+#: inc/reading.php:86
+#, php-format
+msgid "%s min left"
+msgstr "%s मिनट बाकी"
+
+#: inc/reading.php:87
+msgid "Finished"
+msgstr "पूरा हुआ"
+
+#: inc/series.php:26 page-community.php:115 taxonomy-portal_series.php:34
+#: template-parts/portal/series-nav.php:18
+msgid "Series"
+msgstr "सीरीज़"
+
+#. translators: 1: part number, 2: number of parts.
+#: inc/series.php:29
+#, php-format
+msgid "Part %1$s of %2$s"
+msgstr "भाग %1$s / %2$s"
+
+#: inc/series.php:56
+msgid "Published"
+msgstr "प्रकाशित"
+
+#: inc/series.php:57
+msgid "Scheduled"
+msgstr "निर्धारित"
+
+#: inc/series.php:58
+msgid "Waiting for review"
+msgstr "समीक्षा की प्रतीक्षा में"
+
+#: inc/series.php:59
+msgid "Draft"
+msgstr "ड्राफ़्ट"
+
+#: inc/series.php:60
+msgid "Changes requested"
+msgstr "बदलाव माँगे गए"
+
+#: inc/series.php:61
+msgid "Not accepted"
+msgstr "स्वीकार नहीं"
+
+#: inc/series.php:62
+msgid "Taken down"
+msgstr "हटाई गई"
+
+#: inc/series.php:63
+msgid "Private"
+msgstr "निजी"
+
+#: inc/series.php:97
+msgid "Series created. Now add stories to it: on the Write page, pick it in the \"Series\" box."
+msgstr "सीरीज़ बन गई। अब इसमें कहानियाँ जोड़ें: \"लिखें\" पेज पर \"सीरीज़\" बॉक्स में इसे चुनें।"
+
+#: inc/series.php:98
+msgid "Series saved."
+msgstr "सीरीज़ सेव हो गई।"
+
+#: inc/series.php:99
+msgid "Cover photo saved."
+msgstr "कवर फ़ोटो सेव हो गई।"
+
+#: inc/series.php:100
+msgid "Cover photo removed."
+msgstr "कवर फ़ोटो हटा दी गई।"
+
+#: inc/series.php:101
+msgid "Series deleted. Its stories are still published."
+msgstr "सीरीज़ हटा दी गई। इसकी कहानियाँ प्रकाशित रहेंगी।"
+
+#: inc/series.php:106
+msgid "My series"
+msgstr "मेरी सीरीज़"
+
+#: inc/series.php:112
+msgid "A series is a story told in parts (Part 1, 2, 3…). Readers see \"Part 2 of 3\" and a \"Next part\" button. Only published parts are shown, in the order you set here."
+msgstr "सीरीज़ यानी हिस्सों में कही गई कहानी (भाग 1, 2, 3…)। पाठकों को \"भाग 2 / 3\" और \"अगला भाग\" बटन दिखता है। सिर्फ़ प्रकाशित भाग, यहाँ तय किए गए क्रम में, दिखाए जाते हैं।"
+
+#. translators: 1: published parts, 2: all parts.
+#: inc/series.php:119
+#, php-format
+msgid "%1$s published of %2$s"
+msgstr "%2$s में से %1$s प्रकाशित"
+
+#: inc/series.php:124 inc/series.php:173
+msgid "Name"
+msgstr "नाम"
+
+#: inc/series.php:125
+msgid "Description (shown on the series page)"
+msgstr "विवरण (सीरीज़ पेज पर दिखेगा)"
+
+#: inc/series.php:127
+msgid "Order of parts (change the numbers, then Save)"
+msgstr "भागों का क्रम (नंबर बदलें, फिर सेव करें)"
+
+#. translators: %s: story title.
+#: inc/series.php:134
+#, php-format
+msgid "Part number for %s"
+msgstr "%s का भाग नंबर"
+
+#: inc/series.php:142
+msgid "No stories yet. On the Write page, pick this series in the \"Series\" box."
+msgstr "अभी कोई कहानी नहीं। \"लिखें\" पेज पर \"सीरीज़\" बॉक्स में यह सीरीज़ चुनें।"
+
+#: inc/series.php:146
+msgid "View series page"
+msgstr "सीरीज़ पेज देखें"
+
+#: inc/series.php:156
+msgid "Cover photo (JPG, PNG or WebP, up to 2 MB; wide photos look best)"
+msgstr "कवर फ़ोटो (JPG, PNG या WebP, 2 MB तक; चौड़ी फ़ोटो सबसे अच्छी लगती है)"
+
+#: inc/series.php:157
+msgid "Upload cover"
+msgstr "कवर अपलोड करें"
+
+#: inc/series.php:160
+msgid "Remove cover"
+msgstr "कवर हटाएँ"
+
+#: inc/series.php:166
+msgid "Delete this series? The stories stay published, they just stop being a series."
+msgstr "यह सीरीज़ हटाएँ? कहानियाँ प्रकाशित रहेंगी, बस सीरीज़ का हिस्सा नहीं रहेंगी।"
+
+#: inc/series.php:166
+msgid "Delete series"
+msgstr "सीरीज़ हटाएँ"
+
+#: inc/series.php:171
+msgid "Start a new series"
+msgstr "नई सीरीज़ शुरू करें"
+
+#: inc/series.php:174
+msgid "Description (optional)"
+msgstr "विवरण (वैकल्पिक)"
+
+#: inc/series.php:175
+msgid "Create series"
+msgstr "सीरीज़ बनाएँ"
+
+#. translators: %s: time difference, e.g. "2 hours".
+#: inc/template-tags.php:84
+#, php-format
+msgid "%s ago"
+msgstr "%s पहले"
+
+#: inc/template-tags.php:97
+msgid "Verified"
+msgstr "सत्यापित"
+
+#: inc/template-tags.php:100 template-parts/portal/article-flags.php:46
+msgid "Premium"
+msgstr "प्रीमियम"
+
+#: inc/tips.php:37
+msgid "My tips"
+msgstr "मेरी सूचनाएँ"
+
+#. translators: %s: reference, e.g. TIP-123.
+#: inc/tips.php:40
+#, php-format
+msgid "Thank you! Your tip %s has reached our editors. We have e-mailed you a receipt and will tell you when it is published or if we decide not to publish it."
+msgstr "धन्यवाद! आपकी सूचना %s हमारे संपादकों तक पहुँच गई है। हमने आपको रसीद ई-मेल कर दी है और प्रकाशित होने पर या प्रकाशित न करने का फ़ैसला होने पर आपको बताएँगे।"
+
+#: inc/tips.php:43 inc/tips.php:83
+msgid "Send news"
+msgstr "खबर भेजें"
+
+#: inc/tips.php:46
+msgid "You have not sent any news yet. Seen something our readers should know? Tell us: our editors check every tip."
+msgstr "आपने अभी कोई खबर नहीं भेजी है। कुछ ऐसा देखा जो पाठकों को पता होना चाहिए? हमें बताइए: हमारे संपादक हर सूचना की जाँच करते हैं।"
+
+#: inc/tips.php:56
+msgid "Read the story →"
+msgstr "खबर पढ़ें →"
+
+#: inc/tips.php:59
+msgid "Reason:"
+msgstr "कारण:"
+
+#: page-community.php:28
+msgid "Write a story"
+msgstr "कहानी लिखें"
+
+#: page-community.php:30
+msgid "Become a writer"
+msgstr "लेखक बनें"
+
+#: page-community.php:32
+msgid "Sign up to write"
+msgstr "लिखने के लिए साइन अप करें"
+
+#: page-community.php:56
+msgid "Editors' picks"
+msgstr "संपादक की पसंद"
+
+#: page-community.php:64
+msgid "Editors: no picks yet. In wp-admin → Posts, hover over a published community story and click \"Pick for Community\" (or switch on \"Editor's pick\" in the Editorial panel). Only editors see this note."
+msgstr ""
+
+#: page-community.php:69
+msgid "Trending writers"
+msgstr "लोकप्रिय लेखक"
+
+#. translators: %s: number of stories.
+#: page-community.php:86 template-parts/portal/author-card.php:46
+#, php-format
+msgid "%s story"
+msgid_plural "%s stories"
+msgstr[0] "%s कहानी"
+msgstr[1] "%s कहानियाँ"
+
+#. translators: %s: number of followers.
+#: page-community.php:88
+#, php-format
+msgid "%s follower"
+msgid_plural "%s followers"
+msgstr[0] "%s फ़ॉलोअर"
+msgstr[1] "%s फ़ॉलोअर्स"
+
+#: page-community.php:101
+msgid "New series"
+msgstr "नई सीरीज़"
+
+#. translators: %s: number of parts.
+#: page-community.php:120 taxonomy-portal_series.php:47
+#, php-format
+msgid "%s part"
+msgid_plural "%s parts"
+msgstr[0] "%s भाग"
+msgstr[1] "%s भाग"
+
+#: page-community.php:132
+msgid "Newest community stories"
+msgstr "नई सामुदायिक कहानियाँ"
+
+#: page-community.php:134
+msgid "All"
+msgstr "सभी"
+
+#: page-community.php:134
+msgid "community stories"
+msgstr "सामुदायिक कहानियाँ"
+
+#: page-community.php:144
+msgid "No community stories yet. Be the first to write one!"
+msgstr "अभी कोई सामुदायिक कहानी नहीं है। पहली कहानी आप लिखिए!"
+
+#. translators: %s: writer name (link).
+#: taxonomy-portal_series.php:42
+#, php-format
+msgid "by %s"
+msgstr "लेखक: %s"
+
+#: taxonomy-portal_series.php:55
+msgid "Start reading: Part 1"
+msgstr "पढ़ना शुरू करें: भाग 1"
+
+#: taxonomy-portal_series.php:57
+msgid "No part is published yet, so only you and the editors can see this page."
+msgstr "अभी कोई भाग प्रकाशित नहीं हुआ है, इसलिए यह पेज सिर्फ़ आप और संपादक देख सकते हैं।"
+
+#: taxonomy-portal_series.php:64
+msgid "Contents"
+msgstr "विषय सूची"
+
+#. translators: %s: part number.
+#: taxonomy-portal_series.php:72
+#, php-format
+msgid "Part %s"
+msgstr "भाग %s"
+
+#. translators: %s: number of minutes.
+#: taxonomy-portal_series.php:82 template-parts/portal/article-flags.php:52
+#, php-format
+msgid "%s min read"
+msgid_plural "%s min read"
+msgstr[0] "%s मिनट में पढ़ें"
+msgstr[1] "%s मिनट में पढ़ें"
+
+#: template-parts/portal/article-actions.php:20
+msgid "Like, save or comment on this story"
+msgstr "इस कहानी को पसंद करें, सेव करें या टिप्पणी करें"
+
+#: template-parts/portal/article-actions.php:29
+msgid "Comments"
+msgstr "टिप्पणियाँ"
+
+#: template-parts/portal/article-actions.php:36
+msgid "Share this story"
+msgstr "यह कहानी शेयर करें"
+
+#: template-parts/portal/article-actions.php:37
+#: template-parts/portal/article-actions.php:43
+msgid "Share"
+msgstr "शेयर करें"
+
+#. translators: %s: app name, e.g. WhatsApp.
+#: template-parts/portal/article-actions.php:53
+#, php-format
+msgid "Share on %s"
+msgstr "%s पर शेयर करें"
+
+#: template-parts/portal/article-actions.php:62
+msgid "Copy link"
+msgstr "लिंक कॉपी करें"
+
+#: template-parts/portal/article-flags.php:31
+msgid "Read this story in"
+msgstr "यह खबर इस भाषा में पढ़ें"
+
+#: template-parts/portal/article-flags.php:64
+msgid "Verification"
+msgstr "सत्यापन"
+
+#: template-parts/portal/article-flags.php:67
+msgid "Verified by our news desk"
+msgstr "हमारी समाचार डेस्क द्वारा सत्यापित"
+
+#: template-parts/portal/article-flags.php:72
+msgid "FIR No."
+msgstr "एफ़आईआर नं."
+
+#: template-parts/portal/article-flags.php:78
+msgid "Police station"
+msgstr "थाना"
+
+#: template-parts/portal/author-card.php:29
+msgid "About the author"
+msgstr "लेखक के बारे में"
+
+#. translators: %s: number of followers.
+#: template-parts/portal/author-card.php:55
+#, php-format
+msgid "Followers: %s"
+msgstr "फ़ॉलोअर्स: %s"
+
+#: template-parts/portal/author-card.php:68
+msgid "View profile"
+msgstr "प्रोफ़ाइल देखें"
+
+#: template-parts/portal/breaking.php:16
+msgid "Breaking news"
+msgstr "ब्रेकिंग न्यूज़"
+
+#: template-parts/portal/breaking.php:18
+msgid "Breaking"
+msgstr "ब्रेकिंग"
+
+#: template-parts/portal/related.php:20
+msgid "Related stories"
+msgstr "संबंधित खबरें"
+
+#: template-parts/portal/report-dialog.php:20
+msgid "Report this"
+msgstr "इसकी रिपोर्ट करें"
+
+#: template-parts/portal/report-dialog.php:21
+msgid "Tell us what is wrong. Our team reviews every report. Your name is not shown to the writer."
+msgstr "बताइए क्या गलत है। हमारी टीम हर रिपोर्ट देखती है। आपका नाम लेखक को नहीं दिखाया जाता।"
+
+#: template-parts/portal/report-dialog.php:27
+msgid "Reason"
+msgstr "कारण"
+
+#: template-parts/portal/report-dialog.php:37
+msgid "More details (optional)"
+msgstr "और जानकारी (वैकल्पिक)"
+
+#: template-parts/portal/report-dialog.php:44
+msgid "Cancel"
+msgstr "रद्द करें"
+
+#: template-parts/portal/report-dialog.php:45
+msgid "Send report"
+msgstr "रिपोर्ट भेजें"
+
+#. translators: 1: part number, 2: number of parts, 3: series name (link).
+#: template-parts/portal/series-nav.php:23
+#, php-format
+msgid "Part %1$s of %2$s in %3$s"
+msgstr "%3$s का भाग %1$s / %2$s"
+
+#: template-parts/portal/series-nav.php:33
+msgid "← Previous part"
+msgstr "← पिछला भाग"
+
+#: template-parts/portal/series-nav.php:39
+msgid "Next part →"
+msgstr "अगला भाग →"
+
+#: template-parts/portal/series-nav.php:44
+msgid "You have reached the latest part."
+msgstr "आप नवीनतम भाग तक पहुँच गए हैं।"
+
+#: template-parts/portal/series-nav.php:48
+msgid "Follow the writer to hear about the next one."
+msgstr "अगले भाग की सूचना के लिए लेखक को फ़ॉलो करें।"

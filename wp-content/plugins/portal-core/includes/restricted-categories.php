@@ -40,12 +40,17 @@ function portal_restricted_category_slugs() {
 function portal_restricted_category_ids() {
 	$ids = array();
 	foreach ( portal_restricted_category_slugs() as $slug ) {
+		if ( function_exists( 'portal_category_ids_all' ) ) {
+			// Every language version: the Hindi "समाचार" is as editor-only as "News" (Task 18A).
+			$ids = array_merge( $ids, portal_category_ids_all( $slug ) );
+			continue;
+		}
 		$term = get_term_by( 'slug', $slug, 'category' );
 		if ( $term ) {
 			$ids[] = (int) $term->term_id;
 		}
 	}
-	return $ids;
+	return array_values( array_unique( $ids ) );
 }
 
 /**
