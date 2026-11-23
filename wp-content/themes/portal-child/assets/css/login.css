@@ -94,3 +94,117 @@ body.login {
 	height: 1px;
 	overflow: hidden;
 }
+
+/* ---------------------------------------------------------------- Layout (23 Nov 2026) */
+
+/* One column, everything centred on the same width. */
+#login {
+	width: 360px;
+	max-width: calc(100% - 32px);
+	padding-top: 6vh;
+}
+
+.login form {
+	margin-top: 0.75rem;
+	padding: 24px;
+}
+
+/* Friendly line above the sign-up / lost-password form (replaces WordPress's blue box). */
+.login .message,
+.login .notice,
+.login .success {
+	margin: 0 0 0.75rem;
+	padding: 0.75rem 1rem;
+	border: 1px solid #e5e7eb;
+	border-left: 4px solid var(--portal-accent);
+	border-radius: 6px;
+	box-shadow: none;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+.login #login_error {
+	border-left-color: #b91c1c;
+}
+
+/* "Remember me" on its own line, then a full-width red button. */
+.login .forgetmenot {
+	float: none;
+	margin-bottom: 1rem;
+}
+
+.login .submit {
+	clear: both;
+}
+
+.login .button-primary,
+.login #wp-submit {
+	float: none;
+	width: 100%;
+	min-height: 44px;
+	border-radius: 6px;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+/* "Registration confirmation will be e-mailed to you." */
+.login #reg_passmail {
+	margin: 0 0 1rem;
+	color: #4b5563;
+	font-size: 0.8125rem;
+}
+
+/* "or" line, then a full-width Google button. */
+#nsl-custom-login-form-main {
+	margin-top: 1.25rem;
+}
+
+#nsl-custom-login-form-main::before {
+	content: "";
+	display: block;
+	margin-bottom: 1rem;
+	border-top: 1px solid #e5e7eb;
+}
+
+#nsl-custom-login-form-main .nsl-container,
+#nsl-custom-login-form-main .nsl-container-buttons,
+#nsl-custom-login-form-main .nsl-container-buttons a {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0 !important;
+}
+
+#nsl-custom-login-form-main .nsl-button {
+	width: 100%;
+	max-width: none;
+	justify-content: center;
+	border-radius: 6px !important;
+}
+
+/* Links under the box: centred together, one style. */
+.login #nav,
+.login #backtoblog,
+.login .privacy-policy-page-link {
+	margin: 1rem 0 0;
+	padding: 0;
+	text-align: center;
+	font-size: 0.875rem;
+}
+
+.login #backtoblog,
+.login .privacy-policy-page-link {
+	margin-top: 0.5rem;
+}
+
+.login #nav a,
+.login #backtoblog a,
+.login .privacy-policy-page-link a {
+	text-decoration: none;
+}
+
+.login #nav a:hover,
+.login #backtoblog a:hover,
+.login .privacy-policy-page-link a:hover {
+	text-decoration: underline;
+}

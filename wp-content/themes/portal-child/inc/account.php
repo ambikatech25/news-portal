@@ -39,6 +39,27 @@ add_action( 'login_enqueue_scripts', 'portal_child_login_styles' );
 add_filter( 'login_headerurl', static fn() => home_url( '/' ) );
 add_filter( 'login_headertext', static fn() => get_bloginfo( 'name' ) );
 
+// The site's language comes from the हिन्दी / English switch; WordPress's own picker only confuses.
+add_filter( 'login_display_language_dropdown', '__return_false' );
+
+/**
+ * A friendly line above the sign-up and lost-password forms (instead of "Register For This Site").
+ *
+ * @param string $message Message HTML.
+ * @return string
+ */
+function portal_child_login_message( $message ) {
+	$action = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification -- only picks the message.
+	if ( 'register' === $action ) {
+		return '<p class="message portal-login-intro">' . esc_html__( 'Create your free account to comment, follow writers, save stories and send news.', 'portal' ) . '</p>';
+	}
+	if ( 'lostpassword' === $action ) {
+		return '<p class="message portal-login-intro">' . esc_html__( 'Enter your username or e-mail address. We will send you a link to set a new password.', 'portal' ) . '</p>';
+	}
+	return $message;
+}
+add_filter( 'login_message', 'portal_child_login_message' );
+
 /**
  * The account menu at the end of the header (Task 19 UI, 23 Nov 2026).
  *
@@ -79,10 +100,10 @@ function portal_child_account_menu_data() {
 		}
 	}
 	if ( $page( 'send-news' ) ) {
-		$links[] = array( __( 'Send news', 'portal' ), $page( 'send-news' ) );
+		$links[] = array( __( 'Send news', 'portal' ), $page( 'send-news' ), 'sendnews' );
 	}
 	if ( $page( 'write' ) ) {
-		$links[] = array( __( 'Write a story', 'portal' ), $page( 'write' ) );
+		$links[] = array( __( 'Write a story', 'portal' ), $page( 'write' ), 'write' );
 	}
 	if ( is_user_logged_in() ) {
 		$links[] = array( __( 'Sign out', 'portal' ), wp_logout_url( home_url( '/' ) ), 'signout' );
@@ -109,7 +130,7 @@ function portal_child_account_menu_item( $items, $args ) {
 	if ( 'mobile' === $location ) { // phone drawer: everything visible, no hover.
 		$items .= '<li class="menu-item portal-account-link portal-account-menu portal-account-menu--flat">' . $head . '</li>';
 		foreach ( $menu['links'] as $link ) {
-			$items .= '<li class="menu-item portal-account-menu__item"><a href="' . esc_url( $link[1] ) . '">' . esc_html( $link[0] ) . '</a></li>';
+			$items .= '<li class="menu-item portal-account-menu__item' . ( empty( $link[2] ) ? '' : ' portal-account-menu__' . $link[2] ) . '"><a href="' . esc_url( $link[1] ) . '">' . esc_html( $link[0] ) . '</a></li>';
 		}
 		return $items;
 	}

@@ -39,6 +39,8 @@ return array(
 	'Edit profile'                      => 'प्रोफ़ाइल बदलें',
 	'Sign out'                          => 'साइन आउट',
 	'Account menu'                      => 'खाते का मेन्यू',
+	'Create your free account to comment, follow writers, save stories and send news.' => 'टिप्पणी करने, लेखकों को फ़ॉलो करने, कहानियाँ सहेजने और खबर भेजने के लिए अपना मुफ़्त खाता बनाएँ।',
+	'Enter your username or e-mail address. We will send you a link to set a new password.' => 'अपना यूज़रनेम या ई-मेल पता लिखें। हम आपको नया पासवर्ड बनाने का लिंक भेजेंगे।',
 	'Breaking news'                     => 'ब्रेकिंग न्यूज़',
 	'Breaking'                          => 'ब्रेकिंग',
 	'%s ago'                            => '%s पहले',

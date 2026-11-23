@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-23T07:17:52+00:00\n"
+"POT-Creation-Date: 2026-11-23T07:34:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: portal\n"
@@ -115,37 +115,45 @@ msgstr ""
 msgid "Community Blogs"
 msgstr ""
 
-#: inc/account.php:64
+#: inc/account.php:54
+msgid "Create your free account to comment, follow writers, save stories and send news."
+msgstr ""
+
+#: inc/account.php:57
+msgid "Enter your username or e-mail address. We will send you a link to set a new password."
+msgstr ""
+
+#: inc/account.php:85
 msgid "My account"
 msgstr ""
 
-#: inc/account.php:65
+#: inc/account.php:86
 msgid "Edit profile"
 msgstr ""
 
-#: inc/account.php:73
+#: inc/account.php:94
 msgid "Sign in"
 msgstr ""
 
-#: inc/account.php:78
+#: inc/account.php:99
 msgid "Create account"
 msgstr ""
 
-#: inc/account.php:82
+#: inc/account.php:103
 #: inc/tips.php:43
 msgid "Send news"
 msgstr ""
 
-#: inc/account.php:85
+#: inc/account.php:106
 #: page-community.php:28
 msgid "Write a story"
 msgstr ""
 
-#: inc/account.php:88
+#: inc/account.php:109
 msgid "Sign out"
 msgstr ""
 
-#: inc/account.php:122
+#: inc/account.php:144
 msgid "Account menu"
 msgstr ""
 
