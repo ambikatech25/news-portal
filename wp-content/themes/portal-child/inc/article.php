@@ -42,6 +42,37 @@ function portal_child_article_flags() {
 add_action( 'kadence_single_after_entry_header', 'portal_child_article_flags' );
 
 /**
+ * One line right after the story text:
+ *   - community stories: the views are the writer's own, with a Report button (opens the report form);
+ *   - news-desk stories: "Spotted an error? Tell us", linking to the Editorial & Corrections Policy.
+ * The full legal disclaimer lives in the Terms of Use.
+ */
+function portal_child_article_disclaimer() {
+	if ( ! portal_child_is_article() ) {
+		return;
+	}
+	$post = get_post();
+	if ( function_exists( 'portal_is_community_story' ) && portal_is_community_story( $post ) ) {
+		?>
+		<p class="portal-disclaimer">
+			<?php esc_html_e( 'Views expressed are the writer\'s own and do not necessarily reflect CityCharcha\'s.', 'portal' ); ?>
+			<?php esc_html_e( 'Spot a problem?', 'portal' ); ?>
+			<button type="button" class="portal-link-button portal-disclaimer__action" data-portal-report="post" data-id="<?php echo esc_attr( (string) $post->ID ); ?>"><?php esc_html_e( 'Report it', 'portal' ); ?></button>
+		</p>
+		<?php
+		return;
+	}
+	$policy = function_exists( 'portal_page_url' ) ? portal_page_url( 'editorial-policy', home_url( '/editorial-policy/' ) ) : home_url( '/editorial-policy/' );
+	?>
+	<p class="portal-disclaimer">
+		<?php esc_html_e( 'Spotted an error?', 'portal' ); ?>
+		<a class="portal-disclaimer__action" href="<?php echo esc_url( $policy ); ?>"><?php esc_html_e( 'Tell us', 'portal' ); ?></a>
+	</p>
+	<?php
+}
+add_action( 'kadence_single_after_inner_content', 'portal_child_article_disclaimer', 4 );
+
+/**
  * Share buttons and the Report button, after the article text.
  */
 function portal_child_article_actions() {

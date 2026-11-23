@@ -57,6 +57,7 @@ get_header();
 							'variant' => 'lead',
 							'heading' => 'h2',
 							'eager'   => true,
+							'top'     => true,
 						)
 					);
 					?>

@@ -8,7 +8,8 @@
  *   heading string   h2 | h3 | h4                       (default h3)
  *   eager   bool     load the image immediately (only for the first big image on the page)
  *   kicker  bool     show the red category label (default true; lead and headline cards only)
- *   words   int      summary length for lead cards (default 32)
+ *   words   int      summary length for lead cards (default 32; top story 100)
+ *   top     bool     home page top story: section, headline, byline, photo, longer summary, Read more
  *
  * @package Portal
  */
@@ -37,6 +38,61 @@ $portal_classes = array( 'portal-card', 'portal-card--' . $portal_variant );
 if ( $portal_image ) {
 	$portal_classes[] = 'has-media';
 }
+
+/*
+ * Home page top story ("top" => true): section, headline, photo, a longer piece of the story
+ * and a Read more button, so the column is filled next to the Latest list.
+ */
+if ( 'lead' === $portal_variant && ! empty( $args['top'] ) ) :
+	$portal_summary = has_excerpt( $portal_post )
+		? get_the_excerpt( $portal_post )
+		: wp_trim_words( wp_strip_all_tags( strip_shortcodes( $portal_post->post_content ) ), absint( $args['words'] ?? 100 ) );
+	?>
+	<article class="portal-card portal-card--lead portal-card--top">
+		<?php if ( $portal_cat ) : ?>
+			<a class="portal-card__kicker" href="<?php echo esc_url( get_category_link( $portal_cat ) ); ?>"><?php echo esc_html( $portal_cat->name ); ?></a>
+		<?php endif; ?>
+
+		<<?php echo esc_html( $portal_heading ); ?> class="portal-card__title">
+			<a href="<?php echo esc_url( $portal_link ); ?>"><?php echo esc_html( get_the_title( $portal_post ) ); ?></a>
+		</<?php echo esc_html( $portal_heading ); ?>>
+
+		<p class="portal-card__meta">
+			<span class="portal-card__author"><?php echo esc_html( get_the_author_meta( 'display_name', $portal_post->post_author ) ); ?></span>
+			<span aria-hidden="true">&middot;</span>
+			<time datetime="<?php echo esc_attr( get_the_date( 'c', $portal_post ) ); ?>"><?php echo esc_html( portal_child_time_label( $portal_post ) ); ?></time>
+		</p>
+
+		<?php portal_child_badges( $portal_post ); ?>
+
+		<?php if ( has_post_thumbnail( $portal_post ) ) : ?>
+			<a class="portal-card__media" href="<?php echo esc_url( $portal_link ); ?>" tabindex="-1" aria-hidden="true">
+				<?php
+				echo get_the_post_thumbnail(
+					$portal_post,
+					'large',
+					array(
+						'sizes'         => '(min-width: 1024px) 760px, 100vw',
+						'alt'           => '',
+						'decoding'      => 'async',
+						'loading'       => 'eager',
+						'fetchpriority' => 'high', // the biggest thing on screen: load it first (PageSpeed).
+					)
+				);
+				?>
+			</a>
+		<?php endif; ?>
+
+		<p class="portal-card__excerpt"><?php echo esc_html( $portal_summary ); ?></p>
+
+		<a class="portal-card__more" href="<?php echo esc_url( $portal_link ); ?>">
+			<?php esc_html_e( 'Read the full story', 'portal' ); ?> <span aria-hidden="true">&rarr;</span>
+			<span class="screen-reader-text">: <?php echo esc_html( get_the_title( $portal_post ) ); ?></span>
+		</a>
+	</article>
+	<?php
+	return;
+endif;
 ?>
 <article class="<?php echo esc_attr( implode( ' ', $portal_classes ) ); ?>">
 	<?php if ( $portal_image ) : ?>

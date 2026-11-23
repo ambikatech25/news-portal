@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-23T06:01:24+00:00\n"
-"PO-Revision-Date: 2026-11-23 06:01+0000\n"
+"POT-Creation-Date: 2026-11-23T06:48:25+00:00\n"
+"PO-Revision-Date: 2026-11-23 06:48+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: portal\n"
 "Language: hi_IN\n"
@@ -50,25 +50,37 @@ msgstr[1] "फ़ॉलोअर्स"
 msgid "Joined %s"
 msgstr "%s से सदस्य"
 
+#: author.php:77 inc/article.php:58
+msgid "Views expressed are the writer's own and do not necessarily reflect CityCharcha's."
+msgstr "यहाँ व्यक्त विचार लेखक के अपने हैं; ज़रूरी नहीं कि वे CityCharcha के विचार हों।"
+
+#: author.php:78 inc/article.php:59
+msgid "Spot a problem?"
+msgstr "कुछ गलत लगा?"
+
+#: author.php:79 inc/article.php:60
+msgid "Report it"
+msgstr "रिपोर्ट करें"
+
 #. translators: %s: writer's name.
-#: author.php:81
+#: author.php:90
 #, php-format
 msgid "Stories by %s"
 msgstr "%s की कहानियाँ"
 
-#: author.php:106
+#: author.php:115
 msgid "Newer"
 msgstr "नई"
 
-#: author.php:107
+#: author.php:116
 msgid "Older"
 msgstr "पुरानी"
 
-#: author.php:108
+#: author.php:117
 msgid "More stories"
 msgstr "और कहानियाँ"
 
-#: author.php:113
+#: author.php:122
 msgid "No published stories yet."
 msgstr "अभी कोई कहानी प्रकाशित नहीं हुई है।"
 
@@ -80,19 +92,19 @@ msgstr "अभी कोई खबर प्रकाशित नहीं ह�
 msgid "Top story"
 msgstr "मुख्य खबर"
 
-#: front-page.php:68
+#: front-page.php:69
 msgid "Latest"
 msgstr "ताज़ा खबरें"
 
-#: front-page.php:81
+#: front-page.php:82
 msgid "Trending"
 msgstr "ट्रेंडिंग"
 
-#: front-page.php:117 front-page.php:145
+#: front-page.php:118 front-page.php:146
 msgid "More"
 msgstr "और"
 
-#: front-page.php:142 front-page.php:145
+#: front-page.php:143 front-page.php:146
 msgid "Community Blogs"
 msgstr "सामुदायिक ब्लॉग"
 
@@ -108,19 +120,27 @@ msgstr "साइन इन"
 msgid "Write"
 msgstr "लिखें"
 
-#: inc/article.php:203
+#: inc/article.php:68
+msgid "Spotted an error?"
+msgstr "कोई गलती दिखी?"
+
+#: inc/article.php:69
+msgid "Tell us"
+msgstr "हमें बताएँ"
+
+#: inc/article.php:234
 msgid "Link copied"
 msgstr "लिंक कॉपी हो गया"
 
-#: inc/article.php:204
+#: inc/article.php:235
 msgid "Sending…"
 msgstr "भेजा जा रहा है…"
 
-#: inc/article.php:205
+#: inc/article.php:236
 msgid "Could not send the report. Please try again."
 msgstr "रिपोर्ट नहीं भेजी जा सकी। कृपया फिर से कोशिश करें।"
 
-#: inc/article.php:206
+#: inc/article.php:237
 msgid "Please choose a reason."
 msgstr "कृपया एक कारण चुनें।"
 
@@ -549,6 +569,10 @@ msgstr "ब्रेकिंग न्यूज़"
 #: template-parts/portal/breaking.php:18
 msgid "Breaking"
 msgstr "ब्रेकिंग"
+
+#: template-parts/portal/card.php:89
+msgid "Read the full story"
+msgstr "पूरी खबर पढ़ें"
 
 #: template-parts/portal/related.php:20
 msgid "Related stories"

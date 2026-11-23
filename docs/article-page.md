@@ -66,3 +66,12 @@ add no tracking and no page weight.
 - The author card shows the follower count (Task 9); the Follow button comes in Task 12.
 - On the live site behind Cloudflare (Task 17), the report limit must read the visitor's
   real address from Cloudflare's header; this is noted in `reports.php`.
+
+## Disclaimer lines (23 Nov 2026)
+
+- **Community stories and community writers' profiles:** "Views expressed are the writer's own and do
+  not necessarily reflect CityCharcha's. Spot a problem? **Report it**". On a story, Report it opens
+  the story's report form; on a profile it links to the Grievance Officer page.
+- **News-desk stories** (News, Region, Industry, Logistics, Crime, Case Files): "Spotted an error?
+  **Tell us**", linking to the Editorial & Corrections Policy.
+- Both in Hindi on the Hindi site. The full legal disclaimer belongs in the Terms of Use (lawyer).

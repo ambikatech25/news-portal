@@ -68,3 +68,23 @@ function portal_child_account_menu_item( $items, $args ) {
 	return $items . '<li class="menu-item portal-account-link"><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a></li>';
 }
 add_filter( 'wp_nav_menu_items', 'portal_child_account_menu_item', 10, 2 );
+
+/**
+ * The language switch (हिन्दी / English, from Polylang) goes last, after My account, and is styled
+ * as a small pill: it changes the whole site's language, it is not a section.
+ *
+ * @param string   $items Menu HTML.
+ * @param stdClass $args  Menu arguments.
+ * @return string
+ */
+function portal_child_language_item_last( $items, $args ) {
+	if ( ! in_array( $args->theme_location ?? '', array( 'primary', 'mobile' ), true ) ) {
+		return $items;
+	}
+	if ( ! preg_match( '#<li[^>]*\blang-item\b[^>]*>.*?</li>#s', $items, $match ) ) {
+		return $items;
+	}
+	$item = preg_replace( '#class="#', 'class="portal-lang-link ', $match[0], 1 );
+	return str_replace( $match[0], '', $items ) . $item;
+}
+add_filter( 'wp_nav_menu_items', 'portal_child_language_item_last', 30, 2 );

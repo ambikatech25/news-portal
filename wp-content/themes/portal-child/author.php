@@ -70,6 +70,15 @@ get_header();
 							<?php echo esc_html( preg_replace( '#^https?://(www\.)?#', '', untrailingslashit( $portal_profile['website'] ) ) ); ?>
 						</a>
 					<?php endif; ?>
+
+					<?php if ( 'news' !== $portal_profile['desk'] ) : ?>
+						<?php // Community writers only; the full legal disclaimer is in the Terms of Use. ?>
+						<p class="portal-disclaimer portal-disclaimer--profile">
+							<?php esc_html_e( 'Views expressed are the writer\'s own and do not necessarily reflect CityCharcha\'s.', 'portal' ); ?>
+							<?php esc_html_e( 'Spot a problem?', 'portal' ); ?>
+							<a class="portal-disclaimer__action" href="<?php echo esc_url( function_exists( 'portal_page_url' ) ? portal_page_url( 'grievance-officer', home_url( '/grievance-officer/' ) ) : home_url( '/grievance-officer/' ) ); ?>"><?php esc_html_e( 'Report it', 'portal' ); ?></a>
+						</p>
+					<?php endif; ?>
 				</div>
 			</header>
 

@@ -152,7 +152,7 @@ Text Domain:  portal
 	color: var(--portal-accent);
 }
 
-/* Phones: 5 Latest headlines so Trending is not pushed far down. Desktop shows all 8. */
+/* Phones: 5 Latest headlines so Trending is not pushed far down. Desktop shows 7. */
 .portal-latest li:nth-child(n+6) {
 	display: none;
 }
@@ -253,6 +253,36 @@ Text Domain:  portal
 
 .portal-section .portal-card--lead .portal-card__title {
 	font-size: 1.25rem;
+}
+
+/* Home top story: section, headline, byline, photo, a longer piece of the story, Read more. */
+.portal-card--top .portal-card__media {
+	margin-top: 0.25rem;
+}
+
+.portal-card--top .portal-card__excerpt {
+	color: var(--portal-body);
+	font-size: 1.0625rem;
+	line-height: 1.7;
+}
+
+.portal-card__more {
+	justify-self: start;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--portal-accent);
+	border-radius: 999px;
+	color: var(--portal-accent) !important;
+	font-size: 0.9375rem;
+	font-weight: 600;
+}
+
+.portal-card__more:hover,
+.portal-card__more:focus-visible {
+	background: var(--portal-accent);
+	color: #fff !important;
 }
 
 /* Compact: headline left, small square picture right. */
@@ -401,6 +431,11 @@ Text Domain:  portal
 
 	.portal-latest li:nth-child(n+6) {
 		display: list-item;
+	}
+
+	/* Desktop: 7 headlines, so the column ends level with the top story. */
+	.portal-latest li:nth-child(n+8) {
+		display: none;
 	}
 
 	.portal-home__top { grid-area: top; }
@@ -1002,6 +1037,106 @@ a.portal-story-lang__item {
 /* "Sign in" / "My account" in the header menu stands out a little. */
 .portal-account-link > a {
 	font-weight: 700;
+}
+
+/*
+ * Header menu: sections are plain links; then Send news (outlined button), Write (red button),
+ * My account, and the language switch as a small pill (it changes the whole site's language).
+ */
+#primary-menu > li:is(.portal-send-news-link, .portal-write-link, .portal-lang-link) {
+	display: flex;
+	align-items: center;
+}
+
+#primary-menu > li.portal-send-news-link {
+	margin-left: 0.75rem;
+	padding-left: 1rem;
+	border-left: 1px solid var(--portal-border);
+}
+
+#primary-menu > li:is(.portal-send-news-link, .portal-write-link) > a {
+	margin: 0 0.25rem;
+	padding: 0.4rem 0.9rem;
+	border: 1px solid var(--portal-accent);
+	border-radius: 999px;
+	color: var(--portal-accent);
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+#primary-menu > li.portal-write-link > a {
+	background: var(--portal-accent);
+	color: #fff;
+}
+
+#primary-menu > li.portal-send-news-link > a:is(:hover, :focus-visible) {
+	background: var(--portal-accent);
+	color: #fff;
+}
+
+#primary-menu > li.portal-write-link > a:is(:hover, :focus-visible) {
+	border-color: var(--global-palette2, #9b0c23);
+	background: var(--global-palette2, #9b0c23);
+	color: #fff;
+}
+
+#primary-menu > li.portal-lang-link > a {
+	margin-left: 0.25rem;
+	padding: 0.25rem 0.65rem;
+	border: 1px solid var(--portal-border);
+	border-radius: 999px;
+	color: var(--portal-muted);
+	font-size: 0.8125rem;
+	line-height: 1.2;
+}
+
+#primary-menu > li.portal-lang-link > a:is(:hover, :focus-visible) {
+	border-color: var(--portal-accent);
+	color: var(--portal-accent);
+}
+
+/* Smaller laptops: keep the menu on one line. "Home" goes (the logo is the home link) and links sit closer. */
+@media (min-width: 1025px) and (max-width: 1279px) {
+	#primary-menu > li:first-child {
+		display: none;
+	}
+
+	#primary-menu > li > a {
+		padding-right: 0.45em;
+		padding-left: 0.45em;
+		font-size: 0.9375rem;
+	}
+
+	#primary-menu > li.portal-send-news-link {
+		margin-left: 0.25rem;
+		padding-left: 0.5rem;
+	}
+
+	#primary-menu > li:is(.portal-send-news-link, .portal-write-link) > a {
+		padding: 0.35rem 0.75rem;
+	}
+}
+
+/* Phone menu (drawer): the same order; Send news and Write as full-width buttons. */
+#mobile-menu > li:is(.portal-send-news-link, .portal-write-link) > a {
+	display: flex;
+	justify-content: center;
+	margin: 0.75rem 0 0;
+	padding: 0.6em 1em;
+	border: 1px solid var(--portal-accent);
+	border-radius: 999px;
+	color: #fff; /* the drawer is dark: white text reads better than red */
+	font-weight: 600;
+	text-align: center;
+}
+
+#mobile-menu > li.portal-write-link > a {
+	background: var(--portal-accent);
+	color: #fff;
+}
+
+#mobile-menu > li:is(.portal-send-news-link, .portal-write-link) {
+	border-bottom: 0;
 }
 
 /*
@@ -1689,6 +1824,40 @@ a.portal-story-lang__item {
 
 .portal-link-button--danger {
 	color: var(--portal-accent);
+}
+
+/* "Views are the writer's own… Report it" / "Spotted an error? Tell us", after the story text. */
+.portal-disclaimer {
+	margin: 1.5rem 0 0;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--portal-border);
+	color: var(--portal-muted);
+	font-size: 0.875rem;
+	line-height: 1.6;
+}
+
+.portal-disclaimer--profile {
+	margin-top: 1rem;
+	padding-top: 0;
+	border-top: 0;
+}
+
+.portal-disclaimer__action {
+	color: var(--portal-accent) !important;
+	font-size: inherit;
+	text-decoration: underline;
+}
+
+button.portal-disclaimer__action {
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+
+button.portal-disclaimer__action:is(:hover, :focus, :active) {
+	background: none;
+	box-shadow: none;
 }
 
 /* ---------------------------------------------------------------- Reading comfort (Task 17B) */
