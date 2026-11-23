@@ -67,7 +67,7 @@ try {
     Write-Host '== Visitors'
     $vis = Get-Html $null "$Base/en/send-news/"
     $homeHtml = Get-Html $null "$Base/en/"
-    Check '1. Visitors see "Sign in to send news" (no form); the header has "Send news"; the page is kept out of Google' ($vis -match 'Sign in to send news' -and $vis -notmatch 'name="portal_tip_nonce"' -and $homeHtml -match 'portal-send-news-link"><a href="http://localhost:8080/en/send-news/"' -and $vis -match '<meta name=.robots.[^>]*noindex') 'visitor view'
+    Check '1. Visitors see "Sign in to send news" (no form); the header menu has "Send news"; the page is kept out of Google' ($vis -match 'Sign in to send news' -and $vis -notmatch 'name="portal_tip_nonce"' -and $homeHtml -match '(?s)portal-account-menu__panel.*?href="http://localhost:8080/en/send-news/"' -and $vis -match '<meta name=.robots.[^>]*noindex') 'visitor view'
 
     Write-Host '== A member sends a tip (form, with a GPS photo)'
     $form = Get-Html $m "$Base/en/send-news/"

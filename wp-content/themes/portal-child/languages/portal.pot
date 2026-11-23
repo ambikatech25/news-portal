@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-23T06:48:25+00:00\n"
+"POT-Creation-Date: 2026-11-23T07:17:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: portal\n"
@@ -115,16 +115,38 @@ msgstr ""
 msgid "Community Blogs"
 msgstr ""
 
-#: inc/account.php:58
+#: inc/account.php:64
 msgid "My account"
 msgstr ""
 
-#: inc/account.php:61
+#: inc/account.php:65
+msgid "Edit profile"
+msgstr ""
+
+#: inc/account.php:73
 msgid "Sign in"
 msgstr ""
 
-#: inc/account.php:66
-msgid "Write"
+#: inc/account.php:78
+msgid "Create account"
+msgstr ""
+
+#: inc/account.php:82
+#: inc/tips.php:43
+msgid "Send news"
+msgstr ""
+
+#: inc/account.php:85
+#: page-community.php:28
+msgid "Write a story"
+msgstr ""
+
+#: inc/account.php:88
+msgid "Sign out"
+msgstr ""
+
+#: inc/account.php:122
+msgid "Account menu"
 msgstr ""
 
 #: inc/article.php:68
@@ -401,11 +423,6 @@ msgstr ""
 msgid "Thank you! Your tip %s has reached our editors. We have e-mailed you a receipt and will tell you when it is published or if we decide not to publish it."
 msgstr ""
 
-#: inc/tips.php:43
-#: inc/tips.php:83
-msgid "Send news"
-msgstr ""
-
 #: inc/tips.php:46
 msgid "You have not sent any news yet. Seen something our readers should know? Tell us: our editors check every tip."
 msgstr ""
@@ -416,10 +433,6 @@ msgstr ""
 
 #: inc/tips.php:59
 msgid "Reason:"
-msgstr ""
-
-#: page-community.php:28
-msgid "Write a story"
 msgstr ""
 
 #: page-community.php:30

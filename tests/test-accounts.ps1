@@ -91,7 +91,7 @@ try {
     Write-Host '== What a member sees'
     $admin = Get-WithJar $ujar "$Base/wp-admin/"
     $homePage = Get-WithJar $ujar "$Base/en/"
-    Check '7. Members are sent away from wp-admin and see no admin bar; header shows My account' ($admin.Code -eq 302 -and $admin.Location -match '^http://localhost:8080/?$' -and $homePage.Html -notmatch 'id="wpadminbar"' -and $homePage.Html -match 'portal-account-link"><a href="http://localhost:8080/en/account/">My account') "wp-admin=$($admin.Code)->$($admin.Location)"
+    Check '7. Members are sent away from wp-admin and see no admin bar; header shows their name with My account and Edit profile in its menu' ($admin.Code -eq 302 -and $admin.Location -match '^http://localhost:8080/?$' -and $homePage.Html -notmatch 'id="wpadminbar"' -and $homePage.Html -match 'portal-account-menu__trigger" href="http://localhost:8080/en/account/"' -and $homePage.Html -match 'section=edit-profile">Edit profile<') "wp-admin=$($admin.Code)->$($admin.Location)"
 
     $acct = Get-WithJar $ujar "$Base/en/account/"
     Check '8. My Account shows the photo box and the Edit Profile form' ($acct.Code -eq 200 -and $acct.Html -match 'portal-photo-box' -and $acct.Html -match 'name="first_name"') "HTTP $($acct.Code)"
@@ -113,7 +113,7 @@ try {
     $users = New-TestUsers @('contributor')
     $cAdmin = Get-WithJar $users['contributor'].Session.Jar "$Base/wp-admin/"
     $cHome = Get-WithJar $users['contributor'].Session.Jar "$Base/en/"
-    Check '10. Visitors see Sign in in the header; writers keep wp-admin and the admin bar' ($logged_out -match 'portal-account-link"><a href="http://localhost:8080/wp-login.php[^"]*">Sign in' -and $cAdmin.Code -eq 200 -and $cHome.Html -match 'id="wpadminbar"') "writer wp-admin=$($cAdmin.Code)"
+    Check '10. Visitors see Sign in in the header; writers keep wp-admin and the admin bar' ($logged_out -match 'portal-account-menu__trigger" href="http://localhost:8080/wp-login.php[^"]*">.*?portal-account-menu__name">Sign in<' -and $cAdmin.Code -eq 200 -and $cHome.Html -match 'id="wpadminbar"') "writer wp-admin=$($cAdmin.Code)"
 
     $gid = Get-Last (Wp user create "portal_test_$($tag)g" "$($tag)g@portal.test" --role=subscriber --porcelain)
     $made += [int]$gid

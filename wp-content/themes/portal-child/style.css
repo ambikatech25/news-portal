@@ -1040,44 +1040,102 @@ a.portal-story-lang__item {
 }
 
 /*
- * Header menu: sections are plain links; then Send news (outlined button), Write (red button),
- * My account, and the language switch as a small pill (it changes the whole site's language).
+ * Header: sections are plain links; then the account menu (photo + name, or icon + "Sign in")
+ * with a small dropdown, and the language switch as a small pill.
  */
-#primary-menu > li:is(.portal-send-news-link, .portal-write-link, .portal-lang-link) {
+#primary-menu > li.portal-account-menu {
+	position: relative;
 	display: flex;
 	align-items: center;
-}
-
-#primary-menu > li.portal-send-news-link {
 	margin-left: 0.75rem;
 	padding-left: 1rem;
 	border-left: 1px solid var(--portal-border);
 }
 
-#primary-menu > li:is(.portal-send-news-link, .portal-write-link) > a {
-	margin: 0 0.25rem;
-	padding: 0.4rem 0.9rem;
-	border: 1px solid var(--portal-accent);
-	border-radius: 999px;
-	color: var(--portal-accent);
+.portal-account-menu__trigger {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 0.5rem;
 	font-weight: 600;
-	line-height: 1.2;
 }
 
-#primary-menu > li.portal-write-link > a {
-	background: var(--portal-accent);
-	color: #fff;
+.portal-account-menu__photo {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	object-fit: cover;
 }
 
-#primary-menu > li.portal-send-news-link > a:is(:hover, :focus-visible) {
-	background: var(--portal-accent);
-	color: #fff;
+.portal-account-menu__name {
+	max-width: 10rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-#primary-menu > li.portal-write-link > a:is(:hover, :focus-visible) {
-	border-color: var(--global-palette2, #9b0c23);
-	background: var(--global-palette2, #9b0c23);
-	color: #fff;
+.portal-account-menu__toggle {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.25rem;
+	border: 0;
+	background: none;
+	color: var(--portal-muted);
+	font-size: 0.75rem;
+	cursor: pointer;
+}
+
+.portal-account-menu__toggle:is(:hover, :focus, :active) {
+	background: none;
+	box-shadow: none;
+	color: var(--portal-accent);
+}
+
+/* The dropdown: opens on hover, keyboard focus, or the arrow button (touch screens). */
+#primary-menu .portal-account-menu__panel {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	z-index: 1002;
+	display: none;
+	min-width: 13rem;
+	margin: 0;
+	padding: 0.4rem 0;
+	border: 1px solid var(--portal-border);
+	border-radius: 8px;
+	background: var(--global-palette9, #fff);
+	box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+	list-style: none;
+}
+
+#primary-menu .portal-account-menu:is(:hover, :focus-within, .is-open) .portal-account-menu__panel {
+	display: block;
+}
+
+#primary-menu .portal-account-menu__panel a {
+	display: block;
+	text-decoration: none;
+	text-decoration: none;
+	padding: 0.55rem 1rem;
+	color: var(--portal-text);
+	font-size: 0.9375rem;
+	white-space: nowrap;
+}
+
+#primary-menu .portal-account-menu__panel a:is(:hover, :focus-visible) {
+	background: var(--global-palette8, #f3f4f6);
+	color: var(--portal-accent);
+}
+
+/* "Sign out" at the bottom, set apart. */
+#primary-menu .portal-account-menu__panel li.portal-account-menu__signout {
+	margin-top: 0.3rem;
+	padding-top: 0.3rem;
+	border-top: 1px solid var(--portal-border);
+}
+
+#primary-menu > li.portal-lang-link {
+	display: flex;
+	align-items: center;
 }
 
 #primary-menu > li.portal-lang-link > a {
@@ -1107,36 +1165,25 @@ a.portal-story-lang__item {
 		font-size: 0.9375rem;
 	}
 
-	#primary-menu > li.portal-send-news-link {
+	#primary-menu > li.portal-account-menu {
 		margin-left: 0.25rem;
 		padding-left: 0.5rem;
 	}
 
-	#primary-menu > li:is(.portal-send-news-link, .portal-write-link) > a {
-		padding: 0.35rem 0.75rem;
+	.portal-account-menu__name {
+		max-width: 7rem;
 	}
 }
 
-/* Phone menu (drawer): the same order; Send news and Write as full-width buttons. */
-#mobile-menu > li:is(.portal-send-news-link, .portal-write-link) > a {
-	display: flex;
-	justify-content: center;
-	margin: 0.75rem 0 0;
-	padding: 0.6em 1em;
-	border: 1px solid var(--portal-accent);
-	border-radius: 999px;
-	color: #fff; /* the drawer is dark: white text reads better than red */
-	font-weight: 600;
-	text-align: center;
+/* Phone menu (drawer): photo + name, then the account links listed directly. */
+#mobile-menu > li.portal-account-menu--flat > a {
+	gap: 0.6rem;
+	font-weight: 700;
 }
 
-#mobile-menu > li.portal-write-link > a {
-	background: var(--portal-accent);
-	color: #fff;
-}
-
-#mobile-menu > li:is(.portal-send-news-link, .portal-write-link) {
-	border-bottom: 0;
+#mobile-menu > li.portal-account-menu__item > a {
+	padding-left: 2.6rem; /* lines up under the name, next to the photo */
+	font-size: 0.9375rem;
 }
 
 /*

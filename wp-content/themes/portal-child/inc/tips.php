@@ -63,26 +63,3 @@ function portal_child_account_tips() {
 	echo '</ul></div>';
 }
 add_action( 'wpuf_account_content_portal-tips', 'portal_child_account_tips' );
-
-/**
- * "Send news" in the main and phone menus, before "Write" (everyone; visitors are asked to
- * sign in on the page itself).
- *
- * @param string   $items Menu HTML.
- * @param stdClass $args  Menu arguments.
- * @return string
- */
-function portal_child_send_news_link( $items, $args ) {
-	if ( ! in_array( $args->theme_location ?? '', array( 'primary', 'mobile' ), true ) ) {
-		return $items;
-	}
-	$page = function_exists( 'portal_page' ) ? portal_page( 'send-news' ) : get_page_by_path( 'send-news' );
-	if ( ! $page ) {
-		return $items;
-	}
-	$link = '<li class="menu-item portal-send-news-link"><a href="' . esc_url( get_permalink( $page ) ) . '">' . esc_html__( 'Send news', 'portal' ) . '</a></li>';
-	// Put it before "Write" (added by inc/account.php at priority 10).
-	$at = strpos( $items, '<li class="menu-item portal-write-link"' );
-	return false === $at ? $items . $link : substr_replace( $items, $link, $at, 0 );
-}
-add_filter( 'wp_nav_menu_items', 'portal_child_send_news_link', 20, 2 );
