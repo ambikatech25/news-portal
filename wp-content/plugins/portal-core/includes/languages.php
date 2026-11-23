@@ -227,10 +227,11 @@ function portal_hindi_to_latin( $text ) {
 	// Combine consonant + nukta into one letter first (ज + ़ = ज़).
 	$text  = preg_replace( '/([कखगजडढफय])\x{093C}/u', '$1़', $text );
 	$chars = preg_split( '//u', $text, -1, PREG_SPLIT_NO_EMPTY );
-	$out          = '';
-	$count        = count( $chars );
-	$vowel_before = false; // was the sound just before this letter a vowel?
-	$half         = '';    // the half letter just before this one (क् in क्य), if any.
+	$count = count( $chars );
+
+	// 1. Split into units. A consonant is "half" (क्), carries a vowel sign (कि), or has the
+	// short "a" built in (क); for the last kind we decide below whether the "a" is spoken.
+	$units = array();
 	for ( $i = 0; $i < $count; $i++ ) {
 		$c    = $chars[ $i ];
 		$pair = $c . ( $chars[ $i + 1 ] ?? '' );
@@ -239,54 +240,80 @@ function portal_hindi_to_latin( $text ) {
 			++$i;
 		}
 		if ( isset( $consonants[ $c ] ) ) {
-			$out .= $consonants[ $c ];
 			$next = $chars[ $i + 1 ] ?? '';
-			$after_half = $half;
-			$half       = '';
-			if ( '्' === $next ) {          // half letter: no vowel.
+			$form = '्' === $next ? 'half' : ( isset( $signs[ $next ] ) ? 'sign' : 'a' );
+			if ( 'half' === $form ) {
 				++$i;
-				$vowel_before = false;
-				$half         = $c;
-				continue;
 			}
-			if ( isset( $signs[ $next ] ) ) { // vowel sign follows.
-				$vowel_before = false;          // the sign itself sets it below.
-				continue;
-			}
-			// Hindi drops the short "a" at the end of a word (बाज़ार -> bazar, not bazara) and in
-			// the middle between a vowel and a voiced letter (रायपुर -> raypur, सरकार -> sarkar),
-			// but keeps it before a word-final letter (खबर -> khabar), and at the end after a
-			// joined र or य (महाराष्ट्र -> maharashtra, मध्य -> madhya; not after र्: दुर्ग -> durg).
-			$at_word_end = ( '' === $next ) || ! preg_match( '/[\x{0900}-\x{097F}]/u', $next ) || isset( $marks[ $next ] ) && ' ' === $marks[ $next ];
-			$drop        = $at_word_end && ! ( $after_half && 'र' !== $after_half && in_array( $c, array( 'र', 'य' ), true ) );
-			$drop        = $drop || in_array( $next, array( 'अ', 'आ' ), true ); // joined words: पिकअप -> pikap (but नई -> nai).
-			if ( ! $drop && $vowel_before && isset( $consonants[ $next ] ) ) {
-				$skip  = isset( $consonants[ $next . ( $chars[ $i + 2 ] ?? '' ) ] ) ? 3 : 2; // next letter may carry a nukta.
-				$after = $chars[ $i + $skip ] ?? '';
-				$drop  = isset( $signs[ $after ] ) || isset( $consonants[ $after ] );
-			}
-			if ( ! $drop ) {
-				$out .= 'a';
-			}
-			$vowel_before = ! $drop;
-			continue;
-		}
-		if ( 'ं' !== $c && 'ँ' !== $c ) { // a nasal dot belongs to the vowel before it.
-			$vowel_before = isset( $vowels[ $c ] ) || isset( $signs[ $c ] );
-		}
-		$half         = '';
-		if ( isset( $vowels[ $c ] ) ) {
-			$out .= $vowels[ $c ];
+			$units[] = array( 'type' => 'c', 'letter' => $c, 'form' => $form, 'drop' => false );
+		} elseif ( isset( $vowels[ $c ] ) ) {
+			$units[] = array( 'type' => 'v', 'letter' => $c );
 		} elseif ( isset( $signs[ $c ] ) ) {
-			$out .= $signs[ $c ];
-		} elseif ( isset( $marks[ $c ] ) ) {
-			$out .= $marks[ $c ];
-		} elseif ( isset( $digits[ $c ] ) ) {
-			$out .= $digits[ $c ];
-		} elseif ( '्' === $c ) {
+			$units[] = array( 'type' => 's', 'letter' => $c );
+		} elseif ( 'ं' === $c || 'ँ' === $c ) {
+			$units[] = array( 'type' => 'n', 'letter' => $c ); // nasal dot: part of the vowel before it.
+		} elseif ( '्' !== $c ) {
+			$units[] = array( 'type' => 'x', 'letter' => $c ); // space, digit, punctuation: ends a word.
+		}
+	}
+
+	// Is there a spoken vowel just before unit $k (within the word)?
+	$vowel_before = static function ( $k ) use ( &$units ) {
+		for ( $j = $k - 1; $j >= 0; $j-- ) {
+			$u = $units[ $j ];
+			if ( 'n' === $u['type'] ) {
+				continue;
+			}
+			return in_array( $u['type'], array( 'v', 's' ), true ) || ( 'c' === $u['type'] && 'a' === $u['form'] && ! $u['drop'] );
+		}
+		return false;
+	};
+
+	// 2. Hindi drops the short "a" (decided from the end of the word backwards):
+	// - at the end of a word (बाज़ार -> bazar), except after a joined र or य (महाराष्ट्र -> maharashtra,
+	//   मध्य -> madhya; not after र्: दुर्ग -> durg);
+	// - before अ / आ starting a joined word (पिकअप -> pikap; but नई -> nai);
+	// - between a spoken vowel and a letter that has its own vowel (रायपुर -> raypur,
+	//   नारायणपुर -> narayanpur, सरकार -> sarkar), but not before a word-final letter (खबर -> khabar).
+	for ( $k = count( $units ) - 1; $k >= 0; $k-- ) {
+		$u = $units[ $k ];
+		if ( 'c' !== $u['type'] || 'a' !== $u['form'] ) {
 			continue;
+		}
+		$next = $units[ $k + 1 ] ?? array( 'type' => 'x' );
+		$prev = $units[ $k - 1 ] ?? array( 'type' => 'x' );
+		if ( 'x' === $next['type'] ) {
+			$joined = 'c' === $prev['type'] && 'half' === $prev['form'] && 'र' !== $prev['letter'];
+			$drop   = ! ( $joined && in_array( $u['letter'], array( 'र', 'य' ), true ) );
+		} elseif ( 'v' === $next['type'] ) {
+			$drop = in_array( $next['letter'], array( 'अ', 'आ' ), true );
+		} elseif ( 'c' === $next['type'] ) {
+			$next_voiced = 'sign' === $next['form'] || ( 'a' === $next['form'] && ! $next['drop'] );
+			$drop        = $next_voiced && $vowel_before( $k );
 		} else {
-			$out .= $c;
+			$drop = false;
+		}
+		$units[ $k ]['drop'] = $drop;
+	}
+
+	// 3. Write it out.
+	$out = '';
+	foreach ( $units as $u ) {
+		switch ( $u['type'] ) {
+			case 'c':
+				$out .= $consonants[ $u['letter'] ] . ( 'a' === $u['form'] && ! $u['drop'] ? 'a' : '' );
+				break;
+			case 'v':
+				$out .= $vowels[ $u['letter'] ];
+				break;
+			case 's':
+				$out .= $signs[ $u['letter'] ];
+				break;
+			case 'n':
+				$out .= $marks[ $u['letter'] ];
+				break;
+			default:
+				$out .= $marks[ $u['letter'] ] ?? ( $digits[ $u['letter'] ] ?? $u['letter'] );
 		}
 	}
 	return $out;
