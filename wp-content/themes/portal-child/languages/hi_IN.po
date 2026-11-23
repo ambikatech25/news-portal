@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-21T11:31:16+00:00\n"
-"PO-Revision-Date: 2026-11-21 11:31+0000\n"
+"POT-Creation-Date: 2026-11-23T06:01:24+00:00\n"
+"PO-Revision-Date: 2026-11-23 06:01+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: portal\n"
 "Language: hi_IN\n"
@@ -108,19 +108,19 @@ msgstr "साइन इन"
 msgid "Write"
 msgstr "लिखें"
 
-#: inc/article.php:202
+#: inc/article.php:203
 msgid "Link copied"
 msgstr "लिंक कॉपी हो गया"
 
-#: inc/article.php:203
+#: inc/article.php:204
 msgid "Sending…"
 msgstr "भेजा जा रहा है…"
 
-#: inc/article.php:204
+#: inc/article.php:205
 msgid "Could not send the report. Please try again."
 msgstr "रिपोर्ट नहीं भेजी जा सकी। कृपया फिर से कोशिश करें।"
 
-#: inc/article.php:205
+#: inc/article.php:206
 msgid "Please choose a reason."
 msgstr "कृपया एक कारण चुनें।"
 
@@ -178,15 +178,6 @@ msgstr "नई कहानियाँ"
 msgid "Report"
 msgstr "रिपोर्ट करें"
 
-#: inc/reading.php:42 inc/reading.php:83
-#: template-parts/portal/article-flags.php:59
-msgid "Reading mode"
-msgstr "पढ़ने का मोड"
-
-#: inc/reading.php:44
-msgid "Exit"
-msgstr "बाहर निकलें"
-
 #: inc/reading.php:47
 msgid "Text size"
 msgstr "अक्षर का आकार"
@@ -203,31 +194,17 @@ msgstr "बड़े अक्षर"
 msgid "Colours"
 msgstr "रंग"
 
-#: inc/reading.php:52
+#: inc/reading.php:54
 msgid "Light"
 msgstr "सफ़ेद"
 
-#: inc/reading.php:53
+#: inc/reading.php:55
 msgid "Sepia"
 msgstr "सीपिया"
 
-#: inc/reading.php:54
+#: inc/reading.php:56
 msgid "Dark"
 msgstr "गहरा"
-
-#: inc/reading.php:84
-msgid "Exit reading mode"
-msgstr "पढ़ने का मोड बंद करें"
-
-#. translators: %s: number of minutes.
-#: inc/reading.php:86
-#, php-format
-msgid "%s min left"
-msgstr "%s मिनट बाकी"
-
-#: inc/reading.php:87
-msgid "Finished"
-msgstr "पूरा हुआ"
 
 #: inc/series.php:26 page-community.php:115 taxonomy-portal_series.php:34
 #: template-parts/portal/series-nav.php:18
@@ -535,19 +512,19 @@ msgstr "लिंक कॉपी करें"
 msgid "Read this story in"
 msgstr "यह खबर इस भाषा में पढ़ें"
 
-#: template-parts/portal/article-flags.php:64
+#: template-parts/portal/article-flags.php:61
 msgid "Verification"
 msgstr "सत्यापन"
 
-#: template-parts/portal/article-flags.php:67
+#: template-parts/portal/article-flags.php:64
 msgid "Verified by our news desk"
 msgstr "हमारी समाचार डेस्क द्वारा सत्यापित"
 
-#: template-parts/portal/article-flags.php:72
+#: template-parts/portal/article-flags.php:69
 msgid "FIR No."
 msgstr "एफ़आईआर नं."
 
-#: template-parts/portal/article-flags.php:78
+#: template-parts/portal/article-flags.php:75
 msgid "Police station"
 msgstr "थाना"
 

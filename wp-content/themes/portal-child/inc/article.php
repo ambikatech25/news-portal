@@ -5,7 +5,8 @@
  *
  * Order on the page:
  *   header (Kadence: category, headline, "By <writer> [Follow]", date)   + kadence_author_meta_output
- *   -> Verified box, Premium label, read time, Reading mode   kadence_single_after_entry_header
+ *   -> language switch, read time + text size + colours, Verified box, Premium label
+ *                                                              kadence_single_after_entry_header
  *   -> article text and tags (Kadence)
  *   -> series box (5), writer card (8), Like / Save / Comments, share, Report (10),
  *      comments panel (12)                                     kadence_single_after_inner_content

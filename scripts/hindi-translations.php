@@ -45,8 +45,6 @@ return array(
 
 	/* ---------------------------------------------------------------- Story page */
 	'%s min read'                       => array( '%s मिनट में पढ़ें', '%s मिनट में पढ़ें' ),
-	'Reading mode'                      => 'पढ़ने का मोड',
-	'Exit'                              => 'बाहर निकलें',
 	'Text size'                         => 'अक्षर का आकार',
 	'Smaller text'                      => 'छोटे अक्षर',
 	'Larger text'                       => 'बड़े अक्षर',
@@ -54,9 +52,6 @@ return array(
 	'Light'                             => 'सफ़ेद',
 	'Sepia'                             => 'सीपिया',
 	'Dark'                              => 'गहरा',
-	'Exit reading mode'                 => 'पढ़ने का मोड बंद करें',
-	'%s min left'                       => '%s मिनट बाकी',
-	'Finished'                          => 'पूरा हुआ',
 	'Verification'                      => 'सत्यापन',
 	'Verified by our news desk'         => 'हमारी समाचार डेस्क द्वारा सत्यापित',
 	'Read this story in'                => 'यह खबर इस भाषा में पढ़ें',

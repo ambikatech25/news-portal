@@ -564,7 +564,7 @@ a.portal-story-lang__item {
 	padding: 0 0.7rem;
 	border: 1px solid var(--portal-border);
 	border-radius: 999px;
-	background: #fff;
+	background: var(--global-palette9, #fff);
 	color: var(--portal-text);
 	font: inherit;
 	font-size: 0.875rem;
@@ -584,7 +584,7 @@ a.portal-story-lang__item {
 .portal-report-btn:hover,
 .portal-report-btn:focus-visible {
 	border-color: var(--portal-accent);
-	background: #fff;
+	background: var(--global-palette9, #fff);
 	color: var(--portal-accent);
 }
 
@@ -617,7 +617,7 @@ a.portal-story-lang__item {
 	padding: 1.25rem;
 	border: 1px solid var(--portal-border);
 	border-radius: 6px;
-	background: #fff;
+	background: var(--global-palette9, #fff);
 }
 
 .portal-author-card__photo {
@@ -771,7 +771,7 @@ a.portal-story-lang__item {
 
 .portal-report__cancel {
 	border: 1px solid var(--portal-border);
-	background: #fff;
+	background: var(--global-palette9, #fff);
 	color: var(--portal-text);
 }
 
@@ -980,7 +980,7 @@ a.portal-story-lang__item {
 
 .portal-photo-box__remove {
 	border: 1px solid var(--portal-border);
-	background: #fff;
+	background: var(--global-palette9, #fff);
 	color: var(--portal-muted);
 	font-size: 0.8125rem;
 }
@@ -1055,7 +1055,7 @@ a.portal-story-lang__item {
 }
 
 .portal-button--ghost {
-	background: #fff;
+	background: var(--global-palette9, #fff);
 	color: var(--portal-accent);
 }
 
@@ -1253,7 +1253,7 @@ a.portal-story-lang__item {
 	padding: 0 0.9rem;
 	border: 1px solid var(--portal-border);
 	border-radius: 999px;
-	background: #fff;
+	background: var(--global-palette9, #fff);
 	color: var(--portal-text);
 	font: inherit;
 	font-size: 0.875rem;
@@ -1266,7 +1266,7 @@ a.portal-story-lang__item {
 .portal-toggle:hover,
 .portal-toggle:focus-visible {
 	border-color: var(--portal-accent);
-	background: #fff;
+	background: var(--global-palette9, #fff);
 	color: var(--portal-accent);
 }
 
@@ -1696,7 +1696,7 @@ a.portal-story-lang__item {
 /* Story text on every article: larger, taller lines (Hindi matras need the room). */
 .single-entry .entry-content {
 	font-family: var(--portal-read-font);
-	font-size: 1.125rem;
+	font-size: calc(1.125rem * var(--portal-read-scale));
 	line-height: 1.75;
 }
 
@@ -1706,35 +1706,8 @@ a.portal-story-lang__item {
 
 @media (min-width: 768px) {
 	.single-entry .entry-content {
-		font-size: 1.1875rem;
+		font-size: calc(1.1875rem * var(--portal-read-scale));
 	}
-}
-
-/* Reading mode button, next to "x min read". */
-.portal-reading-toggle {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.375rem;
-	padding: 0.25rem 0.75rem;
-	border: 1px solid var(--portal-border);
-	border-radius: 999px;
-	background: transparent;
-	color: var(--portal-text);
-	font-size: 0.875rem;
-	line-height: 1.4;
-	cursor: pointer;
-}
-
-.portal-reading-toggle:hover,
-.portal-reading-toggle:focus-visible {
-	border-color: var(--portal-accent);
-	color: var(--portal-accent);
-	background: transparent; /* beat Kadence's own button hover colours */
-	box-shadow: none;
-}
-
-.portal-reading-toggle[hidden] {
-	display: none;
 }
 
 /* Progress bar: drawn over the page (fixed), so it never pushes anything (no layout shift). */
@@ -1756,119 +1729,101 @@ a.portal-story-lang__item {
 	transform-origin: 0 50%;
 }
 
-/* Toolbar: only in reading mode. */
-.portal-reading-bar {
-	display: none;
-}
-
-html.portal-reading .portal-reading-bar {
-	position: fixed;
-	top: calc(var(--wp-admin--admin-bar--height, 0px) + 3px);
-	right: 0;
-	left: 0;
-	z-index: 1000;
-	display: flex;
+/* "5 min read · A− A+ · Light / Sepia / Dark", always visible under the headline. */
+.portal-read-controls {
+	display: inline-flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 0.5rem;
-	padding: 0.5rem 16px;
-	border-bottom: 1px solid var(--global-palette7);
-	background: var(--global-palette9);
-	color: var(--global-palette4);
-	font-family: var(--portal-read-font);
-	font-size: 0.875rem;
 }
 
-.portal-reading-bar__left {
-	margin-right: auto;
-	color: var(--global-palette5);
-	white-space: nowrap;
+.portal-read-controls::before {
+	content: "·";
+	color: var(--portal-muted);
 }
 
-.portal-reading-bar__group {
+.portal-read-controls__group {
 	display: inline-flex;
 	gap: 0.25rem;
 }
 
-.portal-reading-bar__btn {
-	min-width: 2.5rem;
+.portal-read-controls__group + .portal-read-controls__group::before {
+	content: "·";
+	align-self: center;
+	margin-right: 0.25rem;
+	color: var(--portal-muted);
+}
+
+.portal-read-controls__btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	min-width: 2.25rem;
 	min-height: 2.25rem;
-	padding: 0.25rem 0.625rem;
-	border: 1px solid var(--global-palette7);
-	border-radius: 6px;
+	padding: 0.25rem 0.5rem;
+	border: 1px solid var(--portal-border);
+	border-radius: 999px;
 	background: transparent;
-	color: inherit;
+	color: var(--portal-text);
 	font: inherit;
+	font-size: 0.8125rem;
 	line-height: 1.2;
 	cursor: pointer;
 }
 
-.portal-reading-bar__btn:hover,
-.portal-reading-bar__btn:focus-visible,
-.portal-reading-bar__btn[aria-pressed="true"] {
-	border-color: var(--global-palette1);
-	color: var(--global-palette1);
+.portal-read-controls__big {
+	font-size: 1rem;
+}
+
+.portal-read-controls__btn:is(:hover, :focus, :focus-visible, :active),
+.portal-read-controls__btn[aria-pressed="true"] {
+	border-color: var(--portal-accent);
+	color: var(--portal-accent);
 	background: transparent; /* beat Kadence's own button hover colours */
 	box-shadow: none;
 }
 
-.portal-reading-bar__big {
-	font-size: 1.125rem;
+.portal-read-controls__btn[aria-pressed="true"] {
+	font-weight: 700;
 }
 
-/* Phones: colour buttons become small swatches (the words stay for screen readers). */
+.portal-read-controls__btn:disabled {
+	opacity: 0.4;
+	cursor: default;
+}
+
+/* Each colour button shows a small swatch of its colour. */
+.portal-read-controls__theme::before {
+	content: "";
+	width: 0.875rem;
+	height: 0.875rem;
+	border: 1px solid #9ca3af;
+	border-radius: 50%;
+}
+
+.portal-read-controls__theme--light::before { background: #fff; }
+.portal-read-controls__theme--sepia::before { background: #f6efe1; }
+.portal-read-controls__theme--dark::before { background: #14161a; }
+
+/* Phones: only the swatches (the words stay for screen readers), so it all fits on one line. */
 @media (max-width: 479px) {
-	.portal-reading-bar__theme {
-		position: relative;
-		min-width: 2.25rem;
-		font-size: 0;
-	}
-
-	.portal-reading-bar__theme::before {
-		content: "";
+	.portal-read-controls__word {
 		position: absolute;
-		inset: 0.45rem;
-		border: 1px solid #9ca3af;
-		border-radius: 50%;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
 	}
 
-	.portal-reading-bar__theme--light::before { background: #fff; }
-	.portal-reading-bar__theme--sepia::before { background: #f6efe1; }
-	.portal-reading-bar__theme--dark::before { background: #14161a; }
-}
-
-/* Reading mode: only the headline, the story and the series links stay. */
-html.portal-reading body {
-	padding-top: 3.5rem;
-	background: var(--global-palette9);
-}
-
-
-html.portal-reading :is(#masthead, .portal-breaking, #colophon, .portal-article-actions, .portal-author-card, #comments, .portal-comments-panel, .portal-byline-follow, .portal-related, .entry-footer, #kt-scroll-up, .post-navigation-wrap, .post-navigation) {
-	display: none !important;
-}
-
-html.portal-reading .content-container {
-	max-width: calc(42rem + 32px); /* about 65 characters a line */
-}
-
-html.portal-reading .single-entry {
-	box-shadow: none;
-	background: transparent;
-}
-
-html.portal-reading .single-entry .entry-content {
-	font-size: calc(1.125rem * var(--portal-read-scale));
-}
-
-@media (min-width: 768px) {
-	html.portal-reading .single-entry .entry-content {
-		font-size: calc(1.1875rem * var(--portal-read-scale));
+	.portal-read-controls__theme {
+		padding: 0;
+		justify-content: center;
 	}
 }
 
-/* Colours: reading mode swaps Kadence's palette, and everything built on it follows. */
-html.portal-reading[data-portal-theme="sepia"] {
+/* Colours: the story page swaps Kadence's palette, so header, story and footer all follow. */
+html[data-portal-theme="sepia"] {
 	--global-palette1: #9a3412;
 	--global-palette2: #7c2d12;
 	--global-palette3: #2f261b;
@@ -1881,7 +1836,7 @@ html.portal-reading[data-portal-theme="sepia"] {
 	color-scheme: light;
 }
 
-html.portal-reading[data-portal-theme="dark"] {
+html[data-portal-theme="dark"] {
 	--global-palette1: #f87171;
 	--global-palette2: #fca5a5;
 	--global-palette3: #f3f4f6;
@@ -1894,45 +1849,23 @@ html.portal-reading[data-portal-theme="dark"] {
 	color-scheme: dark;
 }
 
-html.portal-reading[data-portal-theme="dark"] .single-entry img {
+html[data-portal-theme] body {
+	background: var(--global-palette8);
+}
+
+/* Kadence's header settings fix it to white; follow the chosen colours instead. */
+html[data-portal-theme] :is(#masthead, #masthead .kadence-sticky-header.item-is-fixed > .site-header-row-container-inner, #mobile-drawer .drawer-inner) {
+	background: var(--global-palette9);
+}
+
+html[data-portal-theme="dark"] .single-entry img {
 	filter: brightness(0.9); /* photos less glaring at night */
 }
 
 @media print {
 	.portal-progress,
-	.portal-reading-bar,
-	.portal-reading-toggle {
+	.portal-read-controls {
 		display: none !important;
-	}
-}
-
-/* Kadence colours every hovered/focused button; our reading buttons stay plain. */
-.portal-reading-toggle:is(:hover, :focus, :active),
-.portal-reading-bar__btn:is(:hover, :focus, :active) {
-	background: transparent;
-	box-shadow: none;
-}
-
-/* Small phones: the toolbar stays on one line (✕ instead of "Exit", tighter spacing). */
-@media (max-width: 479px) {
-	html.portal-reading .portal-reading-bar {
-		flex-wrap: nowrap;
-		gap: 0.375rem;
-		padding: 0.5rem 12px;
-	}
-
-	.portal-reading-bar__btn {
-		min-width: 2.25rem;
-		padding: 0.25rem 0.5rem;
-	}
-
-	.portal-reading-bar__word {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		overflow: hidden;
-		clip: rect(0 0 0 0);
-		white-space: nowrap;
 	}
 }
 

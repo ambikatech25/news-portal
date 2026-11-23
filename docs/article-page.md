@@ -15,7 +15,7 @@ updates keep working.
 |---|---|---|
 | Category, headline, writer's photo and name, **Follow** button, date | Kadence; Follow from the theme (not shown to writers on their own stories) | The post itself. An **Updated** date appears when a story is changed after publishing. |
 | **Series** line ("Part 2 of 3") | Only for stories in a series (Task 17A, `series.md`) | Write page → *Series* box, or the block editor's *Series* panel |
-| **Premium** label, **read time**, **Reading mode** button | Premium switch; length of the text (200 words a minute, Hindi counted correctly); reading mode on every story (Task 17B, `reading.md`) | Post sidebar → **Editorial** → *Premium* |
+| **Premium** label, **read time**, **A− A+ · Light / Sepia / Dark** | Premium switch; length of the text (200 words a minute, Hindi counted correctly); text size and colours on every story (`reading.md`) | Post sidebar → **Editorial** → *Premium* |
 | **✓ Verified** box with **FIR No.** and **Police station** | Shown **only** when *Verified* is on | Post sidebar → **Editorial** → *Verified*, then fill in FIR number and police station. An FIR number typed in without *Verified* is never shown. |
 | Picture | The post's *Featured image*, under the headline | Post sidebar → *Featured image* |
 | Article text, tags | Kadence | The post itself |

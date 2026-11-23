@@ -53,11 +53,8 @@ $portal_versions = function_exists( 'portal_story_versions' ) ? portal_story_ver
 				?>
 			</span>
 		<?php endif; ?>
-		<?php // Task 17B. Hidden until reading.js runs, so it never shows as a dead button. ?>
-		<button type="button" class="portal-reading-toggle" data-portal-reading-toggle aria-pressed="false" hidden>
-			<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1v-13ZM12 6.5v13"/></svg>
-			<span class="portal-reading-toggle__label"><?php esc_html_e( 'Reading mode', 'portal' ); ?></span>
-		</button>
+		<?php // Text size and Light / Sepia / Dark, always visible (inc/reading.php). ?>
+		<?php portal_child_reading_controls(); ?>
 	</p>
 
 	<?php if ( $portal_verified ) : ?>
