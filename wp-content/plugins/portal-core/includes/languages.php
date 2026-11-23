@@ -230,6 +230,7 @@ function portal_hindi_to_latin( $text ) {
 	$out          = '';
 	$count        = count( $chars );
 	$vowel_before = false; // was the sound just before this letter a vowel?
+	$half         = '';    // the half letter just before this one (क् in क्य), if any.
 	for ( $i = 0; $i < $count; $i++ ) {
 		$c    = $chars[ $i ];
 		$pair = $c . ( $chars[ $i + 1 ] ?? '' );
@@ -240,9 +241,12 @@ function portal_hindi_to_latin( $text ) {
 		if ( isset( $consonants[ $c ] ) ) {
 			$out .= $consonants[ $c ];
 			$next = $chars[ $i + 1 ] ?? '';
+			$after_half = $half;
+			$half       = '';
 			if ( '्' === $next ) {          // half letter: no vowel.
 				++$i;
 				$vowel_before = false;
+				$half         = $c;
 				continue;
 			}
 			if ( isset( $signs[ $next ] ) ) { // vowel sign follows.
@@ -251,9 +255,11 @@ function portal_hindi_to_latin( $text ) {
 			}
 			// Hindi drops the short "a" at the end of a word (बाज़ार -> bazar, not bazara) and in
 			// the middle between a vowel and a voiced letter (रायपुर -> raypur, सरकार -> sarkar),
-			// but keeps it before a word-final letter (खबर -> khabar).
+			// but keeps it before a word-final letter (खबर -> khabar), and at the end after a
+			// joined र or य (महाराष्ट्र -> maharashtra, मध्य -> madhya; not after र्: दुर्ग -> durg).
 			$at_word_end = ( '' === $next ) || ! preg_match( '/[\x{0900}-\x{097F}]/u', $next ) || isset( $marks[ $next ] ) && ' ' === $marks[ $next ];
-			$drop        = $at_word_end;
+			$drop        = $at_word_end && ! ( $after_half && 'र' !== $after_half && in_array( $c, array( 'र', 'य' ), true ) );
+			$drop        = $drop || in_array( $next, array( 'अ', 'आ' ), true ); // joined words: पिकअप -> pikap (but नई -> nai).
 			if ( ! $drop && $vowel_before && isset( $consonants[ $next ] ) ) {
 				$skip  = isset( $consonants[ $next . ( $chars[ $i + 2 ] ?? '' ) ] ) ? 3 : 2; // next letter may carry a nukta.
 				$after = $chars[ $i + $skip ] ?? '';
@@ -265,7 +271,10 @@ function portal_hindi_to_latin( $text ) {
 			$vowel_before = ! $drop;
 			continue;
 		}
-		$vowel_before = isset( $vowels[ $c ] ) || isset( $signs[ $c ] );
+		if ( 'ं' !== $c && 'ँ' !== $c ) { // a nasal dot belongs to the vowel before it.
+			$vowel_before = isset( $vowels[ $c ] ) || isset( $signs[ $c ] );
+		}
+		$half         = '';
 		if ( isset( $vowels[ $c ] ) ) {
 			$out .= $vowels[ $c ];
 		} elseif ( isset( $signs[ $c ] ) ) {
@@ -293,14 +302,57 @@ function portal_hindi_to_latin( $text ) {
  * @return string
  */
 function portal_hindi_slug( $title, $raw_title = '', $context = 'display' ) {
-	if ( 'save' !== $context || ! preg_match( '/[\x{0900}-\x{097F}]/u', (string) $title ) ) {
+	if ( 'save' !== $context ) {
 		return $title;
 	}
-	$latin = portal_hindi_to_latin( (string) $title );
+	$title = str_replace( '₹', ' rs', (string) $title ); // ₹88 -> rs88 (not %e2%82%b9), in both languages.
+	if ( ! preg_match( '/[\x{0900}-\x{097F}]/u', $title ) ) {
+		return $title;
+	}
+	$latin = portal_hindi_to_latin( $title );
 	$words = preg_split( '/[\s\-:,.;!?\'"“”‘’()\[\]]+/u', trim( $latin ), -1, PREG_SPLIT_NO_EMPTY );
 	return implode( ' ', array_slice( $words, 0, 10 ) );
 }
 add_filter( 'sanitize_title', 'portal_hindi_slug', 9, 3 );
+
+/**
+ * Hindi tags get English-letter addresses, so "दुर्ग" and the English tag "Durg" share the
+ * address durg. WordPress finds existing tags by address first, which would put the English tag
+ * on a Hindi story. Look only among tags of the reader's language; a new Hindi tag then gets its
+ * own address (durg-hi) from Polylang.
+ *
+ * @param array      $args     Query used by term_exists().
+ * @param int|string $term     Term ID or name being looked up.
+ * @param string     $taxonomy Taxonomy.
+ * @return array
+ */
+function portal_term_exists_in_language( $args, $term, $taxonomy ) {
+	$lang = portal_lang();
+	// Only lookups by name (a tag typed by a writer); a lookup by ID (delete, update) must find any language.
+	if ( $lang && ! is_int( $term ) && ! ctype_digit( (string) $term ) && function_exists( 'pll_is_translated_taxonomy' ) && pll_is_translated_taxonomy( (string) $taxonomy ) ) {
+		$args['lang'] = $lang;
+	}
+	return $args;
+}
+add_filter( 'term_exists_default_query_args', 'portal_term_exists_in_language', 10, 3 );
+
+/**
+ * A tag created outside wp-admin (Write page, API) is in the reader's language. Polylang only
+ * knows this on its own admin screens; telling it lets it give "दुर्ग" its own address (durg-hi)
+ * instead of WordPress handing back the English "Durg".
+ *
+ * @param PLL_Language|null $lang     Language found so far.
+ * @param string            $taxonomy Taxonomy.
+ * @return PLL_Language|null
+ */
+function portal_new_term_language( $lang, $taxonomy ) {
+	if ( $lang || ! portal_lang() || ! pll_is_translated_taxonomy( $taxonomy ) ) {
+		return $lang;
+	}
+	$found = PLL()->model->get_language( portal_lang() );
+	return $found ? $found : null;
+}
+add_filter( 'pll_inserted_term_language', 'portal_new_term_language', 20, 2 );
 
 /* ------------------------------------------------------------------ Shared fields between language versions */
 

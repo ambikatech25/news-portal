@@ -71,6 +71,11 @@ sent without `lang` takes the language of its sections.
   one at `/series/…`; the other address redirects there.
 - **Writer profiles, Following feed, series parts** show a writer's stories in every language.
 - **Following a tag** includes its other-language version (Raipur and रायपुर).
+- **Hindi tags** stay Hindi: "दुर्ग" never turns into the English tag "Durg" (it gets its own address,
+  `durg-hi`).
+- **Addresses** are made automatically from the Hindi title (₹ becomes `rs`). Joined words
+  (महासमुंद, सीतानदी) can come out slightly off: before publishing, the editor can correct the
+  address in the story's sidebar (Post → **Link** / URL).
 - **Bio:** writers fill in one bio; it shows on both language sites unless an English bio is added
   separately in wp-admin → Users.
 
