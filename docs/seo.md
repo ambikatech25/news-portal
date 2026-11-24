@@ -33,3 +33,20 @@ Test: `tests\test-seo-security.ps1`.
   role is chosen, and silently drops the whole writer sitemap. Left empty (members have no stories anyway).
 - Rank Math builds a story's default structured data through a separate hook; portal-core listens to
   both, so the NewsArticle / BlogPosting rule always applies.
+
+## Share cards (WhatsApp, Facebook, X, Telegram, LinkedIn) — 24 Nov 2026
+
+When a story link is shared, the app shows a card: **picture, headline, 2–3 lines, link**. The apps
+build it from the Open Graph tags Rank Math writes; portal-core (`includes/seo.php`) adds:
+
+- a **1200 × 630 copy** of every photo just for sharing (`portal_share` size; small enough for
+  WhatsApp, which skips pictures over about 300 KB);
+- a **section-colour picture** (`portal-core/assets/share/share-<section>.jpg`, about 25 KB) when a
+  story has no photo, and for the home page and section pages, so a card is never text-only;
+- descriptions cut short end with "…".
+
+After adding the size on a site with existing photos, run once: `wp media regenerate --only-missing --yes`.
+
+**Already-shared links:** apps keep their first copy of a card for a while. To refresh one, paste the
+link into Facebook's Sharing Debugger (developers.facebook.com/tools/debug) and press "Scrape Again";
+WhatsApp picks up the new card for new messages after a few hours.

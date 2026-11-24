@@ -84,6 +84,21 @@ try {
     $exc = (Wp eval "echo wp_json_encode( \LiteSpeed\Conf::cls()->conf( 'cache-exc' ) );") -join ''
     $defer = Get-Last (Wp eval "echo (int) \LiteSpeed\Conf::cls()->conf( 'optm-js_defer' );")
     Check '11. LiteSpeed Cache: personal and form pages never cached; script deferring off (keeps forms working)' ($exc -match 'grievance-officer' -and $exc -match 'account' -and $defer -eq '0') "exc=$exc defer=$defer"
+
+    Write-Host '== Share cards (WhatsApp, Facebook, X...)'
+    # A story without a photo shares its section picture; one with a photo shares a 1200x630 copy.
+    $noPhoto = (Get-Page $news.Data.link).Html
+    Add-Type -AssemblyName System.Drawing
+    $jpg = Join-Path $Tmp 'share-test.jpg'
+    $bmp = New-Object System.Drawing.Bitmap 1600, 900
+    $bmp.Save($jpg, [System.Drawing.Imaging.ImageFormat]::Jpeg)
+    $bmp.Dispose()
+    $up = (curl.exe -s -X POST -b $e.Jar -H "X-WP-Nonce: $($e.Nonce)" -H 'Content-Type: image/jpeg' -H 'Content-Disposition: attachment; filename=share-test.jpg' --data-binary "@$jpg" "$Base/wp-json/wp/v2/media" | Out-String) | ConvertFrom-Json
+    $withPhoto = Invoke-Rest $e POST '/wp/v2/posts' @{ title = "$tag photo story"; content = 'With a photo. Police said two people were held.'; status = 'publish'; categories = @($cat['region']); featured_media = $up.id }
+    $photoHtml = (Get-Page $withPhoto.Data.link).Html
+    $og = { param($h, $p) [regex]::Match($h, "<meta property=""$p"" content=""([^""]*)""").Groups[1].Value }
+    Check '12. Share cards: headline, description and a picture always; section picture when there is no photo, a 1200x630 copy when there is' ((& $og $noPhoto 'og:title') -match $tag -and (& $og $noPhoto 'og:description') -and (& $og $noPhoto 'og:image') -match 'share-logistics\.jpg$' -and (& $og $photoHtml 'og:image') -match '-1200x630\.jpg$' -and $photoHtml -match 'name="twitter:card" content="summary_large_image"') "no photo=$(& $og $noPhoto 'og:image') photo=$(& $og $photoHtml 'og:image')"
+    if ($up.id) { Wp post delete $up.id --force | Out-Null }
 }
 finally {
     Complete-Test
