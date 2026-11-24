@@ -45,7 +45,7 @@ $portal_title = html_entity_decode( get_the_title( $portal_post ), ENT_QUOTES, '
 
 		<?php foreach ( portal_child_share_links( $portal_post ) as $portal_key => $portal_link ) : ?>
 			<a class="portal-share__btn portal-share__btn--<?php echo esc_attr( $portal_key ); ?>"
-				href="<?php echo esc_url( $portal_link[1] ); ?>" target="_blank" rel="noopener noreferrer nofollow">
+				href="<?php echo esc_attr( 0 === strpos( $portal_link[1], 'https://' ) ? $portal_link[1] : '' ); // Our own fixed share addresses; esc_url would drop the line breaks (%0A) in the message. ?>" target="_blank" rel="noopener noreferrer nofollow">
 				<?php echo portal_child_share_icon( $portal_key ); // phpcs:ignore WordPress.Security.EscapeOutput -- trusted SVG. ?>
 				<span class="screen-reader-text">
 					<?php

@@ -170,15 +170,43 @@ add_filter( 'comments_template', 'portal_child_comments_once' );
  * @return array<string,array{0:string,1:string}>
  */
 function portal_child_share_links( WP_Post $post ) {
-	$url   = rawurlencode( get_permalink( $post ) );
-	$title = rawurlencode( html_entity_decode( get_the_title( $post ), ENT_QUOTES, 'UTF-8' ) );
+	$link    = get_permalink( $post );
+	$url     = rawurlencode( $link );
+	$heading = html_entity_decode( get_the_title( $post ), ENT_QUOTES, 'UTF-8' );
+	$title   = rawurlencode( $heading );
+
+	// WhatsApp and Telegram: the message itself carries the bold headline, 2-3 lines of the story
+	// and the link, so it reads well whatever size of preview card the app chooses to show.
+	$summary = portal_child_share_summary( $post );
+	$message = '*' . $heading . '*' . ( $summary ? "\n\n" . $summary : '' );
 	return array(
-		'whatsapp' => array( 'WhatsApp', "https://wa.me/?text={$title}%20{$url}" ),
+		'whatsapp' => array( 'WhatsApp', 'https://wa.me/?text=' . rawurlencode( $message . "\n\n" . $link ) ),
 		'facebook' => array( 'Facebook', "https://www.facebook.com/sharer/sharer.php?u={$url}" ),
 		'x'        => array( 'X', "https://twitter.com/intent/tweet?text={$title}&url={$url}" ),
-		'telegram' => array( 'Telegram', "https://t.me/share/url?url={$url}&text={$title}" ),
+		'telegram' => array( 'Telegram', "https://t.me/share/url?url={$url}&text=" . rawurlencode( $heading . ( $summary ? "\n\n" . $summary : '' ) ) ),
 		'linkedin' => array( 'LinkedIn', "https://www.linkedin.com/sharing/share-offsite/?url={$url}" ),
 	);
+}
+
+/**
+ * A short teaser (about 120 characters) for share messages: the editor's summary (excerpt) if there is
+ * one, otherwise the opening words of the story, ending with "…" when cut short.
+ *
+ * @param WP_Post $post Post.
+ * @return string Plain text.
+ */
+function portal_child_share_summary( WP_Post $post ) {
+	$text = has_excerpt( $post ) ? $post->post_excerpt : strip_shortcodes( $post->post_content );
+	$text = trim( preg_replace( '/\s+/u', ' ', html_entity_decode( wp_strip_all_tags( $text ), ENT_QUOTES, 'UTF-8' ) ) );
+	// About 120 characters: 3-4 lines on a phone, about 1.5 lines on a computer (Hindi too).
+	$max = 120;
+	if ( mb_strlen( $text ) <= $max ) {
+		return $text;
+	}
+	$cut   = mb_substr( $text, 0, $max );
+	$space = mb_strrpos( $cut, ' ' );
+	$cut   = false === $space ? $cut : mb_substr( $cut, 0, $space ); // whole words only.
+	return rtrim( $cut, ',;:-– ' ) . '…';
 }
 
 /**
